@@ -2,8 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full height for vertical centering */
-  background-color: #f5f5f5;
 }
 
 .auth-card {

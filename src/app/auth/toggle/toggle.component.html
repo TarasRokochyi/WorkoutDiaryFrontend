@@ -1,0 +1,16 @@
+<div class="auth-wrapper mat-typography">
+  <mat-card class="auth-card">
+    <mat-card-title>{{ isLoginMode ? 'Login' : 'Register' }}</mat-card-title>
+    
+    <div class="auth-toggle">
+      <span>{{ isLoginMode ? "Don't have an account?" : "Already have an account?" }}</span>
+      <button mat-button color="accent" (click)="toggleMode()">
+        {{ isLoginMode ? 'Register' : 'Login' }}
+      </button>
+    </div>
+
+    <app-login *ngIf="isLoginMode"></app-login>
+    <app-register *ngIf="!isLoginMode"></app-register>
+  </mat-card>
+</div>
+
