@@ -6,6 +6,8 @@ import { ToggleComponent } from './auth/toggle/toggle.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full'},
+  { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent},
   { path: 'auth', component: ToggleComponent},
   { path: '**', redirectTo: 'login'}
 ];

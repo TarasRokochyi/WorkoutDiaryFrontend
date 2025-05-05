@@ -1,0 +1,9 @@
+<nav mat-tab-nav-bar [tabPanel]="tabPanel">
+  <a mat-tab-link (click)="activeLink = 'login'" [active]="activeLink == 'login'" [routerLink]="'login'"> Login </a>
+  <a mat-tab-link (click)="activeLink = 'register'" [active]="activeLink == 'register'" [routerLink]="'register'"> Register </a>
+  <a mat-tab-link (click)="activeLink = 'auth'" [active]="activeLink == 'auth'" [routerLink]="'auth'"> Auth </a>
+  <a mat-tab-link (click)="activeLink = 'workouts'" [active]="activeLink == 'workouts'" [routerLink]="'workouts'"> Workouts </a>
+  <a mat-tab-link (click)="activeLink = 'progress'" [active]="activeLink == 'progress'" [routerLink]="'progress'"> Progress </a>
+  <a mat-tab-link (click)="activeLink = 'profile'" [active]="activeLink == 'profile'" [routerLink]="'profile'"> Profile </a>
+</nav>
+<mat-tab-nav-panel #tabPanel ></mat-tab-nav-panel>

@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,13 +17,15 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToggleComponent } from './auth/toggle/toggle.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ToggleComponent
+    ToggleComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { ToggleComponent } from './auth/toggle/toggle.component';
     ReactiveFormsModule,
     MatButtonModule,
     MatSelectModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
