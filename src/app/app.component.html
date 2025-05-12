@@ -1,6 +1,15 @@
 
-<app-sidenav></app-sidenav>
+<ng-container *ngIf="isAuthenticated() | async; else unauthenticated">
+    <app-sidenav></app-sidenav>
 
-<div class="content">
-    <router-outlet></router-outlet>
-</div>
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</ng-container>
+
+<!-- authenitcation form ( login, registration )-->
+<ng-template #unauthenticated>
+    <div class="content" style="overflow: hidden;">
+        <app-toggle></app-toggle>
+    </div>
+</ng-template>

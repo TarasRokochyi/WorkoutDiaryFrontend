@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from './shared/services/auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -9,4 +11,11 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'WorkoutDiaryFrontend';
+
+  constructor(private authService: AuthService){}
+
+  isAuthenticated() {
+    return this.authService.isLoggedIn$;
+  }
+
 }

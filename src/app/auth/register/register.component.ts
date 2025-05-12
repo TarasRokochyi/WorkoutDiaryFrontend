@@ -43,8 +43,7 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     if (this.registerForm.valid) {
       const { confirmPassword, ...registerData }: any = this.registerForm.value;
-      const apiUrl = 'user/register';
-      this.auth.register(apiUrl, registerData as Register).subscribe({
+      this.auth.register(registerData as Register).subscribe({
         next: res => {
           console.log('Registration successful', res);
           this.router.navigate(['/login']);

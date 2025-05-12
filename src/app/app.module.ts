@@ -14,6 +14,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -23,6 +24,9 @@ import { ToggleComponent } from './auth/toggle/toggle.component';
 import { MenuComponent } from './menu/menu.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { SidenavLinkComponent } from './sidenav-link/sidenav-link.component';
+import { JwtInterceptor } from './interceptors/JwtInterceptor';
+import { RefreshTokenInterceptor } from './interceptors/RefreshTokenInterceptor';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,8 @@ import { SidenavLinkComponent } from './sidenav-link/sidenav-link.component';
     ToggleComponent,
     MenuComponent,
     SidenavComponent,
-    SidenavLinkComponent
+    SidenavLinkComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +56,14 @@ import { SidenavLinkComponent } from './sidenav-link/sidenav-link.component';
     MatIconModule,
     MatListModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

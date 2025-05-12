@@ -3,6 +3,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { Login } from '../../_interfaces/login.model';
+import { Authentication } from '../../_interfaces/authentication.model';
 
 @Component({
   selector: 'app-login',
@@ -30,12 +31,11 @@ export class LoginComponent implements OnInit{
       email: loginValue.email,
       password: loginValue.password
     }
-    const apiUrl = 'user/token'
     if (this.loginForm.valid) {
-      this.auth.login(apiUrl, loginModel).subscribe({
-        next: res => console.log('Login success', res),
-        error: err => console.error('Login failed', err)
-      });
+      this.auth.login(loginModel)
+        .subscribe((res: Authentication) => {
+        this.router.navigateByUrl('calendar')
+    })
     }
   }
 
