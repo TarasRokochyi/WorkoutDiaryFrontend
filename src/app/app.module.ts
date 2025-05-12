@@ -10,6 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +21,8 @@ import { RegisterComponent } from './auth/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToggleComponent } from './auth/toggle/toggle.component';
 import { MenuComponent } from './menu/menu.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { SidenavLinkComponent } from './sidenav-link/sidenav-link.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,9 @@ import { MenuComponent } from './menu/menu.component';
     LoginComponent,
     RegisterComponent,
     ToggleComponent,
-    MenuComponent
+    MenuComponent,
+    SidenavComponent,
+    SidenavLinkComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +47,9 @@ import { MenuComponent } from './menu/menu.component';
     MatButtonModule,
     MatSelectModule,
     MatTabsModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
