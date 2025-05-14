@@ -4,10 +4,12 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ToggleComponent } from './auth/toggle/toggle.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { WorkoutCreateComponent } from './workout/create-workout/create-workout.component';
 
 const routes: Routes = [
   { path: 'calendar', component: CalendarComponent},
-  { path: "**", redirectTo: 'calendar'},
+  { path: 'create-workout', component: WorkoutCreateComponent},
+  { path: "**", redirectTo: 'create-workout'},
 ];
 
 @NgModule({

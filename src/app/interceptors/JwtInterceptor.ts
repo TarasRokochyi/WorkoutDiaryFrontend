@@ -8,7 +8,6 @@ export class JwtInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>,
               next: HttpHandler): Observable<HttpEvent<any>> {
 
-        debugger
         const token = localStorage.getItem("token");
 
         if (token) {

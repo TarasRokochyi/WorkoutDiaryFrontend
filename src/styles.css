@@ -1,19 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body {
+/* html, body {
     height: 100%; 
     margin: 0;
     padding: 0;
-}
+} */
+
+/* app-root { */
+    /* display: block; */
+    /* height: 100%; */
+/* } */
+
 :root {
   --sidenav-width: 300px;
   --sidenav-collapsed-width: 20px;
 }
 
-app-root {
-    display: block;
-    height: 100%;
-}
 
 body {
   margin: 0;

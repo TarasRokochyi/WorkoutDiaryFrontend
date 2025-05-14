@@ -10,3 +10,31 @@
 
   padding: 1rem;
 }
+
+/* :host { */
+  /* height: 100vh; */
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* overflow: hidden; */
+/* } */
+/*  */
+/* app-sidenav { */
+  /* width: var(--sidenav-width); */
+  /* min-width: var(--sidenav-width); */
+  /* height: 100vh; */
+  /* position: sticky; */
+  /* top: 0; */
+  /* left: 0; */
+  /* overflow-y: auto; */
+  /* background: #f4f4f4; */
+  /* border-right: 1px solid #ddd; */
+  /* z-index: 1; */
+/* } */
+/*  */
+/* .content { */
+  /* flex-grow: 1; */
+  /* height: 100vh; */
+  /* overflow-y: auto; */
+  /* padding: 1rem; */
+/* } */
+

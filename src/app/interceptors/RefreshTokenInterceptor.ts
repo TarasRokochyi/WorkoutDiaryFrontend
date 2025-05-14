@@ -17,7 +17,6 @@ export class RefreshTokenInterceptor implements HttpInterceptor{
     }
 
     private handleAuthError(err: HttpErrorResponse): Observable<any>{
-        debugger
         if (err && err.status === 401 && this.ctr != 1){
             this.ctr++
             let service = this.inject.get(AuthService)

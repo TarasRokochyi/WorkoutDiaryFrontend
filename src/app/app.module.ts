@@ -27,6 +27,10 @@ import { SidenavLinkComponent } from './sidenav-link/sidenav-link.component';
 import { JwtInterceptor } from './interceptors/JwtInterceptor';
 import { RefreshTokenInterceptor } from './interceptors/RefreshTokenInterceptor';
 import { CalendarComponent } from './calendar/calendar.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import { MatSnackBarAction } from '@angular/material/snack-bar';
+import { WorkoutCreateComponent } from './workout/create-workout/create-workout.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,8 @@ import { CalendarComponent } from './calendar/calendar.component';
     MenuComponent,
     SidenavComponent,
     SidenavLinkComponent,
-    CalendarComponent
+    CalendarComponent,
+    WorkoutCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +60,8 @@ import { CalendarComponent } from './calendar/calendar.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
     {
@@ -62,7 +69,9 @@ import { CalendarComponent } from './calendar/calendar.component';
     },
     {
       provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true
-    }
+    },
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   bootstrap: [AppComponent]
 })
