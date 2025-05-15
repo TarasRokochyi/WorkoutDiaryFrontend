@@ -9,7 +9,7 @@ export interface WorkoutRequestDTO {
 }
 
 export interface WorkoutResponseDTO {
-  id: number;
+  workoutId: number;
   name: string;
   date: Date;
   duration?: number;

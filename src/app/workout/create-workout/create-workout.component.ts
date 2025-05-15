@@ -17,90 +17,103 @@ import { firstValueFrom } from 'rxjs';
 export class WorkoutCreateComponent implements OnInit {
   workoutForm!: FormGroup;
 
-  exerciseCategories: string[] = [];
+  //exerciseCategories: string[] = [];
 
-  allExercises: Exercise[] = [];
+  //allExercises: Exercise[] = [];
 
   // Store filtered list per exercise row
-  filteredExercises: Exercise[][] = [];
+  //filteredExercises: Exercise[][] = [];
 
   constructor(private fb: FormBuilder,
     private exerciseService: ExerciseService,
     private workoutService: WorkoutService, 
     private router: Router) 
     {
-      this.workoutForm = this.fb.group({
-        name: ['', Validators.required],
-        date: ['', Validators.required],
-        duration: [null, Validators.required],
-        notes: [''],
-        workoutExercises: this.fb.array([])
-      });
+      //this.workoutForm = this.fb.group({
+      //  name: ['', Validators.required],
+      //  date: ['', Validators.required],
+      //  duration: [null, Validators.required],
+      //  notes: [''],
+      //  workoutExercises: this.fb.array([])
+      //});
     }
 
   async ngOnInit(): Promise<void> {
     
-    this.allExercises = await firstValueFrom(this.exerciseService.getExercises())
+    //this.allExercises = await firstValueFrom(this.exerciseService.getExercises())
 
-    this.exerciseCategories = [...new Set(this.allExercises.map(item => item.category))];
+    //this.exerciseCategories = [...new Set(this.allExercises.map(item => item.category))];
 
 
-    this.addExercise(); // start with one exercise by default
+    //this.addExercise(); // start with one exercise by default
   }
 
-  get exercises(): FormArray {
-    return this.workoutForm.get('workoutExercises') as FormArray;
-  }
+  //get exercises(): FormArray {
+  //  return this.workoutForm.get('workoutExercises') as FormArray;
+  //}
 
-  addExercise(): void {
-    const exerciseGroup = this.fb.group({
-      category: [''],
-      exerciseId: [null],
-      type: [''],
-      sets: [null],
-      reps: [null],
-      weight: [null],
-      distance: [null],
-      duration: [null],
-    });
+  //addExercise(): void {
+  //  const exerciseGroup = this.fb.group({
+  //    category: [''],
+  //    exerciseId: [null],
+  //    type: [''],
+  //    sets: [null],
+  //    reps: [null],
+  //    weight: [null],
+  //    distance: [null],
+  //    duration: [null],
+  //  });
 
-    this.exercises.push(exerciseGroup);
-    this.filteredExercises.push(this.allExercises); // init empty filtered list
-  }
+  //  this.exercises.push(exerciseGroup);
+  //  this.filteredExercises.push(this.allExercises); // init empty filtered list
+  //}
 
-  removeExercise(index: number): void {
-    this.exercises.removeAt(index);
-  }
+  //removeExercise(index: number): void {
+  //  this.exercises.removeAt(index);
+  //}
 
-  onSubmit(): void {
-    if (this.workoutForm.valid) {
-      this.workoutService.createWorkout(this.workoutForm.value as WorkoutRequestDTO).subscribe({
-        next: () => {
-          alert('Workout created successfully!');
-          this.workoutForm.reset();
-          this.exercises.clear();
-          this.addExercise();
-        },
-        error: err => {
-          console.error(err);
-          alert('Failed to create workout.');
-        }
-      });
+  onCreate(data: WorkoutRequestDTO): void {
+    // if (this.workoutForm.valid) {
+    //   this.workoutService.createWorkout(this.workoutForm.value as WorkoutRequestDTO).subscribe({
+    //     next: () => {
+    //       alert('Workout created successfully!');
+    //       this.workoutForm.reset();
+    //       this.exercises.clear();
+    //       this.addExercise();
+    //     },
+    //     error: err => {
+    //       console.error(err);
+    //       alert('Failed to create workout.');
+    //     }
+    //   });
+    // }
+    this.workoutService.createWorkout(data).subscribe({
+    next: () => {
+      alert('Workout created successfully!');
+    },
+    error: err => {
+      console.error(err);
+      alert('Failed to create workout.');
     }
+  });
   }
 
-  onCreateExercise(): void {
-  this.router.navigate(['/exercises/create']); // Assuming you have this route
+  onCancel(): void{
+    this.router.navigateByUrl("view-workouts")
   }
 
-  onCreateTemplate(): void {
-  this.router.navigate(['/template/create']); // Assuming you have this route
-  }
+  //onCreateExercise(): void {
+  //this.router.navigate(['/exercises/create']); // Assuming you have this route
+  //}
 
-  onCategoryChange(index: number): void {
-    const selectedCategory = this.exercises.at(index).get('category')?.value;
-    this.filteredExercises[index] = this.allExercises.filter(ex => ex.category === selectedCategory);
-  }
+  //onCreateTemplate(): void {
+  //this.router.navigate(['/template/create']); // Assuming you have this route
+  //}
+
+  //onCategoryChange(index: number): void {
+  //  const selectedCategory = this.exercises.at(index).get('category')?.value;
+  //  this.filteredExercises[index] = this.allExercises.filter(ex => ex.category === selectedCategory);
+  //}
 
 
 }

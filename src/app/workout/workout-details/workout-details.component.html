@@ -1,0 +1,72 @@
+<ng-container *ngIf="loading"> <mat-card>Loading workout...</mat-card> </ng-container> <ng-container *ngIf="!loading && workout"> <mat-card>
+    <div *ngIf="!editing">
+      <h2>{{ workout.name }}</h2>
+      <p><strong>Date:</strong> {{ workout.date | date:'MMM d, y, hh:mm' }}</p>
+      <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
+      <p><strong>Notes:</strong> {{ workout.notes }}</p>
+
+      <button mat-stroked-button color="primary" (click)="toggleEdit()">Edit</button>
+
+      <h3>Exercises</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let ex of workout.workoutExercises">
+          <strong>{{ ex.exercise.name }}</strong> ({{ ex.exercise.category }}) —
+          <ng-container [ngSwitch]="ex.exercise.category">
+            <span *ngSwitchCase="'Strength'">
+              Sets: {{ ex.sets }}, Reps: {{ ex.reps }}, Weight: {{ ex.weight }}kg
+            </span>
+            <span *ngSwitchCase="'Cardio'">
+              Distance: {{ ex.distance }} km, Duration: {{ ex.duration }} min
+            </span>
+            <span *ngSwitchDefault>Details not available</span>
+          </ng-container>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+
+      <app-workout-form
+        *ngIf="editing"
+        [initialData]="workout"
+        [submitLabel]="'Update Workout'"
+        (submitWorkout)="onSave($event)"
+        (cancelWorkout)="toggleEdit()">
+      </app-workout-form>
+
+    <!--<form *ngIf="editing" [formGroup]="form" (ngSubmit)="onSave()">
+
+      <h2>Edit Workout</h2>
+
+       <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Duration (minutes)</mat-label>
+        <input matInput type="number" formControlName="duration" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Notes</mat-label>
+        <textarea matInput formControlName="notes"></textarea>
+      </mat-form-field> 
+
+      <div class="button-row">
+        <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+        <button mat-stroked-button type="button" (click)="toggleEdit()">Cancel</button>
+      </div>
+    </form>-->
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="!loading && !workout">
+  <mat-card>Workout not found.</mat-card>
+</ng-container>

@@ -1,0 +1,53 @@
+.workout-card {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+
+.third-width:last-child,
+.half-width:last-child {
+  margin-right: 0;
+}
+
+.exercise-card {
+  margin-top: 1.5rem;
+}
+
+.exercise-container {
+  padding: 1rem;
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.third-width {
+  flex: 1 1 30%;
+  min-width: 0;
+}
+
+.half-width {
+  flex: 1 1 48%;
+  min-width: 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+

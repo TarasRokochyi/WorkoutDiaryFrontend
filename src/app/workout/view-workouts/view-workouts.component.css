@@ -1,0 +1,47 @@
+mat-card {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #f9f9f9;
+}
+
+.loading-card {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+mat-accordion {
+  width: 100%;
+}
+
+mat-expansion-panel {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+mat-expansion-panel-header {
+  background-color: #e3f2fd;
+  border-radius: 8px 8px 0 0;
+}
+
+mat-panel-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+mat-panel-description {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+p {
+  margin: 1rem 0;
+  padding: 0 1rem;
+  color: #333;
+}
+
+button[mat-button] {
+  margin: 0 1rem 1rem;
+  align-self: start;
+}

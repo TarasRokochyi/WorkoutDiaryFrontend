@@ -1,0 +1,27 @@
+<mat-card *ngIf="loading">Loading workouts...</mat-card>
+
+<ng-container *ngIf="!loading && workouts.length > 0">
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let workout of workouts">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ workout.name }} - {{ workout.date | date:'MMM d, y, hh:mm' }}
+        </mat-panel-title>
+        <mat-panel-description>
+          Duration: {{ workout.duration }} min
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <p><strong>Notes:</strong> {{ workout.notes }}</p>
+
+      <!-- View Details Button -->
+      <button mat-button color="primary" [routerLink]="['/workouts', workout.workoutId]">
+        View Details
+      </button>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>
+
+<mat-card *ngIf="!loading && workouts.length === 0">
+  You have no workouts yet.
+</mat-card>

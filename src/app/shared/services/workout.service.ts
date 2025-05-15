@@ -16,6 +16,11 @@ export class WorkoutService {
     return this.http.post<any>(this.createCompleteRoute("workout", this.envUrl.apiUrlAddress), workout);
   }
 
+  updateWorkout(id: number, workout: WorkoutRequestDTO): Observable<any> {
+    debugger
+    return this.http.put<any>(this.createCompleteRoute(`workout/${id}`, this.envUrl.apiUrlAddress), workout);
+  }
+
   // We'll add getWorkoutById here later for the display component
   getWorkoutById(id: number): Observable<WorkoutResponseDTO> { // Replace 'any' with your WorkoutResponseDTO
     return this.http.get<any>(this.createCompleteRoute(`workout/${id}`, this.envUrl.apiUrlAddress));

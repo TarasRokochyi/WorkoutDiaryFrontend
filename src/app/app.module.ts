@@ -28,9 +28,15 @@ import { JwtInterceptor } from './interceptors/JwtInterceptor';
 import { RefreshTokenInterceptor } from './interceptors/RefreshTokenInterceptor';
 import { CalendarComponent } from './calendar/calendar.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import { MatSnackBarAction } from '@angular/material/snack-bar';
 import { WorkoutCreateComponent } from './workout/create-workout/create-workout.component';
+import { ViewWorkoutsComponent } from './workout/view-workouts/view-workouts.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { WorkoutDetailsComponent } from './workout/workout-details/workout-details.component';
+import { WorkoutFormComponent } from './workout/workout-form/workout-form.component';
+import {MatTimepickerModule} from '@angular/material/timepicker';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +49,9 @@ import { WorkoutCreateComponent } from './workout/create-workout/create-workout.
     SidenavLinkComponent,
     CalendarComponent,
     WorkoutCreateComponent,
+    ViewWorkoutsComponent,
+    WorkoutDetailsComponent,
+    WorkoutFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +71,8 @@ import { WorkoutCreateComponent } from './workout/create-workout/create-workout.
     MatListModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatExpansionModule,
+    MatTimepickerModule,
   ],
   providers: [
     {
