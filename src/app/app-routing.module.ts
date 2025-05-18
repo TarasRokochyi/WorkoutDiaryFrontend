@@ -7,13 +7,15 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { WorkoutCreateComponent } from './workout/create-workout/create-workout.component';
 import { ViewWorkoutsComponent } from './workout/view-workouts/view-workouts.component';
 import { WorkoutDetailsComponent } from './workout/workout-details/workout-details.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: 'calendar', component: CalendarComponent},
   { path: 'create-workout', component: WorkoutCreateComponent},
   { path: 'view-workouts', component: ViewWorkoutsComponent },
   { path: 'workouts/:id', component: WorkoutDetailsComponent },
-  { path: "**", redirectTo: 'create-workout'},
+  { path: 'profile', component: UserProfileComponent},
+  //{ path: "**", redirectTo: 'create-workout'},
 ];
 
 @NgModule({

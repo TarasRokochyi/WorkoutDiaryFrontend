@@ -1,4 +1,4 @@
 export const Environment = {
   production: true,
-  apiUrl: 'https://workoutdiary.com/api/'
+  apiUrl: 'https://workoutdiary.duckdns.org/api/'
 };

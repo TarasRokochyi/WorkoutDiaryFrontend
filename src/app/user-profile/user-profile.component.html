@@ -1,0 +1,127 @@
+<mat-card class="profile-card" *ngIf="user">
+  <h2 class="card-title">User Profile</h2>
+
+  <div class="section">
+    <div class="section-header">
+      <h3 class="section-title">Personal Info</h3>
+      <button
+        *ngIf="!editPersonal"
+        mat-stroked-button
+        color="primary"
+        class="edit-button"
+        (click)="editPersonal = true">
+        <mat-icon>edit</mat-icon>
+        Edit Personal Info
+      </button>
+    </div>
+
+    <mat-divider class="section-divider"></mat-divider>
+
+    <form *ngIf="editPersonal" [formGroup]="personalForm" class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Level</mat-label>
+        <input matInput formControlName="level">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Gender</mat-label>
+        <input matInput formControlName="gender">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Weight (kg)</mat-label>
+        <input matInput type="number" formControlName="weight">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Height (cm)</mat-label>
+        <input matInput type="number" formControlName="height">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input matInput type="number" formControlName="age">
+      </mat-form-field>
+
+      <div class="button-group">
+        <button mat-stroked-button color="warn" (click)="cancelEdit('personal')">Cancel</button>
+        <button mat-flat-button color="primary" (click)="savePersonalInfo()">Save</button>
+      </div>
+    </form>
+
+    <mat-list *ngIf="!editPersonal">
+      <mat-list-item><strong>Name:</strong> {{ user.firstName }} {{ user.lastName }}</mat-list-item>
+      <mat-list-item><strong>Level:</strong> {{ user.level || '-' }}</mat-list-item>
+      <mat-list-item><strong>Gender:</strong> {{ user.gender || '-' }}</mat-list-item>
+      <mat-list-item><strong>Weight:</strong> {{ user.weight || '-' }} kg</mat-list-item>
+      <mat-list-item><strong>Height:</strong> {{ user.height || '-' }} cm</mat-list-item>
+      <mat-list-item><strong>Age:</strong> {{ user.age || '-' }}</mat-list-item>
+    </mat-list>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h3 class="section-title">Account Info</h3>
+      <button
+        *ngIf="!editAccount"
+        mat-stroked-button
+        color="primary"
+        class="edit-button"
+        (click)="editAccount = true">
+        <mat-icon>edit</mat-icon>
+        Edit Account Info
+      </button>
+    </div>
+
+    <mat-divider class="section-divider"></mat-divider>
+
+    <form *ngIf="editAccount" [formGroup]="accountForm" class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="userName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+
+      <div class="button-group">
+        <button mat-stroked-button color="warn" (click)="cancelEdit('account')">Cancel</button>
+        <button mat-flat-button color="primary" (click)="saveAccountInfo()">Save</button>
+      </div>
+    </form>
+
+    <mat-list *ngIf="!editAccount">
+      <mat-list-item><strong>Username:</strong> {{ user.userName }}</mat-list-item>
+      <mat-list-item><strong>Email:</strong> {{ user.email }}</mat-list-item>
+      <mat-list-item><strong>Joined:</strong> {{ user.createdAt | date: 'MMM d, y' }}</mat-list-item>
+    </mat-list>
+  </div>
+
+  <div class="section">
+    <h3 class="section-title">Security</h3>
+    <mat-divider class="section-divider"></mat-divider>
+
+    <button class="password-button" mat-raised-button color="accent" (click)="openPasswordDialog()">
+      <mat-icon>lock</mat-icon> Change Password
+    </button>
+
+    <button class="logout-button" mat-raised-button color="warn" (click)="logout()">
+        <mat-icon>logout</mat-icon> Logout
+    </button>
+  </div>
+
+
+
+</mat-card>

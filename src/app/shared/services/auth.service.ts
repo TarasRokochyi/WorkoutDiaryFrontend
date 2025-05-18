@@ -1,15 +1,18 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { EnvironmentUrlService } from './environment-url.service';
 import { Login } from '../../_interfaces/login.model';
 import { Register } from '../../_interfaces/register.model'
 import { Authentication } from '../../_interfaces/authentication.model'
 import { BehaviorSubject, tap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  private snackBar = inject(MatSnackBar)
 
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) {}
 
@@ -18,13 +21,20 @@ export class AuthService {
   }
 
   login(loginModel: Login) {
+    debugger
     return this.http.post<Authentication>(this.createCompleteRoute("user/token", this.envUrl.apiUrlAddress), loginModel)
     .pipe(
       tap((res: Authentication) => {
         debugger;
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('refreshToken', res.refreshToken)
-        this.loggedInStatus.next(true);
+        if(res.isAuthenticated == true){
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('refreshToken', res.refreshToken)
+          this.loggedInStatus.next(true);
+        }
+        else{
+          debugger
+          this.snackBar.open('Login Failed: ' + res.message, 'Close', { duration: 5000 });
+        }
       })
     );
   }
@@ -43,9 +53,22 @@ export class AuthService {
   }
 
   revokeToken(){
+    debugger
+    return this.http.post(this.createCompleteRoute("user/revoke-token", this.envUrl.apiUrlAddress), {token: localStorage.getItem("refreshToken")})
+    .pipe(
+      tap(() => {
+        debugger
+        this.removeTokens()
+      })
+    )
+  }
+
+  removeTokens(){
+    debugger
     localStorage.removeItem("token")
+    localStorage.removeItem("refreshToken")
     this.loggedInStatus.next(false)
-    return this.http.post(this.createCompleteRoute("user/revoke-token", this.envUrl.apiUrlAddress), {})
+    return
   }
 
   private loggedInStatus = new BehaviorSubject<boolean>(this.hasToken());

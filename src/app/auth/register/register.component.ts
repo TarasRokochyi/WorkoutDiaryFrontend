@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Register } from '../../_interfaces/register.model';
@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   levels: string[] = ['Beginner', 'Intermediate', 'Advanced'];
   genders: string[] = ['Male', 'Female', 'Other'];
+  @Output() toggle = new EventEmitter();
 
   constructor(private auth: AuthService, private router: Router) {}
 
@@ -46,7 +47,8 @@ export class RegisterComponent implements OnInit {
       this.auth.register(registerData as Register).subscribe({
         next: res => {
           console.log('Registration successful', res);
-          this.router.navigate(['/login']);
+          //this.router.navigate(['/login']);
+          this.toggle.emit()
         },
         error: err => console.error('Registration error', err)
       });

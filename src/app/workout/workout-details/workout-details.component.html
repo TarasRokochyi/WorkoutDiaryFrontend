@@ -33,37 +33,6 @@
         (cancelWorkout)="toggleEdit()">
       </app-workout-form>
 
-    <!--<form *ngIf="editing" [formGroup]="form" (ngSubmit)="onSave()">
-
-      <h2>Edit Workout</h2>
-
-       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="date" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Duration (minutes)</mat-label>
-        <input matInput type="number" formControlName="duration" />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Notes</mat-label>
-        <textarea matInput formControlName="notes"></textarea>
-      </mat-form-field> 
-
-      <div class="button-row">
-        <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
-        <button mat-stroked-button type="button" (click)="toggleEdit()">Cancel</button>
-      </div>
-    </form>-->
   </mat-card>
 </ng-container>
 

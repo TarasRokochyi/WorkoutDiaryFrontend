@@ -18,8 +18,10 @@ export class ViewWorkoutsComponent implements OnInit {
   ngOnInit(): void {
     this.workoutService.getWorkouts().subscribe({
       next: (data) => {
-        this.workouts = data;
-        debugger
+        this.workouts = data.sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime(); // Newest first
+        });
+
         this.loading = false;
       },
       error: (err) => {

@@ -10,7 +10,7 @@
     </div>
 
     <app-login *ngIf="isLoginMode"></app-login>
-    <app-register *ngIf="!isLoginMode"></app-register>
+    <app-register (toggle)="toggleMode()" *ngIf="!isLoginMode"></app-register>
   </mat-card>
 </div>
 

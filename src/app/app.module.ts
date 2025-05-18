@@ -36,6 +36,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { WorkoutDetailsComponent } from './workout/workout-details/workout-details.component';
 import { WorkoutFormComponent } from './workout/workout-form/workout-form.component';
 import {MatTimepickerModule} from '@angular/material/timepicker';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -52,6 +56,8 @@ import {MatTimepickerModule} from '@angular/material/timepicker';
     ViewWorkoutsComponent,
     WorkoutDetailsComponent,
     WorkoutFormComponent,
+    UserProfileComponent,
+    ChangePasswordDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +79,8 @@ import {MatTimepickerModule} from '@angular/material/timepicker';
     MatNativeDateModule,
     MatExpansionModule,
     MatTimepickerModule,
+    MatSnackBarModule,
+    MatDialogModule,
   ],
   providers: [
     {

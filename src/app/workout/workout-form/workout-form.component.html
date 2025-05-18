@@ -16,11 +16,6 @@
         <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <!-- <mat-form-field appearance="fill" class="half-width">
-        <mat-label>Time</mat-label>
-        <input matInput type="time" formControlName="date" />
-        </mat-form-field> -->
-
         <mat-form-field>
         <mat-label>Meeting time</mat-label>
         <input matInput
@@ -62,7 +57,6 @@
 
         <mat-card-title>Exercise {{ i + 1 }}</mat-card-title>
 
-        <!-- Category Select -->
         <div class="row">
             <mat-form-field appearance="fill" class="half-width">
             <mat-label>Category</mat-label>
@@ -81,7 +75,6 @@
             </mat-form-field>
         </div>
 
-        <!-- Strength Fields -->
         <ng-container *ngIf="exercises.at(i).get('category')?.value === 'Strength'">
             <div class="row">
             <mat-form-field class="third-width" appearance="fill">
@@ -99,7 +92,6 @@
             </div>
         </ng-container>
 
-        <!-- Cardio Fields -->
         <ng-container *ngIf="exercises.at(i).get('category')?.value === 'Cardio'">
             <div class="row">
             <mat-form-field class="half-width" appearance="fill">
