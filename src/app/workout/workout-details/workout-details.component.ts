@@ -26,6 +26,7 @@ export class WorkoutDetailsComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.workoutService.getWorkoutById(id).subscribe({
       next: (data) => {
+        debugger
         this.workout = data;
         this.loading = false;
       },

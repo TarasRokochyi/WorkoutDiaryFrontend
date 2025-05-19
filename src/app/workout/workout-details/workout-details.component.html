@@ -3,7 +3,7 @@
       <h2>{{ workout.name }}</h2>
       <p><strong>Date:</strong> {{ workout.date | date:'MMM d, y, hh:mm' }}</p>
       <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
-      <p><strong>Notes:</strong> {{ workout.notes }}</p>
+      <p><strong>Notes:</strong> {{ workout.notes || "--"}}</p>
 
       <button mat-stroked-button color="primary" (click)="toggleEdit()">Edit</button>
 

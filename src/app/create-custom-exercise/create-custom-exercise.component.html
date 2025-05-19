@@ -1,0 +1,35 @@
+<mat-card class="exercise-card">
+  <form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()">
+    <h2>Create Custom Exercise</h2>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Exercise Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Muscle Groups</mat-label>
+      <input matInput formControlName="muscleGroups" placeholder="E.g. Chest, Triceps" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <div class="button-row">
+      <button mat-raised-button color="accent" type="submit" [disabled]="exerciseForm.invalid">
+        Save Exercise
+      </button>
+      <button mat-stroked-button type="button" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</mat-card>
+

@@ -83,6 +83,7 @@ export class UserProfileComponent implements OnInit {
     this.authService.revokeToken().subscribe({
       next: () => {
         this.snackBar.open("Logged out successfuly", "Close", { duration: 3000})
+        this.router.navigateByUrl("")
       },
       error: () => {
         this.snackBar.open("Error while looging out", "Close", { duration: 3000})

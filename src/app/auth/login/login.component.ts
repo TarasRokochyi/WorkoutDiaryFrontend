@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { Route, Router } from '@angular/router';
 import { Login } from '../../_interfaces/login.model';
 import { Authentication } from '../../_interfaces/authentication.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit{
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -32,10 +33,15 @@ export class LoginComponent implements OnInit{
       password: loginValue.password
     }
     if (this.loginForm.valid) {
-      this.auth.login(loginModel)
-        .subscribe((res: Authentication) => {
-        this.router.navigateByUrl('calendar')
-    })
+      this.auth.login(loginModel).subscribe({
+        next: (res) => {
+          this.snackBar.open('Login successesful: ' + res);
+          this.router.navigateByUrl('view-workouts')
+        },
+        error: (err) => {
+          this.snackBar.open('Registration error: ' + err)
+        }
+      })
     }
   }
 

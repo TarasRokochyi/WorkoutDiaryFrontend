@@ -40,6 +40,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CreateCustomExerciseComponent } from './create-custom-exercise/create-custom-exercise.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     WorkoutFormComponent,
     UserProfileComponent,
     ChangePasswordDialogComponent,
+    CreateCustomExerciseComponent,
   ],
   imports: [
     BrowserModule,

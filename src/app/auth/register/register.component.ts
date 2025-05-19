@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, Valid
 import { Router } from '@angular/router';
 import { Register } from '../../_interfaces/register.model';
 import { AuthService } from '../../shared/services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,7 @@ export class RegisterComponent implements OnInit {
   genders: string[] = ['Male', 'Female', 'Other'];
   @Output() toggle = new EventEmitter();
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -45,12 +46,11 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       const { confirmPassword, ...registerData }: any = this.registerForm.value;
       this.auth.register(registerData as Register).subscribe({
-        next: res => {
-          console.log('Registration successful', res);
-          //this.router.navigate(['/login']);
+        next: (res) => {
+          this.snackBar.open('Registration successful: ' + res);
           this.toggle.emit()
         },
-        error: err => console.error('Registration error', err)
+        error: err => this.snackBar.open('Registration error: ' + err)
       });
     }
   }

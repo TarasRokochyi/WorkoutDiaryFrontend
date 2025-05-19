@@ -12,7 +12,7 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <p><strong>Notes:</strong> {{ workout.notes }}</p>
+      <p><strong>Notes:</strong> {{ workout.notes || "--"}}</p>
 
       <button mat-button color="primary" [routerLink]="['/workouts', workout.workoutId]">
         View Details
