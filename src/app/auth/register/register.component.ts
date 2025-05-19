@@ -47,10 +47,10 @@ export class RegisterComponent implements OnInit {
       const { confirmPassword, ...registerData }: any = this.registerForm.value;
       this.auth.register(registerData as Register).subscribe({
         next: (res) => {
-          this.snackBar.open('Registration successful: ' + res);
+          this.snackBar.open('Registration successful: ' + res, "Close", {duration: 3000});
           this.toggle.emit()
         },
-        error: err => this.snackBar.open('Registration error: ' + err)
+        error: err => this.snackBar.open('Registration error: ' + err, "Close", {duration: 5000})
       });
     }
   }

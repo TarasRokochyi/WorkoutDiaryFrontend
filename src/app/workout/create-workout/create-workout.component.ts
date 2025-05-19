@@ -7,6 +7,7 @@ import { Exercise } from '../../_interfaces/exercise.model';
 import { WorkoutExerciseRequestDTO } from '../../_interfaces/workout-exercise.model';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-workout',
@@ -20,7 +21,8 @@ export class WorkoutCreateComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private exerciseService: ExerciseService,
     private workoutService: WorkoutService, 
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   async ngOnInit(): Promise<void> {
   }
@@ -28,11 +30,12 @@ export class WorkoutCreateComponent implements OnInit {
   onCreate(data: WorkoutRequestDTO): void {
     this.workoutService.createWorkout(data).subscribe({
     next: () => {
-      alert('Workout created successfully!');
+      this.snackBar.open('Workout created successfully!', "Close", {duration: 3000});
+      this.router.navigateByUrl("view-workouts")
     },
     error: err => {
       console.error(err);
-      alert('Failed to create workout.');
+      this.snackBar.open('Failed to create workout.', "Close", {duration: 3000});
     }
   });
   }

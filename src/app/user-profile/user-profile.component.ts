@@ -106,14 +106,10 @@ export class UserProfileComponent implements OnInit {
 
         this.userService.updatePassword(passwordData).subscribe({
           next: () => {
-            this.snackBar.open("Password changed successfully", "Close", {
-              duration: 3000
-            });
+            this.snackBar.open("Password changed successfully", "Close", { duration: 3000 });
           },
           error: () => {
-            this.snackBar.open("Error while changing password", "Close", {
-              duration: 3000
-            });
+            this.snackBar.open("Error while changing password", "Close", { duration: 3000 });
           }
         });
       }

@@ -3,6 +3,7 @@ import { WorkoutService } from '../../shared/services/workout.service';
 import { Component, OnInit } from '@angular/core';
 import { WorkoutRequestDTO, WorkoutResponseDTO } from '../../_interfaces/workout.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-workout-details',
@@ -20,7 +21,7 @@ export class WorkoutDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private workoutService: WorkoutService,
-  ) {}
+    private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -49,11 +50,11 @@ export class WorkoutDetailsComponent implements OnInit {
     next: (updated) => {
       this.workout = updated;
       this.editing = false;
-      alert('Workout updated successfully!');
+      this.snackBar.open('Workout updated successfully!', "Close", {duration: 3000});
     },
     error: (err) => {
       console.error('Error updating workout', err);
-      alert('Failed to update workout.');
+      this.snackBar.open('Failed to update workout.', "Close", {duration: 3000});
     }
   });
 }

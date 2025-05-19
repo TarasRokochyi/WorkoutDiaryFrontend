@@ -35,12 +35,12 @@ export class CreateCustomExerciseComponent implements OnInit {
     if (this.exerciseForm.valid) {
       this.exerciseService.createExercise(this.exerciseForm.value).subscribe({
         next: () => {
-          this.snackBar.open('Exercise created successfully!');
+          this.snackBar.open('Exercise created successfully!', "Close", {duration: 3000});
           this.router.navigate(['view-workouts']);
         },
         error: err => {
           console.error(err);
-          this.snackBar.open('Failed to create exercise.');
+          this.snackBar.open('Failed to create exercise.', "Close", {duration: 3000});
         }
       });
     }
