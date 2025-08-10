@@ -22,12 +22,16 @@ export class WorkoutService {
   }
 
   // We'll add getWorkoutById here later for the display component
-  getWorkoutById(id: number): Observable<WorkoutResponseDTO> { // Replace 'any' with your WorkoutResponseDTO
+  getWorkoutById(id: number): Observable<WorkoutResponseDTO> {
     return this.http.get<any>(this.createCompleteRoute(`workout/${id}`, this.envUrl.apiUrlAddress));
   }
 
-  getWorkouts(): Observable<any[]> { // Replace 'any[]' with your WorkoutListItemDTO[] or similar
+  getWorkouts(): Observable<WorkoutResponseDTO[]> { // Replace 'any[]' with your WorkoutListItemDTO[] or similar
     return this.http.get<any[]>(this.createCompleteRoute("workout", this.envUrl.apiUrlAddress));
+  }
+
+  deleteWorkout(id: number): Observable<void>{
+    return this.http.delete<any>(this.createCompleteRoute(`workout/${id}`, this.envUrl.apiUrlAddress))
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {

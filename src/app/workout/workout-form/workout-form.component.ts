@@ -42,7 +42,10 @@ export class WorkoutFormComponent implements OnInit {
     this.exerciseCategories = [...new Set(this.allExercises.map(item => item.category))];
 
     if (this.initialData?.workoutExercises?.length) {
-      this.initialData.workoutExercises.forEach((ex) => this.addExercise(ex));
+      this.initialData.workoutExercises.forEach((ex, index) => {
+        this.addExercise(ex)
+        this.onCategoryChange(index)
+      });
     } else {
       this.addExercise();
     }
@@ -64,7 +67,7 @@ export class WorkoutFormComponent implements OnInit {
     });
 
     this.exercises.push(group);
-    this.filteredExercises.push(this.allExercises); // Init with all options
+    this.filteredExercises.push(this.allExercises);
   }
 
   removeExercise(index: number): void {
@@ -78,18 +81,14 @@ export class WorkoutFormComponent implements OnInit {
   }
 
   onCreateExercise(): void {
-  this.router.navigate(['/exercises/create']); // Assuming you have this route
+  this.router.navigate(['/exercises/create']);
   }
 
   onCreateTemplate(): void {
-  this.router.navigate(['/template/create']); // Assuming you have this route
+  this.router.navigate(['/template/create']);
   }
 
   onSubmit(): void {
-    debugger
-    //if (this.workoutForm.valid) {
-    //  this.submitWorkout.emit(this.workoutForm.value);
-    //}
 
     if (this.workoutForm.valid) {
     const { dateOnly, timeOnly, ...rest } = this.workoutForm.value;

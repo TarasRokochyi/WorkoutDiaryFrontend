@@ -17,7 +17,7 @@ export class ChangePasswordDialogComponent {
   ) {
     this.passwordForm = this.fb.group({
       currentPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      newPassword: ['', [Validators.required]],
       confirmPassword: ['', Validators.required]
     });
   }

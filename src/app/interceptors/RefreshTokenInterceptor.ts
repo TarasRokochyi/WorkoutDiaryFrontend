@@ -17,25 +17,16 @@ export class RefreshTokenInterceptor implements HttpInterceptor{
     }
 
     private handleAuthError(err: HttpErrorResponse): Observable<any>{
-        debugger
         if (err && err.status === 401 && this.ctr != 1){
             this.ctr++
             let service = this.inject.get(AuthService)
             service.refreshToken().subscribe({
                 next: (x:any) => {
-                    debugger
-                    this._snackBar.open("tokens refreshed, try again")
+                    this._snackBar.open("tokens refreshed, try again", "Close", {duration: 3000})
                     return of("We refreshed the token");
                 },
                 error: (err:any) => {
-                    debugger
-                    service.revokeToken().subscribe({
-                        next: (x:any) => {
-                            //this.router.navigateByUrl('/auth')
-                            service.removeTokens()
-                            return of(err.Message)
-                        }
-                    })
+                    service.revokeToken()
                 }
             });
             return of("attemitng to refresh tokens")

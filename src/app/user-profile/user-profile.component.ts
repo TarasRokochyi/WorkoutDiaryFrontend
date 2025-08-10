@@ -80,15 +80,16 @@ export class UserProfileComponent implements OnInit {
   }
 
   logout() {
-    this.authService.revokeToken().subscribe({
-      next: () => {
-        this.snackBar.open("Logged out successfuly", "Close", { duration: 3000})
-        this.router.navigateByUrl("")
-      },
-      error: () => {
-        this.snackBar.open("Error while looging out", "Close", { duration: 3000})
-      }
-    });
+    this.authService.revokeToken()
+    //.subscribe({
+    //  next: () => {
+    //    this.snackBar.open("Logged out successfuly", "Close", { duration: 3000})
+    //    this.router.navigateByUrl("")
+    //  },
+    //  error: () => {
+    //    this.snackBar.open("Error while looging out", "Close", { duration: 3000})
+    //  }
+    //});
   }
 
 
@@ -108,8 +109,9 @@ export class UserProfileComponent implements OnInit {
           next: () => {
             this.snackBar.open("Password changed successfully", "Close", { duration: 3000 });
           },
-          error: () => {
-            this.snackBar.open("Error while changing password", "Close", { duration: 3000 });
+          error: (err) => {
+            //console.log(err)
+            this.snackBar.open("Error while changing password", "Close", { duration: 5000 });
           }
         });
       }

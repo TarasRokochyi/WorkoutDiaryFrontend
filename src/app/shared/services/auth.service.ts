@@ -33,7 +33,7 @@ export class AuthService {
         }
         else{
           debugger
-          this.snackBar.open('Login Failed: ' + res.message, 'Close', { duration: 5000 });
+          throw Error(res.message)
         }
       })
     );
@@ -53,14 +53,15 @@ export class AuthService {
   }
 
   revokeToken(){
-    debugger
-    return this.http.post(this.createCompleteRoute("user/revoke-token", this.envUrl.apiUrlAddress), {token: localStorage.getItem("refreshToken")})
-    .pipe(
-      tap(() => {
-        debugger
-        this.removeTokens()
-      })
-    )
+    //debugger
+    //return this.http.post(this.createCompleteRoute("user/revoke-token", this.envUrl.apiUrlAddress), {token: localStorage.getItem("refreshToken")})
+    //.pipe(
+    //  tap(() => {
+    //    debugger
+    //    this.removeTokens()
+    //  })
+    //)
+    this.removeTokens()
   }
 
   removeTokens(){

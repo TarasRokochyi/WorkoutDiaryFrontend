@@ -35,11 +35,11 @@ export class LoginComponent implements OnInit{
     if (this.loginForm.valid) {
       this.auth.login(loginModel).subscribe({
         next: (res) => {
-          this.snackBar.open('Login successesful: ' + res, "Close", {duration: 3000});
+          this.snackBar.open('Login successesful', "Close", {duration: 3000});
           this.router.navigateByUrl('view-workouts')
         },
         error: (err) => {
-          this.snackBar.open('Registration error: ' + err, "Close", {duration: 3000})
+          this.snackBar.open(err, "Close", {duration: 5000})
         }
       })
     }
