@@ -42,6 +42,7 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
 import {MatDialogModule} from '@angular/material/dialog';
 import { CreateCustomExerciseComponent } from './create-custom-exercise/create-custom-exercise.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -85,6 +86,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSnackBarModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatAutocompleteModule,
   ],
   providers: [
     {

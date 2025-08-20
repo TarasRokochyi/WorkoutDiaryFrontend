@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { WorkoutRequestDTO } from '../../_interfaces/workout.model';
 import { Exercise } from '../../_interfaces/exercise.model';
 import { ExerciseService } from '../../shared/services/exercise.service';
@@ -13,6 +13,10 @@ import { Router } from '@angular/router';
   styleUrl: './workout-form.component.css'
 })
 export class WorkoutFormComponent implements OnInit {
+  myControl = new FormControl('');
+
+  @ViewChild('input') input: ElementRef<HTMLInputElement>;
+
   @Input() initialData?: WorkoutRequestDTO;
   @Input() submitLabel: string;
   @Output() submitWorkout = new EventEmitter<WorkoutRequestDTO>();
@@ -26,7 +30,7 @@ export class WorkoutFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private exerciseService: ExerciseService, private router: Router) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() : void {
 
     this.workoutForm = this.fb.group({
       name: [this.initialData?.name || '', Validators.required],
@@ -37,18 +41,26 @@ export class WorkoutFormComponent implements OnInit {
       workoutExercises: this.fb.array([]),
     });
 
-    this.allExercises = await firstValueFrom(this.exerciseService.getExercises())
+    firstValueFrom(this.exerciseService.getExercises()).then(data => {
+      this.allExercises = data;
 
-    this.exerciseCategories = [...new Set(this.allExercises.map(item => item.category))];
+      this.exerciseCategories = [...new Set(this.allExercises.map(item => item.category))];
 
-    if (this.initialData?.workoutExercises?.length) {
-      this.initialData.workoutExercises.forEach((ex, index) => {
-        this.addExercise(ex)
-        this.onCategoryChange(index)
-      });
-    } else {
-      this.addExercise();
-    }
+      if (this.initialData?.workoutExercises?.length) {
+        this.initialData.workoutExercises.forEach((ex, index) => {
+          this.addExercise(ex)
+          this.onCategoryChange(index)
+        });
+      } else {
+        this.addExercise();
+      }
+    })
+
+  }
+
+  filter(index: number): void {
+    const filterValue = this.input.nativeElement.value.toLowerCase();
+    this.filteredExercises[index] = this.allExercises.filter(o => o.name.toLowerCase().includes(filterValue));
   }
 
   get exercises(): FormArray {
@@ -58,7 +70,7 @@ export class WorkoutFormComponent implements OnInit {
   addExercise(exercise?: any): void {
     const group = this.fb.group({
       category: [exercise?.exercise.category || '', Validators.required],
-      exerciseId: [exercise?.exerciseId || null, Validators.required],
+      exerciseName: [exercise?.name || '', Validators.required],
       sets: [exercise?.sets || null],
       reps: [exercise?.reps || null],
       weight: [exercise?.weight || null],
@@ -80,12 +92,18 @@ export class WorkoutFormComponent implements OnInit {
     this.filteredExercises[index] = this.allExercises.filter((ex) => ex.category === selectedCategory);
   }
 
+  onExerciseChange(index: number): void {
+    const exerciseName = this.exercises.at(index).get('exerciseName')?.value;
+    const exercise = this.allExercises.find(arr => arr.name == exerciseName);
+    this.exercises.at(index).get('category')?.setValue(exercise?.category)
+  }
+
   onCreateExercise(): void {
-  this.router.navigate(['/exercises/create']);
+    this.router.navigate(['/exercises/create']);
   }
 
   onCreateTemplate(): void {
-  this.router.navigate(['/template/create']);
+    this.router.navigate(['/template/create']);
   }
 
   onSubmit(): void {

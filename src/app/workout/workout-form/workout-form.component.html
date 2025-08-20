@@ -66,12 +66,20 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill" class="half-width">
-            <mat-label>Exercise</mat-label>
-            <mat-select formControlName="exerciseId">
-                <mat-option *ngFor="let ex of filteredExercises[i]" [value]="ex.exerciseId">
+              <mat-label>Exercise</mat-label>
+              <input #input
+                    type="text"
+                    placeholder="Pick one"
+                    matInput
+                    formControlName="exerciseName"
+                    [matAutocomplete]="auto"
+                    (input)="filter(i)"
+                    (focus)="filter(i)">
+              <mat-autocomplete requireSelection #auto="matAutocomplete" (optionSelected)="onExerciseChange(i)">
+                <mat-option *ngFor="let ex of filteredExercises[i]" [value]="ex.name">
                 {{ ex.name }}
                 </mat-option>
-            </mat-select>
+              </mat-autocomplete>
             </mat-form-field>
         </div>
 
