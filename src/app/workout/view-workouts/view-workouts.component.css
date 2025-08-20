@@ -44,3 +44,11 @@ button[mat-button] {
   margin: 0 1rem 1rem;
   align-self: start;
 }
+
+.progress-spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}

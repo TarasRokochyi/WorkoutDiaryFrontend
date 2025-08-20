@@ -1,4 +1,4 @@
-<mat-card *ngIf="loading">Loading workouts...</mat-card>
+<mat-spinner class="progress-spinner" *ngIf="loading"></mat-spinner>
 
 <ng-container *ngIf="!loading && workouts.length > 0">
   <mat-accordion>
@@ -24,3 +24,5 @@
 <mat-card *ngIf="!loading && workouts.length === 0">
   You have no workouts yet.
 </mat-card>
+
+
