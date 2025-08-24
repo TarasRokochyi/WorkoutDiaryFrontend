@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkoutService } from '../../shared/services/workout.service';
 import { Component, OnInit } from '@angular/core';
-import { WorkoutRequestDTO, WorkoutResponseDTO } from '../../_interfaces/workout.model';
+import { Workout, WorkoutRequestDTO } from '../../_interfaces/workout.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class WorkoutDetailsComponent implements OnInit {
 
-  workout?: WorkoutResponseDTO;
+  workout?: Workout;
   loading = true;
   editing = false;
 
@@ -43,11 +43,12 @@ export class WorkoutDetailsComponent implements OnInit {
     this.editing = !this.editing;
   }
 
-  onSave(data: WorkoutRequestDTO): void {
+  onSave(data: Workout): void {
     debugger
     if (!this.workout) return;
-
-    this.workoutService.updateWorkout(this.workout.workoutId, data).subscribe({
+    
+    // here data: Workout, but it maps to WorkoutRequestDTO automatically
+    this.workoutService.updateWorkout(data.workoutId, data).subscribe({
       next: (updated) => {
         debugger
         this.workout = updated;

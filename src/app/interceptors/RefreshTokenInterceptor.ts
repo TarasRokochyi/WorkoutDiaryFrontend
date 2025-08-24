@@ -22,7 +22,9 @@ export class RefreshTokenInterceptor implements HttpInterceptor{
             let service = this.inject.get(AuthService)
             service.refreshToken().subscribe({
                 next: (x:any) => {
-                    this._snackBar.open("tokens refreshed, try again", "Close", {duration: 3000})
+                    //this._snackBar.open("tokens refreshed, try again", "Close", {duration: 3000})
+                    this.router.navigate([this.router.url])
+                    this.ctr = 0;
                     return of("We refreshed the token");
                 },
                 error: (err:any) => {

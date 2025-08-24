@@ -21,18 +21,15 @@ export class AuthService {
   }
 
   login(loginModel: Login) {
-    debugger
     return this.http.post<Authentication>(this.createCompleteRoute("user/token", this.envUrl.apiUrlAddress), loginModel)
     .pipe(
       tap((res: Authentication) => {
-        debugger;
         if(res.isAuthenticated == true){
           localStorage.setItem('token', res.token);
           localStorage.setItem('refreshToken', res.refreshToken)
           this.loggedInStatus.next(true);
         }
         else{
-          debugger
           throw Error(res.message)
         }
       })
@@ -47,6 +44,7 @@ export class AuthService {
     return this.http.post<Authentication>(this.createCompleteRoute("user/refresh-token", this.envUrl.apiUrlAddress), {RefreshToken: localStorage.getItem('refreshToken')} )
     .pipe(
       tap((res: Authentication) => {
+        localStorage.setItem('token', res.token)
         localStorage.setItem('refreshToken', res.refreshToken)
       })
     )

@@ -1,4 +1,8 @@
-<ng-container *ngIf="loading"> <mat-card>Loading workout...</mat-card> </ng-container> <ng-container *ngIf="!loading && workout"> <mat-card>
+<ng-container *ngIf="loading"> 
+  <mat-card>Loading workout...</mat-card> 
+  </ng-container> 
+<ng-container *ngIf="!loading && workout"> 
+  <mat-card>
     <div *ngIf="!editing">
       <h2>{{ workout.name }}</h2>
       <p><strong>Date:</strong> {{ workout.date | date:'MMM d, y, hh:mm' }}</p>

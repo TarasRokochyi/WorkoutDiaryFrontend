@@ -1,6 +1,16 @@
 <mat-card class="workout-card">
   <form [formGroup]="workoutForm" (ngSubmit)="onSubmit()">
-    <h2>{{ submitLabel }}</h2>
+    <div class="row">
+      <h2>{{ submitLabel }}</h2>
+
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Choose Template</mat-label>
+          <mat-select (selectionChange)="onChooseTemplate($event.value)" formControlName="template">
+              <mat-option *ngFor="let temp of allTemplates" [value]="temp.templateId">{{ temp.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+    </div>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Name</mat-label>
@@ -40,11 +50,7 @@
       <div class="exercise-actions">
         <button mat-stroked-button color="primary" (click)="onCreateExercise()">
           <mat-icon>add</mat-icon>
-          Custom Exercise
-        </button>
-        <button mat-stroked-button color="accent" (click)="onCreateTemplate()">
-          <mat-icon>add_box</mat-icon>
-          Custom Template
+          Create Custom Exercise
         </button>
       </div>
       <h3>Exercises</h3>
@@ -58,12 +64,6 @@
         <mat-card-title>Exercise {{ i + 1 }}</mat-card-title>
 
         <div class="row">
-            <mat-form-field appearance="fill" class="half-width">
-            <mat-label>Category</mat-label>
-            <mat-select (selectionChange)="onCategoryChange(i)" formControlName="category">
-                <mat-option *ngFor="let cat of exerciseCategories" [value]="cat">{{ cat }}</mat-option>
-            </mat-select>
-            </mat-form-field>
 
             <mat-form-field appearance="fill" class="half-width">
               <mat-label>Exercise</mat-label>
@@ -131,6 +131,7 @@
         <button mat-raised-button color="accent" type="submit" [disabled]="workoutForm.invalid">
             {{ submitLabel }}
         </button>
+        <button mat-stroked-button type="button" (click)="onSaveTemplate()">Save as a Template</button>
         <button mat-stroked-button type="button" (click)="onCancel()">Cancel</button>
     </div>
   </form>

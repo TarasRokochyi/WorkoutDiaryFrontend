@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkoutService } from '../../shared/services/workout.service';
-import { WorkoutResponseDTO } from '../../_interfaces/workout.model';
+import { Workout } from '../../_interfaces/workout.model';
 
 @Component({
   selector: 'app-view-workouts',
@@ -10,7 +10,7 @@ import { WorkoutResponseDTO } from '../../_interfaces/workout.model';
 })
 
 export class ViewWorkoutsComponent implements OnInit {
-  workouts: WorkoutResponseDTO[] = [];
+  workouts: Workout[] = [];
   loading = true;
 
   constructor(private workoutService: WorkoutService) {}
