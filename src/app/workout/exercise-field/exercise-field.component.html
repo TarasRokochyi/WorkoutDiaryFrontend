@@ -1,0 +1,34 @@
+        <div class="row" matAutocompleteOrigin #origin="matAutocompleteOrigin">
+
+            <mat-form-field appearance="fill" class="half-width">
+              <mat-label>Exercise</mat-label>
+              <input #input
+                    type="text"
+                    placeholder="Pick one"
+                    matInput
+                    formControlName="exerciseName"
+                    [matAutocompleteConnectedTo]="origin"
+                    [matAutocomplete]="auto"
+                    (input)="filter()"
+                    (focus)="filter()">
+            </mat-form-field>
+        </div>
+              <mat-autocomplete requireSelection #auto="matAutocomplete" (optionSelected)="onExerciseChange()">
+                <mat-option *ngFor="let ex of filteredExercises" [value]="ex.name">
+                {{ ex.name }}
+                </mat-option>
+              </mat-autocomplete>
+
+
+        <!-- <div class="ng-autocomplete"> 
+          <ng-autocomplete
+          [data]="allExercises"
+          [searchKeyword]="keyword"
+          placeholder="choose exercise"
+          (selected)="onExerciseChange(i)"
+          formControlName="exerciseName"
+          [itemTemplate]="itemTemplate"
+          [notFoundTemplate]="notFoundTemplate">
+          ></ng-autocomplete>
+        </div> -->
+

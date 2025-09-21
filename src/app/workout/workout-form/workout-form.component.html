@@ -1,9 +1,10 @@
 <mat-card class="workout-card">
   <form [formGroup]="workoutForm" (ngSubmit)="onSubmit()">
     <div class="row">
-      <h2>{{ submitLabel }}</h2>
+      <h2 class="third-width">{{ submitLabel }}</h2>
+      <div class="third-width" ></div>
 
-        <mat-form-field appearance="fill" class="half-width">
+        <mat-form-field appearance="fill" class="third-width">
           <mat-label>Choose Template</mat-label>
           <mat-select (selectionChange)="onChooseTemplate($event.value)" formControlName="template">
               <mat-option *ngFor="let temp of allTemplates" [value]="temp.templateId">{{ temp.name }}</mat-option>
@@ -59,27 +60,26 @@
 
     <div formArrayName="workoutExercises">
       <div *ngFor="let ex of exercises.controls; let i = index" [formGroupName]="i" class="exercise-card">
+
         <mat-card class="exercise-container">
 
         <mat-card-title>Exercise {{ i + 1 }}</mat-card-title>
 
         <div class="row">
+            <mat-form-field appearance="fill" class="half-width">
+            <mat-label>Category</mat-label>
+            <mat-select (selectionChange)="onCategoryChange(i)" formControlName="category">
+                <mat-option *ngFor="let cat of exerciseCategories" [value]="cat">{{ cat }}</mat-option>
+            </mat-select>
+            </mat-form-field>
 
             <mat-form-field appearance="fill" class="half-width">
-              <mat-label>Exercise</mat-label>
-              <input #input
-                    type="text"
-                    placeholder="Pick one"
-                    matInput
-                    formControlName="exerciseName"
-                    [matAutocomplete]="auto"
-                    (input)="filter(i)"
-                    (focus)="filter(i)">
-              <mat-autocomplete requireSelection #auto="matAutocomplete" (optionSelected)="onExerciseChange(i)">
-                <mat-option *ngFor="let ex of filteredExercises[i]" [value]="ex.name">
+            <mat-label>Exercise</mat-label>
+            <mat-select (selectionChange)="onExerciseChange(i)" formControlName="exerciseId">
+                <mat-option *ngFor="let ex of filteredExercises[i]" [value]="ex.exerciseId">
                 {{ ex.name }}
                 </mat-option>
-              </mat-autocomplete>
+            </mat-select>
             </mat-form-field>
         </div>
 
@@ -119,7 +119,9 @@
             </button>
         </div>
 
-        </mat-card>
+        </mat-card> 
+
+
       </div>
     </div>
 

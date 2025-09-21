@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
@@ -43,6 +43,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { CreateCustomExerciseComponent } from './create-custom-exercise/create-custom-exercise.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ExerciseFieldComponent } from './workout/exercise-field/exercise-field.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 
 @NgModule({
@@ -62,6 +64,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     UserProfileComponent,
     ChangePasswordDialogComponent,
     CreateCustomExerciseComponent,
+    ExerciseFieldComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +90,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
+    AutocompleteLibModule,
   ],
   providers: [
     {
@@ -94,6 +98,11 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     },
     {
       provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true
+    },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi:true,
+      useExisting: ExerciseFieldComponent
     },
     MatDatepickerModule,
     MatNativeDateModule,

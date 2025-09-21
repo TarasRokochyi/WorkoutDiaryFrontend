@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, ExistingProvider, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Workout, WorkoutRequestDTO } from '../../_interfaces/workout.model';
 import { Exercise } from '../../_interfaces/exercise.model';
@@ -40,7 +40,6 @@ export class WorkoutFormComponent implements OnInit {
 
     this.workoutTemplateService.getWorkoutTemplates().subscribe({
       next: (data) => {
-        debugger
         this.allTemplates = data;
       },
       error: (err) => {
@@ -87,7 +86,7 @@ export class WorkoutFormComponent implements OnInit {
   addExercise(exercise?: any): void {
     const group = this.fb.group({
       category: [exercise?.exercise.category || '', Validators.required],
-      exerciseName: [exercise?.name || '', Validators.required],
+      exerciseId: [exercise?.exerciseId || '', Validators.required],
       sets: [exercise?.sets || null],
       reps: [exercise?.reps || null],
       weight: [exercise?.weight || null],
@@ -110,8 +109,8 @@ export class WorkoutFormComponent implements OnInit {
   }
 
   onExerciseChange(index: number): void {
-    const exerciseName = this.exercises.at(index).get('exerciseName')?.value;
-    const exercise = this.allExercises.find(arr => arr.name == exerciseName);
+    const exerciseId = this.exercises.at(index).get('exerciseId')?.value;
+    const exercise = this.allExercises.find(arr => arr.exerciseId == exerciseId);
     this.exercises.at(index).get('category')?.setValue(exercise?.category)
   }
 
@@ -120,7 +119,7 @@ export class WorkoutFormComponent implements OnInit {
   }
 
   onChooseTemplate(id: number): void {
-    const template = this.allTemplates.find(t => t.templateId = id);
+    const template = this.allTemplates.find(t => t.templateId == id);
     
     this.workoutForm = this.fb.group({
       name: [template?.name || '', Validators.required],
@@ -137,11 +136,10 @@ export class WorkoutFormComponent implements OnInit {
         this.addExercise(ex)
         this.onCategoryChange(index)
       });
-    } else {
-      this.addExercise();
+    } 
+    else {
+      this.addExercise()
     }
-
-
   }
 
   onSaveTemplate(): void {
@@ -151,6 +149,7 @@ export class WorkoutFormComponent implements OnInit {
       this.workoutTemplateService.createWorkoutTemplate(data).subscribe({
         next: () => {
           this.snackBar.open('Workout template saved successfully!', "Close", {duration: 3000});
+          this.allTemplates.push(data)
         },
         error: err => {
           console.error(err);
@@ -163,8 +162,7 @@ export class WorkoutFormComponent implements OnInit {
   onSubmit(): void {
 
     if (this.workoutForm.valid) {
-      const { dateOnly, timeOnly, ...rest } = this.workoutForm.value;
-      debugger
+      const { dateOnly, timeOnly, template, ...rest } = this.workoutForm.value;
       const hours = timeOnly.getHours()
       const minutes = timeOnly.getMinutes()
       const combinedDate = new Date(dateOnly);
@@ -174,6 +172,7 @@ export class WorkoutFormComponent implements OnInit {
       const payload : Workout = {
         ...rest,
         date: combinedDate.toISOString(),  // send ISO string with timezone
+        workoutId: this.initialData?.workoutId
       };
 
       this.submitWorkout.emit(payload);

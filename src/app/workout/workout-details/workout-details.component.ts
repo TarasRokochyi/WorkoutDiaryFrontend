@@ -28,7 +28,6 @@ export class WorkoutDetailsComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.workoutService.getWorkoutById(id).subscribe({
       next: (data) => {
-        debugger
         this.workout = data;
         this.loading = false;
       },
@@ -44,13 +43,11 @@ export class WorkoutDetailsComponent implements OnInit {
   }
 
   onSave(data: Workout): void {
-    debugger
     if (!this.workout) return;
     
     // here data: Workout, but it maps to WorkoutRequestDTO automatically
     this.workoutService.updateWorkout(data.workoutId, data).subscribe({
       next: (updated) => {
-        debugger
         this.workout = updated;
         this.editing = false;
         this.snackBar.open('Workout updated successfully!', "Close", {duration: 3000});

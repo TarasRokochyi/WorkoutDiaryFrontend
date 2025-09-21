@@ -19,6 +19,7 @@
       <mat-list>
         <mat-list-item *ngFor="let ex of workout.workoutExercises">
           <strong>{{ ex.exercise.name }}</strong> ({{ ex.exercise.category }}) —
+          {{ ex.exercise.name }}
           <ng-container [ngSwitch]="ex.exercise.category">
             <span *ngSwitchCase="'Strength'">
               Sets: {{ ex.sets }}, Reps: {{ ex.reps }}, Weight: {{ ex.weight }}kg

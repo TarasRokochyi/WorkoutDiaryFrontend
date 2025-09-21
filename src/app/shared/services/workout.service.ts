@@ -17,6 +17,7 @@ export class WorkoutService {
   }
 
   updateWorkout(id: number, workout: WorkoutRequestDTO): Observable<Workout> {
+    debugger
     return this.http.put<any>(this.createCompleteRoute(`workout/${id}`, this.envUrl.apiUrlAddress), workout);
   }
 
