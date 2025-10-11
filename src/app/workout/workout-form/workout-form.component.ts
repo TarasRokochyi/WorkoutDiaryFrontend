@@ -4,7 +4,7 @@ import { Workout, WorkoutRequestDTO } from '../../_interfaces/workout.model';
 import { Exercise } from '../../_interfaces/exercise.model';
 import { ExerciseService } from '../../shared/services/exercise.service';
 import { firstValueFrom } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { WorkoutTemplateService } from '../../shared/services/workout-template.service';
 import { WorkoutTemplate } from '../../_interfaces/workout-template.model';
@@ -34,7 +34,8 @@ export class WorkoutFormComponent implements OnInit {
               private exerciseService: ExerciseService, 
               private workoutTemplateService: WorkoutTemplateService, 
               private router: Router, 
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar,
+              public activatedRoute: ActivatedRoute) { }
 
   ngOnInit() : void {
 
@@ -56,6 +57,15 @@ export class WorkoutFormComponent implements OnInit {
       template: [this.allTemplates],
       workoutExercises: this.fb.array([]),
     });
+
+    this.activatedRoute.queryParams.subscribe((params) => {
+      let date = params["date"]
+      if(date){
+        let dateWithTime = new Date(date)
+        this.workoutForm.get('dateOnly')?.setValue(dateWithTime)
+        this.workoutForm.get('timeOnly')?.setValue(dateWithTime)
+      }
+    })
 
     firstValueFrom(this.exerciseService.getExercises()).then(data => {
       this.allExercises = data;

@@ -1,3 +1,199 @@
-<p>calendar works!</p>
+<div class="container" cdkDropListGroup>
+  <div class="calendar-container">
+    <div class="calendar-header">
+      <div>
+        <h2
+          class="calendar-month"
+          *ngIf="currentView === 'month' || currentView === 'week'"
+        >
+          {{ viewDate | date : "MMMM" }}
+          <span>{{ viewDate | date : "y" }}</span>
+        </h2>
+        <h2 class="calendar-month" *ngIf="currentView === 'day'">
+          {{ viewDate | date : "d MMMM" }}
+          <span>{{ viewDate | date : "y" }}</span>
+        </h2>
+        <span class="calendar-dayname" *ngIf="currentView === 'day'">
+          {{ viewDate | date : "EEEE" }}
+        </span>
+      </div>
+      <mat-button-toggle-group
+        class="calendar-view-toggle"
+        name="currentView"
+        (change)="switchToView($event.value)"
+        aria-label="Calendar-View"
+      >
+        <mat-button-toggle checked="{{ true }}" value="{{ CalendarView.Month }}"
+          >Month</mat-button-toggle
+        >
+        <mat-button-toggle value="{{ CalendarView.Week }}"
+          >Week</mat-button-toggle
+        >
+        <mat-button-toggle value="{{ CalendarView.Day }}"
+          >Day</mat-button-toggle
+        >
+      </mat-button-toggle-group>
+      <div class="calendar-controls">
+        <button
+          mat-icon-button
+          (click)="previous()"
+          (keydown.enter)="previous()"
+          (keydown.space)="previous()"
+        >
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button
+          mat-stroked-button
+          (click)="viewToday()"
+          (keydown.enter)="viewToday()"
+          (keydown.space)="viewToday()"
+        >
+          Today
+        </button>
+        <button
+          mat-icon-button
+          (click)="next()"
+          (keydown.enter)="next()"
+          (keydown.space)="next()"
+        >
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+        <button
+          mat-flat-button
+          [routerLink]="['/create-workout']"
+        >
+          Create Workout
+        </button>
+      </div>
+    </div>
 
-<button mat-button (click)="ontestclick()">Basic</button>
+    <!-- Month @start -->
+    <table
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      class="calendar-view-month"
+      *ngIf="currentView === 'month'"
+    >
+      <thead>
+        <tr>
+          <th *ngFor="let day of weekDays">
+            {{ day }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let week of weeks">
+          <td
+            *ngFor="let date of week"
+            [class.today]="isToday(date)"
+            [ngStyle]="{ opacity: isCurrentMonth(date) ? '1' : '0.5' }"
+          >
+            <div
+              (click)="routeToCreateWorkout(date)"
+              class="cell-overlay"
+              tabindex="0"
+            ></div>
+            <div class="date">
+              {{ date.getDate() }}
+            </div>
+            <div class="appointments">
+              <ng-container *ngFor="let workout of workouts">
+                <div
+                  tabindex="0"
+                  *ngIf="isSameDate(workout.date, date)"
+                  class="appointment"
+                  [ngStyle]="{ 'background-color': workout.color }"
+                  [routerLink]="['/workouts', workout.workoutId]"
+                >
+                  <span>{{ workout.name }}</span>
+                </div>
+              </ng-container>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Month @end -->
+
+    <!-- Week View -->
+    <table
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      class="calendar-view-week"
+      *ngIf="currentView === 'week'"
+    >
+      <thead>
+        <tr>
+          <th></th>
+          <th *ngFor="let day of weekDays; index as i">
+            {{ day }} {{ monthDays[i].getDate() }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let timeSlot of timeSlots">
+          <td [width]="10" class="calendar-slot-cell">
+            <span>{{ timeSlot }}</span>
+          </td>
+          <td
+            *ngFor="let day of weekDays; index as i"
+          >
+            <div
+              (click)="routeToCreateWorkout(monthDays[i], timeSlot)"
+              class="cell-overlay"
+              tabindex="0"
+            ></div>
+            <div
+              tabindex="0"
+              *ngFor="
+                let workout of getAppointmentsForDateTime( monthDays[i], timeSlot)
+              "
+              class="appointment"
+              [ngStyle]="{ 'background-color': workout.color }"
+              [routerLink]="['/workouts', workout.workoutId]"
+            >
+              <span>{{ workout.name }}</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Day View -->
+    <table
+      width="100%"
+      cellspacing="0"
+      cellpadding="0"
+      class="calendar-view-day"
+      *ngIf="currentView === 'day'"
+    >
+      <tbody>
+        <tr *ngFor="let slot of timeSlots">
+          <td [width]="10" class="calendar-slot-cell">
+            <span>{{ slot }}</span>
+          </td>
+          <td>
+            <div
+              (click)="routeToCreateWorkout(monthDays[0], slot)"
+              class="cell-overlay"
+              tabindex="0"
+            ></div>
+            <div
+              tabindex="0"
+              *ngFor="
+                let workout of getAppointmentsForDateTime( monthDays[0], slot)
+              "
+              class="appointment"
+              [ngStyle]="{ 'background-color': workout.color }"
+              [routerLink]="['/workouts', workout.workoutId]"
+            >
+              <span>{{ workout.name }}</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

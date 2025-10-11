@@ -16,3 +16,14 @@ export interface Workout {
   notes?: string;
   workoutExercises: WorkoutExerciseResponse[];
 }
+
+export interface WorkoutShort{
+  workoutId: number
+  name: string;
+  date: Date;
+  duration: number;
+  notes?: string;
+  color?: string;
+  startTime: string;
+  endTime: string;
+}

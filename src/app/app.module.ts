@@ -45,6 +45,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ExerciseFieldComponent } from './workout/exercise-field/exercise-field.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import {
+  MatButtonToggle,
+  MatButtonToggleGroup,
+} from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -64,7 +71,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     UserProfileComponent,
     ChangePasswordDialogComponent,
     CreateCustomExerciseComponent,
-    ExerciseFieldComponent
+    ExerciseFieldComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +98,10 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     MatProgressSpinnerModule,
     MatAutocompleteModule,
     AutocompleteLibModule,
+    CommonModule,
+    MatButtonToggleGroup,
+    MatButtonToggle,
+    DragDropModule,
   ],
   providers: [
     {

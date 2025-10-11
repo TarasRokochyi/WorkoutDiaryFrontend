@@ -24,7 +24,8 @@ export class WorkoutCreateComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
+    
   }
 
   onCreate(data: WorkoutRequestDTO): void {

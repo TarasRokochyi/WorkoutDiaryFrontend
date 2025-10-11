@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkoutService } from '../../shared/services/workout.service';
-import { Workout } from '../../_interfaces/workout.model';
+import { Workout, WorkoutShort } from '../../_interfaces/workout.model';
 
 @Component({
   selector: 'app-view-workouts',
@@ -10,7 +10,7 @@ import { Workout } from '../../_interfaces/workout.model';
 })
 
 export class ViewWorkoutsComponent implements OnInit {
-  workouts: Workout[] = [];
+  workouts: WorkoutShort[] = [];
   loading = true;
 
   constructor(private workoutService: WorkoutService) {}

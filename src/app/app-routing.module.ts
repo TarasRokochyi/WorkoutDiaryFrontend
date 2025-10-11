@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'workouts/:id', component: WorkoutDetailsComponent },
   { path: 'profile', component: UserProfileComponent},
   { path: 'create-custom-exercise', component: CreateCustomExerciseComponent},
+  { path: 'calendar', component: CalendarComponent},
   //{ path: 'create-custom-template', component: CreateCustomExerciseComponent},
   //{ path: "**", redirectTo: 'create-workout'},
 ];
