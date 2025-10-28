@@ -48,10 +48,12 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {
-  MatButtonToggle,
-  MatButtonToggleGroup,
-} from '@angular/material/button-toggle';
+import { MatButtonToggle, MatButtonToggleGroup, } from '@angular/material/button-toggle';
+import { provideCharts, withDefaultRegisterables, BaseChartDirective } from 'ng2-charts';
+import { TotalVolumeChartComponent } from './progress/charts/total-volume-chart/total-volume-chart.component';
+import { DashboardComponent } from './progress/dashboard/dashboard.component';
+import { MaxWeightChartComponent } from './progress/charts/max-weight-chart/max-weight-chart.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -72,6 +74,9 @@ import {
     ChangePasswordDialogComponent,
     CreateCustomExerciseComponent,
     ExerciseFieldComponent,
+    TotalVolumeChartComponent,
+    DashboardComponent,
+    MaxWeightChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,6 +107,8 @@ import {
     MatButtonToggleGroup,
     MatButtonToggle,
     DragDropModule,
+    BaseChartDirective,
+    FormsModule,
   ],
   providers: [
     {
@@ -117,6 +124,7 @@ import {
     },
     MatDatepickerModule,
     MatNativeDateModule,
+    provideCharts(withDefaultRegisterables()),
   ],
   bootstrap: [AppComponent]
 })

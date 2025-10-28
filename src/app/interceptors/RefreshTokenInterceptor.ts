@@ -1,6 +1,6 @@
 import { Injectable, Injector } from "@angular/core";
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http"
-import { catchError, Observable, of, throwError } from "rxjs";
+import { catchError, Observable, of, switchMap, throwError } from "rxjs";
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { __importDefault } from "tslib";
 import { Route, Router } from "@angular/router";
@@ -9,33 +9,43 @@ import { AuthService } from "../shared/services/auth.service";
 @Injectable()
 export class RefreshTokenInterceptor implements HttpInterceptor{
 
-    constructor(private inject: Injector, private router: Router, private _snackBar: MatSnackBar){}
-    ctr = 0
+    constructor(private inject: Injector){}
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-        return next.handle(req).pipe(catchError(x => this.handleAuthError(x)));
-    }
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      catchError((x: HttpErrorResponse) => {
+        debugger
+        if (x.status === 401) {
+          return this.handleAuthError(x, req, next);
+        }
+        return throwError(() => x);
+      })
+    );
+  }
 
-    private handleAuthError(err: HttpErrorResponse): Observable<any>{
-        if (err && err.status === 401 && this.ctr != 1){
-            this.ctr++
-            let service = this.inject.get(AuthService)
-            service.refreshToken().subscribe({
-                next: (x:any) => {
-                    //this._snackBar.open("tokens refreshed, try again", "Close", {duration: 3000})
-                    this.router.navigate([this.router.url])
-                    this.ctr = 0;
-                    return of("We refreshed the token");
-                },
-                error: (err:any) => {
-                    service.revokeToken()
-                }
-            });
-            return of("attemitng to refresh tokens")
+  private handleAuthError(err: HttpErrorResponse, req: HttpRequest<any>, next: HttpHandler): Observable<any> {
+    const service = this.inject.get(AuthService);
+
+    return service.refreshToken().pipe(
+      switchMap(() => {
+        const newToken = localStorage.getItem('token');
+        if (newToken) {
+          const cloned = req.clone({
+            setHeaders: {
+              Authorization: `Bearer ${newToken}`,
+            },
+          });
+          return next.handle(cloned);
+        } else {
+          service.revokeToken();
+          return throwError(() => 'Token refresh failed');
         }
-        else{
-            this.ctr = 0
-            return throwError(() => new Error("Error: " + err.message))
-        }
-    }
+      }),
+      catchError((refreshErr: any) => {
+        service.revokeToken();
+        return throwError(() => refreshErr);
+      })
+    );
+  }
 }
+

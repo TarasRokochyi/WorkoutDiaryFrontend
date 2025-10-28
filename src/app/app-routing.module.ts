@@ -9,6 +9,7 @@ import { ViewWorkoutsComponent } from './workout/view-workouts/view-workouts.com
 import { WorkoutDetailsComponent } from './workout/workout-details/workout-details.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CreateCustomExerciseComponent } from './create-custom-exercise/create-custom-exercise.component';
+import { DashboardComponent } from './progress/dashboard/dashboard.component';
 
 const routes: Routes = [
   //{ path: 'calendar', component: CalendarComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'profile', component: UserProfileComponent},
   { path: 'create-custom-exercise', component: CreateCustomExerciseComponent},
   { path: 'calendar', component: CalendarComponent},
+  { path: 'dashboard', component: DashboardComponent},
   //{ path: 'create-custom-template', component: CreateCustomExerciseComponent},
   //{ path: "**", redirectTo: 'create-workout'},
 ];

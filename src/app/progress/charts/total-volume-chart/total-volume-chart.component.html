@@ -1,0 +1,32 @@
+<mat-card>
+  <h2>Total Volume Progress</h2>
+
+  <div class="filter-row">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Exercise</mat-label>
+      <mat-select [(ngModel)]="selectedExercise">
+        <mat-option *ngFor="let ex of allExercises" [value]="ex.name">{{ ex.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" [(ngModel)]="startDate">
+        <input matEndDate placeholder="End date" [(ngModel)]="endDate">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="filterWorkouts()">Apply</button>
+  </div>
+
+  <canvas baseChart
+    [data]="chartData"
+    [options]="chartOptions"
+    [type]="'line'">
+  </canvas>
+</mat-card>

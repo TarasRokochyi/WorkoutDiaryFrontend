@@ -15,3 +15,19 @@ export interface WorkoutExerciseResponse extends WorkoutExerciseRequestDTO {
   workoutExerciseId: number;
   exercise: Exercise;
 }
+export interface WorkoutExerciseVolume {
+  workoutExerciseId: number;
+  exerciseId?: number | null;
+  date: Date;
+  volume: number;
+  exercise: Exercise;
+}
+
+export interface WorkoutExerciseMaxWeight {
+  workoutExerciseId: number;
+  exerciseId?: number | null;
+  date: Date;
+  maxWeight: number;
+  name: string;
+  category: string;
+}

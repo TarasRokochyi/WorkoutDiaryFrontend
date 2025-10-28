@@ -44,6 +44,7 @@ export class AuthService {
     return this.http.post<Authentication>(this.createCompleteRoute("user/refresh-token", this.envUrl.apiUrlAddress), {RefreshToken: localStorage.getItem('refreshToken')} )
     .pipe(
       tap((res: Authentication) => {
+        debugger
         localStorage.setItem('token', res.token)
         localStorage.setItem('refreshToken', res.refreshToken)
       })
