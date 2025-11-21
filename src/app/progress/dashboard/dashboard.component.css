@@ -4,3 +4,56 @@
   gap: 2rem;
   padding: 2rem;
 }
+.kpi-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: #f5f7fa;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.kpi-icon {
+  color: #3f51b5;
+  font-size: 36px;
+}
+
+.kpi-content h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.kpi-content p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.chart-row {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping on small screens */
+  width: 100%;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.chart-row app-exercise-distribution-chart {
+  flex: 1 1 calc(50% - 1rem); /* each takes half of the row */
+  box-sizing: border-box;
+}
+
+.chart-row mat-card {
+  width: 100%;
+  height: 100%;
+}

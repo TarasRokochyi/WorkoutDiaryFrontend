@@ -1,0 +1,17 @@
+.chart-container {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+}
+
+h2 {
+    align-self: center;
+}

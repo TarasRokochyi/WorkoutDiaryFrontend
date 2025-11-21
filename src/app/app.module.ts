@@ -54,6 +54,7 @@ import { TotalVolumeChartComponent } from './progress/charts/total-volume-chart/
 import { DashboardComponent } from './progress/dashboard/dashboard.component';
 import { MaxWeightChartComponent } from './progress/charts/max-weight-chart/max-weight-chart.component';
 import { FormsModule } from '@angular/forms';
+import { ExerciseDistributionChartComponent } from './progress/charts/exercise-distribution-chart/exercise-distribution-chart.component';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { FormsModule } from '@angular/forms';
     TotalVolumeChartComponent,
     DashboardComponent,
     MaxWeightChartComponent,
+    ExerciseDistributionChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -111,9 +113,9 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true
     },

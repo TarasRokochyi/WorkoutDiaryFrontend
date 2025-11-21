@@ -1,4 +1,18 @@
+<div class="kpi-container">
+  <mat-card *ngFor="let kpi of kpis" class="kpi-card">
+    <mat-icon class="kpi-icon">{{ kpi.icon }}</mat-icon>
+    <div class="kpi-content">
+      <h3>{{ kpi.title }}</h3>
+      <p>{{ kpi.value }}</p>
+    </div>
+  </mat-card>
+</div>
+
 <div class="dashboard">
   <app-total-volume-chart></app-total-volume-chart>
   <app-max-weight-chart></app-max-weight-chart>
+  <div class="chart-row">
+    <app-exercise-distribution-chart></app-exercise-distribution-chart>
+    <app-exercise-distribution-chart></app-exercise-distribution-chart>
+  </div>
 </div>
