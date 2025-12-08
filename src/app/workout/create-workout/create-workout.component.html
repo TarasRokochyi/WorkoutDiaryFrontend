@@ -1,4 +1,5 @@
  <app-workout-form
+  [initialData]="workout"
   [submitLabel]="'Create Workout'"
   (submitWorkout)="onCreate($event)"
   (cancelWorkout)="onCancel()">

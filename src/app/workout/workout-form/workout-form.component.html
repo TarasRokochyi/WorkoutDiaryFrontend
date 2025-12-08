@@ -113,6 +113,19 @@
             </div>
         </ng-container>
 
+          <ng-container *ngIf="exercises.at(i).get('category')?.value === 'Static'">
+            <div class="row">
+            <mat-form-field class="half-width" appearance="fill">
+                <mat-label>Duration (min)</mat-label>
+                <input matInput type="number" formControlName="duration" />
+            </mat-form-field>
+            <mat-form-field class="half-width" appearance="fill">
+                <mat-label>Sets</mat-label>
+                <input matInput type="number" formControlName="sets" />
+            </mat-form-field>
+            </div>
+        </ng-container>
+
         <div class="button-row">
             <button mat-icon-button color="warn" type="button" (click)="removeExercise(i)">
             <mat-icon>delete</mat-icon>

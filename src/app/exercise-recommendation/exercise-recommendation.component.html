@@ -1,0 +1,78 @@
+<!-- src/app/equipment-upload/equipment-upload.component.html -->
+<div class="uploader-card">
+  <h2>Upload equipment photo</h2>
+
+  <div class="drop-area"
+       (drop)="onDrop($event)"
+       (dragover)="onDragOver($event)">
+    <input id="file" type="file" accept="image/*" (change)="onFileSelected($event)" />
+    <label for="file" class="file-label">
+      <div *ngIf="!previewSrc" class="placeholder">
+        Drag & drop an image here, or click to select
+      </div>
+
+      <img *ngIf="previewSrc" [src]="previewSrc" alt="preview" class="preview" />
+    </label>
+  </div>
+
+  <div class="controls">
+    <button class="btn" (click)="upload()" [disabled]="!selectedFile || loading">
+      {{ loading ? 'Uploading...' : 'Upload & Analyze' }}
+    </button>
+  </div>
+
+  <div class="status" *ngIf="error">
+    <div class="error">{{ error }}</div>
+  </div>
+
+  <div class="results" *ngIf="recommendations.length !=0 && !loading">
+    <h3>Detected equipment</h3>
+    <div class="tags">
+      <span class="tag" *ngFor="let eq of equipments">{{ eq }}</span>
+    </div>
+
+
+<h3>Suggested Exercises</h3>
+
+<div *ngIf="recommendations.length === 0" class="no-suggestions">
+  No suggestions returned.
+</div>
+
+<!-- Sticky bulk actions toolbar -->
+<div class="bulk-toolbar" *ngIf="recommendations.length > 0">
+  <label class="select-all">
+    <input type="checkbox"
+           [(ngModel)]="selectAllChecked"
+           (change)="toggleSelectAll()" />
+    <span>Select all</span>
+  </label>
+
+  <button class="btn primary"
+          (click)="addSelectedExercises()"
+          [disabled]="selectedExercises.length === 0">
+    Add Selected ({{ selectedExercises.length }})
+  </button>
+</div>
+
+<div class="exercise-list">
+  <div class="exercise-card" *ngFor="let s of recommendations">
+    <div class="left">
+      <input type="checkbox"
+             class="select-box"
+             [checked]="isSelected(s)"
+             (change)="toggleExerciseSelection(s)" />
+
+      <div class="exercise-info">
+        <strong class="exercise-name">{{ s.exercise.name }}</strong>
+        <small class="equipment-name">{{ s.equipmentName }}</small>
+      </div>
+    </div>
+
+    <div class="right">
+      <button class="btn small ghost"
+              (click)="addExerciseToWorkout(s)">
+        Add
+      </button>
+    </div>
+  </div>
+</div>

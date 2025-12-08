@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Exercise } from '../../_interfaces/exercise.model';
 import { EnvironmentUrlService } from './environment-url.service';
 
@@ -23,6 +23,31 @@ export class ExerciseService {
   getExerciseById(id: number): Observable<Exercise> {
     return this.http.get<Exercise>(this.createCompleteRoute(`exercise/${id}`, this.envUrl.apiUrlAddress));
   }
+
+  uploadImage(file: File): Observable<any> {
+
+    const form = new FormData();
+    form.append('image', file, file.name);
+
+    return this.http.post<any>(this.createCompleteRoute("exercise/exercise-recommendation", this.envUrl.apiUrlAddress), form)
+    // .pipe(
+    //   // you can add transformation here if your backend returns a different shape
+    //   map(resp => resp)
+    // );
+  }
+
+  private selectedExercisesSubject = new BehaviorSubject<Exercise[]>([]);
+  selectedExercises$ = this.selectedExercisesSubject.asObservable();
+
+  setSelectedExercises(exercises: Exercise[]) {
+    debugger
+    this.selectedExercisesSubject.next(exercises);
+  }
+
+  resetSelectedExercises() {
+    this.selectedExercisesSubject.next([]);
+  }
+
 
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}${route}`;

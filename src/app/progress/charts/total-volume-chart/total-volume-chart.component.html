@@ -6,7 +6,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Exercise</mat-label>
       <mat-select [(ngModel)]="selectedExercise">
-        <mat-option *ngFor="let ex of allExercises" [value]="ex.name">{{ ex.name }}</mat-option>
+        <mat-option *ngFor="let ex of allExercises" [value]="ex">{{ ex }}</mat-option>
       </mat-select>
     </mat-form-field>
     

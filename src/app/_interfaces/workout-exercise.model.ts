@@ -20,6 +20,7 @@ export interface WorkoutExerciseVolume {
   exerciseId?: number | null;
   date: Date;
   volume: number;
+  name: string;
   exercise: Exercise;
 }
 

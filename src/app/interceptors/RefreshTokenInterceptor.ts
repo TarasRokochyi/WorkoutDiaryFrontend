@@ -52,7 +52,6 @@ export class RefreshTokenInterceptor implements HttpInterceptor{
         const authService = this.inject.get(AuthService);
         const token = authService.getAccessToken();
 
-        debugger
         let authReq = req;
         if (token) {
 
@@ -70,10 +69,8 @@ export class RefreshTokenInterceptor implements HttpInterceptor{
         // This handles the edge case where a refresh just finished, but the new token
         // isn't available yet.
         if (authService.getRefreshTokenInProgress()) {
-            debugger
             return authService.getRefreshTokenStream().pipe(
             switchMap((newToken) => {
-                debugger
 
                 const retriedReq = req.clone({
                     headers: req.headers.set("Authorization",

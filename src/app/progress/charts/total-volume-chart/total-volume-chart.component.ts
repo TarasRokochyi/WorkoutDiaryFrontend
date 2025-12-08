@@ -21,7 +21,8 @@ export class TotalVolumeChartComponent implements OnInit{
   endDate: Date | null = null;
   selectedExercise: string = '';
 
-  allExercises: Exercise[];
+  // allExercises: Exercise[];
+  allExercises: string[] = [];
 
   exerciseVolume: WorkoutExerciseVolume[];
 
@@ -64,9 +65,23 @@ export class TotalVolumeChartComponent implements OnInit{
     firstValueFrom(this.chartService.getExercisesVolume()).then(data => {
       this.exerciseVolume = data;
 
+      // this.allExercises = Array.from(
+      //   new Map(this.exerciseVolume.map(x => [x.exercise.exerciseId, x.exercise])).values()
+      // );
+
       this.allExercises = Array.from(
-        new Map(this.exerciseVolume.map(x => [x.exercise.exerciseId, x.exercise])).values()
+        new Map(this.exerciseVolume.map(x => [x.name, x.name])).values()
       );
+
+      if (this.allExercises.length > 0) {
+        const randomIndex = Math.floor(Math.random() * this.allExercises.length);
+        this.selectedExercise = this.allExercises[randomIndex];
+        this.startDate = new Date()
+        this.endDate = new Date()
+
+        this.startDate.setMonth(this.startDate.getMonth() - 1)
+        this.filterWorkouts()
+      }
     })
 
 
@@ -77,7 +92,7 @@ export class TotalVolumeChartComponent implements OnInit{
     let filtered = this.exerciseVolume;
 
     if (this.selectedExercise)
-      filtered = filtered.filter(e => e.exercise.name === this.selectedExercise);
+      filtered = filtered.filter(e => e.name === this.selectedExercise);
 
     if (this.startDate && this.endDate)
       filtered = filtered.filter(e => new Date(e.date) >= this.startDate! && new Date(e.date) <= this.endDate!);
@@ -89,7 +104,6 @@ export class TotalVolumeChartComponent implements OnInit{
   updateChart(data: WorkoutExerciseVolume[]): void {
     const labels = data.map(e => new Date(e.date).toLocaleDateString());
     const volumes = data.map(e => e.volume);
-    debugger
 
     this.chartData = {
       labels,

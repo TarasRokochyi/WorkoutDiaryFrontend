@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CreateCustomExerciseComponent implements OnInit {
   exerciseForm!: FormGroup;
-  categories: string[] = ['Strength', 'Cardio', 'Flexibility', 'Balance'];
+  categories: string[] = ['Strength', 'Cardio', 'Static'];
 
 
   constructor(

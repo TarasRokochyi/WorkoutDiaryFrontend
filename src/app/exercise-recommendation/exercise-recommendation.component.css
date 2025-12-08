@@ -1,0 +1,168 @@
+/* src/app/equipment-upload/equipment-upload.component.css */
+.uploader-card{
+  max-width:720px;
+  margin:24px auto;
+  padding:18px;
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  background:#fff;
+  font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.drop-area{
+  border:2px dashed #d0d7de;
+  border-radius:8px;
+  padding:18px;
+  text-align:center;
+  position:relative;
+  cursor:pointer;
+  transition:background .15s ease;
+}
+.drop-area:hover{ background:#fbfbfd; }
+.drop-area input[type="file"]{
+  display:none;
+}
+.file-label{ display:block; min-height:140px; }
+.placeholder{
+  color:#6b7280;
+  padding:20px;
+}
+.preview{
+  display:block;
+  max-height:300px;
+  max-width:100%;
+  margin:0 auto;
+  object-fit:contain;
+  border-radius:6px;
+}
+.controls{ margin-top:12px; display:flex; gap:8px; justify-content:flex-start; }
+.btn{
+  padding:8px 14px;
+  border-radius:8px;
+  border:0;
+  background:#2563eb;
+  color:#fff;
+  cursor:pointer;
+}
+.btn[disabled]{ opacity:.6; cursor:not-allowed; }
+.btn.small{
+  padding:6px 10px;
+  font-size:0.9rem;
+  background:#10b981;
+}
+.status .error{ color:#dc2626; margin-top:8px; }
+
+.results{ margin-top:18px; }
+.tags{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+.tag{ background:#eef2ff; color:#3730a3; padding:6px 10px; border-radius:999px; font-weight:600; }
+
+/* .suggestions{ list-style:none; padding:0; margin:0; }
+.suggestions li{ display:flex; justify-content:space-between; align-items:center; padding:12px; border-bottom:1px solid #f1f5f9; }
+.meta{ color:#6b7280; font-size:0.9rem; }
+.left{ display:flex; flex-direction:column; gap:6px; }
+.right{ display:flex; gap:8px; align-items:center; } */
+
+/* NEW SUGGESTIONS UI */
+
+/* No suggestions */
+.no-suggestions {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Bulk toolbar */
+.bulk-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f6f6f9;
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.bulk-toolbar .select-all {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+/* Exercise list */
+.exercise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Individual card */
+.exercise-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #e2e2e2;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.exercise-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+/* Left section */
+.exercise-card .left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.select-box {
+  width: 18px;
+  height: 18px;
+}
+
+/* Text */
+.exercise-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise-name {
+  font-size: 15px;
+}
+
+.equipment-name {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Ghost button */
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #bbb;
+  color: #333;
+}
+
+.btn.ghost:hover {
+  background: #eee;
+}
+
+/* Primary button */
+.btn.primary {
+  background: #0069ff;
+  color: white;
+  border: none;
+}
+
+.btn.primary:disabled {
+  background: #9bbdff;
+  cursor: not-allowed;
+}

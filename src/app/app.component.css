@@ -5,11 +5,17 @@
   flex-direction: row;
 }
 
-.content {
+/* .content {
   flex-grow: 1;
 
   padding: 1rem;
-}
+} */
+ .content {
+  flex: 1;
+  min-width: 0;
+  padding: 1rem;
+  transition: all 0.25s ease;
+ }
 
 /* :host { */
   /* height: 100vh; */

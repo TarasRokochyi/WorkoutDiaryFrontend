@@ -7,11 +7,18 @@
   align-items: center;
 }
 
-canvas {
-  width: 100%;
-  height: auto;
-}
-
 h2 {
     align-self: center;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;     /* Critical fix */
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 400px;
 }

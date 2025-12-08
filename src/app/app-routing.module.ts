@@ -10,6 +10,7 @@ import { WorkoutDetailsComponent } from './workout/workout-details/workout-detai
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CreateCustomExerciseComponent } from './create-custom-exercise/create-custom-exercise.component';
 import { DashboardComponent } from './progress/dashboard/dashboard.component';
+import { ExerciseRecommendationComponent } from './exercise-recommendation/exercise-recommendation.component';
 
 const routes: Routes = [
   //{ path: 'calendar', component: CalendarComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'create-custom-exercise', component: CreateCustomExerciseComponent},
   { path: 'calendar', component: CalendarComponent},
   { path: 'dashboard', component: DashboardComponent},
+  { path: 'exercise-recommendation', component: ExerciseRecommendationComponent},
   //{ path: 'create-custom-template', component: CreateCustomExerciseComponent},
   //{ path: "**", redirectTo: 'create-workout'},
 ];

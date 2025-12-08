@@ -56,6 +56,16 @@ export class MaxWeightChartComponent implements OnInit {
       this.allExercises = Array.from(
         new Map(this.exercisesMaxWeight.map(x => [x.name, x.name])).values()
       );
+
+      if (this.allExercises.length > 0) {
+        const randomIndex = Math.floor(Math.random() * this.allExercises.length);
+        this.selectedExercise = this.allExercises[randomIndex];
+        this.startDate = new Date()
+        this.endDate = new Date()
+
+        this.startDate.setMonth(this.startDate.getMonth() - 1)
+        this.filterWorkouts()
+      }
     })
 
   }

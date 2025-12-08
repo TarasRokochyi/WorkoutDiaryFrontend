@@ -55,6 +55,7 @@ import { DashboardComponent } from './progress/dashboard/dashboard.component';
 import { MaxWeightChartComponent } from './progress/charts/max-weight-chart/max-weight-chart.component';
 import { FormsModule } from '@angular/forms';
 import { ExerciseDistributionChartComponent } from './progress/charts/exercise-distribution-chart/exercise-distribution-chart.component';
+import { ExerciseRecommendationComponent } from './exercise-recommendation/exercise-recommendation.component';
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import { ExerciseDistributionChartComponent } from './progress/charts/exercise-d
     DashboardComponent,
     MaxWeightChartComponent,
     ExerciseDistributionChartComponent,
+    ExerciseRecommendationComponent,
   ],
   imports: [
     BrowserModule,
