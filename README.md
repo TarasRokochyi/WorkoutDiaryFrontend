@@ -1,59 +1,70 @@
-# WorkoutDiaryFrontend
+# Physical Activity Analysis — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6.
+This repository contains the frontend for a physical activity analysis system that allows users to track workouts, visualize progress, and manage training schedules. The interface includes charts, calendar-based workout tracking, and equipment recognition features that support exercise recommendations.
 
-## Development server
+The application is built using **Angular** and communicates with the backend through a REST API.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- User authentication using JWT access and refresh tokens
+- Automatic token refresh using Angular interceptors
+- Workout diary management
+- Calendar-based workout scheduling
+- Progress visualization using charts
+- Exercise and workout template management
+- Equipment recognition interface (image upload)
+- Responsive user interface
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Technologies
 
-```bash
-ng generate component component-name
-```
+- Angular
+- TypeScript
+- Angular Interceptors
+- ng2-charts
+- JWT Authentication
+- REST API
+- Docker
+- GitHub CI/CD
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## Screenshots
 
-## Building
+### Workout Calendar
 
-To build the project run:
+Calendar interface for scheduling and tracking workouts.
 
-```bash
-ng build
-```
+![Calendar Screenshot](./screenshots/calendar.png)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+### Workout Statistics
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Charts showing workout progress and activity trends using **ng2-charts**.
 
-```bash
-ng test
-```
+![Statistics Screenshot](./screenshots/statistics.png)
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+### Workout Management
 
-```bash
-ng e2e
-```
+Interface for creating, editing, and managing workouts and workout templates.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+![Workout Screenshot](./screenshots/workout.png)
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Equipment Recognition
+
+Allows users to upload an image of available equipment and receive exercise recommendations.
+
+![Recognition Screenshot](./screenshots/recognition.png)
+
+---
+
+
+Link to WorkoutDiaryBackend - https://github.com/TarasRokochyi/WorkoutDiaryBackend
