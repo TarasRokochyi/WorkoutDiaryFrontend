@@ -1,69 +1,210 @@
-mat-card {
-  margin: 2rem auto;
-  padding: 2rem;
-  max-width: 800px;
-  background-color: #fafafa;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-h2 {
-  margin-bottom: 0.5rem;
-  color: #333;
-  font-size: 1.8rem;
-}
-
-p {
-  margin: 0.5rem 0;
-  font-size: 1rem;
-  color: #444;
-}
-
-h3 {
-  margin-top: 2rem;
-  font-size: 1.4rem;
-  color: #333;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 0.25rem;
-}
-
-mat-list {
-  margin-top: 1rem;
-}
-
-mat-list-item {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #eee;
-  font-size: 1rem;
+/* ── Outer wrapper — matches .dashboard ── */
+.detail-layout {
   display: flex;
   flex-direction: column;
-
-  strong {
-    font-weight: 600;
-    color: #2c3e50;
-  }
-
-  span {
-    margin-top: 0.25rem;
-    color: #555;
-  }
+  gap: 2rem;
+  padding: 2rem;
 }
 
-.loading-card,
-mat-card:last-child {
-  text-align: center;
-  font-size: 1.1rem;
-  color: #777;
-}
-
-
-.full-width {
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-.button-row {
+/* ── Header — matches .kpi-header ── */
+.detail-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ── Metadata grid — matches .kpi-container ── */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
-  margin-top: 1rem;
+}
+
+/* ── KPI card — copied from dashboard.component.css ── */
+.kpi-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.kpi-icon {
+  color: #3f51b5;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.kpi-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-content h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #666;
+}
+
+.kpi-content p {
+  margin: 0.35rem 0 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Notes tile spans remaining columns so long text doesn't get clipped */
+.notes-card {
+  grid-column: span 2;
+}
+
+/* Notes text is prose, not a KPI number */
+.notes-value {
+  font-size: 0.95rem !important;
+  font-weight: 400 !important;
+  color: #555 !important;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+/* ── Exercises ── */
+h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.exercise-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.exercise-list mat-card {
+  flex: 0 0 calc(33.333% - 0.667rem);
+  min-width: 400px;
+}
+
+/* Numbered avatar circle */
+.exercise-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3f51b5;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 50%;
+}
+
+/* card-content inner layout: stats+tags on the left, summary on the right */
+.card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Stats row — items sit close together on one line */
+.exercise-stats {
+  display: flex;
+  justify-content: flex-start;
+  gap: 2.5rem;
+  padding-top: 0.5rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* Muscle group tags */
+.muscle-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.muscle-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2em 0.65em;
+  border-radius: 99px;
+  background: #f5f5f5;
+  color: #555;
+  border: 1px solid #e0e0e0;
+}
+
+/* Computed summary — right side of the card */
+.summary-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.summary-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #3f51b5;
+  line-height: 1.2;
+  margin-top: 0.15rem;
+}
+
+/* ── Loading / not-found ── */
+.loading-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 5rem 2rem;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.state-icon {
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  color: #ccc;
+}
+
+@media (max-width: 600px) {
+  .detail-layout { padding: 1rem; }
+  .detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 }

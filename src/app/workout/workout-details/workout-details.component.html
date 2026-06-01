@@ -1,50 +1,160 @@
-<ng-container *ngIf="loading"> 
-  <mat-card>Loading workout...</mat-card> 
-  </ng-container> 
-<ng-container *ngIf="!loading && workout"> 
-  <mat-card>
-    <div *ngIf="!editing">
-      <h2>{{ workout.name }}</h2>
-      <p><strong>Date:</strong> {{ workout.date | date:'MMM d, y, hh:mm' }}</p>
-      <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
-      <p><strong>Notes:</strong> {{ workout.notes || "--"}}</p>
+<!-- Loading -->
+<div class="loading-wrapper" *ngIf="loading">
+  <mat-spinner diameter="48"></mat-spinner>
+  <p>Loading workout...</p>
+</div>
 
-      <div>
-        <button mat-stroked-button color="primary" (click)="toggleEdit()">Edit</button>
-        <button mat-stroked-button color="warn" (click)="onDelete()">Delete</button>
-      </div>
+<!-- View mode -->
+<div class="detail-layout" *ngIf="!loading && workout && !editing">
 
-
-      <h3>Exercises</h3>
-      <mat-list>
-        <mat-list-item *ngFor="let ex of workout.workoutExercises">
-          <strong>{{ ex.exercise.name }}</strong> ({{ ex.exercise.category }}) —
-          {{ ex.exercise.name }}
-          <ng-container [ngSwitch]="ex.exercise.category">
-            <span *ngSwitchCase="'Strength'">
-              Sets: {{ ex.sets }}, Reps: {{ ex.reps }}, Weight: {{ ex.weight }}kg
-            </span>
-            <span *ngSwitchCase="'Cardio'">
-              Distance: {{ ex.distance }} km, Duration: {{ ex.duration }} min
-            </span>
-            <span *ngSwitchDefault>Details not available</span>
-          </ng-container>
-        </mat-list-item>
-      </mat-list>
+  <!-- Header (mirrors kpi-header) -->
+  <div class="detail-header">
+    <h1>{{ workout.name }}</h1>
+    <div class="header-actions">
+      <button mat-stroked-button color="primary" (click)="toggleEdit()">
+        <mat-icon>edit</mat-icon>
+        Edit
+      </button>
+      <button mat-stroked-button color="warn" (click)="onDelete()">
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
     </div>
+  </div>
 
+  <!-- Metadata KPI cards + Notes in the same grid row -->
+  <div class="meta-grid">
 
-      <app-workout-form
-        *ngIf="editing"
-        [initialData]="workout"
-        [submitLabel]="'Update Workout'"
-        (submitWorkout)="onSave($event)"
-        (cancelWorkout)="toggleEdit()">
-      </app-workout-form>
+    <mat-card class="kpi-card">
+      <mat-icon class="kpi-icon">calendar_today</mat-icon>
+      <div class="kpi-content">
+        <h3>Date</h3>
+      </div>
+      <div class="kpi-content">
+        <p>{{ workout.date | date:'MMM d, y' }}</p>
+      </div>
+    </mat-card>
 
-  </mat-card>
-</ng-container>
+    <mat-card class="kpi-card">
+      <mat-icon class="kpi-icon">schedule</mat-icon>
+      <div class="kpi-content">
+        <h3>Time</h3>
+      </div>
+      <div class="kpi-content">
+        <p>{{ workout.date | date:'h:mm a' }}</p>
+      </div>
+    </mat-card>
 
-<ng-container *ngIf="!loading && !workout">
-  <mat-card>Workout not found.</mat-card>
-</ng-container>
+    <mat-card class="kpi-card">
+      <mat-icon class="kpi-icon">timer</mat-icon>
+      <div class="kpi-content">
+        <h3>Duration</h3>
+      </div>
+      <div class="kpi-content">
+        <p>{{ workout.duration }} min</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi-card notes-card" *ngIf="workout.notes">
+      <mat-icon class="kpi-icon">notes</mat-icon>
+      <div class="kpi-content">
+        <h3>Notes</h3>
+        <p class="notes-value">{{ workout.notes }}</p>
+      </div>
+    </mat-card>
+
+  </div>
+
+  <!-- Exercises -->
+  <div>
+    <h2>Exercises</h2>
+    <div class="exercise-list">
+
+      <mat-card *ngFor="let ex of workout.workoutExercises; let i = index">
+        <mat-card-header>
+          <div mat-card-avatar class="exercise-avatar">{{ i + 1 }}</div>
+          <mat-card-title>{{ ex.exercise.name }}</mat-card-title>
+          <mat-card-subtitle>{{ ex.exercise.category }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="card-body">
+
+            <div class="card-left">
+              <div class="exercise-stats">
+                <ng-container [ngSwitch]="ex.exercise.category">
+
+                  <ng-container *ngSwitchCase="'Strength'">
+                    <div class="stat-item">
+                      <span class="stat-label">Sets</span>
+                      <span class="stat-value">{{ ex.sets }}</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-label">Reps</span>
+                      <span class="stat-value">{{ ex.reps }}</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-label">Weight</span>
+                      <span class="stat-value">{{ ex.weight }} kg</span>
+                    </div>
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'Cardio'">
+                    <div class="stat-item">
+                      <span class="stat-label">Distance</span>
+                      <span class="stat-value">{{ ex.distance }} km</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-label">Duration</span>
+                      <span class="stat-value">{{ ex.duration }} min</span>
+                    </div>
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'Static'">
+                    <div class="stat-item">
+                      <span class="stat-label">Duration</span>
+                      <span class="stat-value">{{ ex.duration }} min</span>
+                    </div>
+                    <div class="stat-item">
+                      <span class="stat-label">Sets</span>
+                      <span class="stat-value">{{ ex.sets }}</span>
+                    </div>
+                  </ng-container>
+
+                </ng-container>
+              </div>
+
+              <div class="muscle-tags" *ngIf="getMuscleGroups(ex).length">
+                <span class="muscle-tag" *ngFor="let m of getMuscleGroups(ex)">{{ m }}</span>
+              </div>
+            </div>
+
+            <div class="summary-block" *ngIf="getExerciseSummary(ex) as summary">
+              <span class="stat-label">{{ summary.label }}</span>
+              <span class="summary-value">{{ summary.value }}</span>
+            </div>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Edit form -->
+<div class="detail-layout" *ngIf="!loading && workout && editing">
+  <app-workout-form
+    [initialData]="workout"
+    [submitLabel]="'Update Workout'"
+    (submitWorkout)="onSave($event)"
+    (cancelWorkout)="toggleEdit()">
+  </app-workout-form>
+</div>
+
+<!-- Not found -->
+<div class="loading-wrapper" *ngIf="!loading && !workout">
+  <mat-icon class="state-icon">fitness_center</mat-icon>
+  <p>Workout not found.</p>
+</div>
