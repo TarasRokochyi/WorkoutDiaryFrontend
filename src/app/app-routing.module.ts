@@ -13,7 +13,6 @@ import { DashboardComponent } from './progress/dashboard/dashboard.component';
 import { ExerciseRecommendationComponent } from './exercise-recommendation/exercise-recommendation.component';
 
 const routes: Routes = [
-  //{ path: 'calendar', component: CalendarComponent},
   { path: 'create-workout', component: WorkoutCreateComponent},
   { path: 'view-workouts', component: ViewWorkoutsComponent },
   { path: 'workouts/:id', component: WorkoutDetailsComponent },
@@ -22,7 +21,6 @@ const routes: Routes = [
   { path: 'calendar', component: CalendarComponent},
   { path: 'dashboard', component: DashboardComponent},
   { path: 'exercise-recommendation', component: ExerciseRecommendationComponent},
-  //{ path: 'create-custom-template', component: CreateCustomExerciseComponent},
   //{ path: "**", redirectTo: 'create-workout'},
 ];
 

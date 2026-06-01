@@ -1,14 +1,8 @@
-.dashboard {
+/* .dashboard {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 2rem;
-}
-.kpi-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
 }
 
 .kpi-card {
@@ -23,44 +17,157 @@
 
 .kpi-icon {
   color: #3f51b5;
-  font-size: 36px;
+  font-size: 24px;
 }
 
 .kpi-content h3 {
-  margin: 0;
+  margin: -5px;
   font-size: 1rem;
   color: #333;
 }
 
 .kpi-content p {
-  margin: 0;
+  margin: -5px;
   font-size: 1.1rem;
   font-weight: 600;
   color: #111;
 }
 
-/* Ensure flex children can shrink and grow correctly */
 .chart-row {
-  /* flex: 1 1 0;
-  min-width: 0;        /* IMPORTANT: allows charts to shrink on sidenav expand */
-  /* box-sizing: border-box;  */
               display: flex;
             justify-content: space-between;
 }
 
-/* Ensure all mat-cards inside charts also scale properly */
-/* .chart-row mat-card,
-app-total-volume-chart mat-card,
-app-max-weight-chart mat-card {
-  width: 100%;
-  min-width: 0;
-} */
 
-/* In case any chart host element has fixed size */
-/* .chart-row app-exercise-distribution-chart,
-app-total-volume-chart,
-app-max-weight-chart {
-  display: block;
-  width: 100%;
+.kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.period-selector {
+  width: 220px;
+}
+
+.kpi-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+ */
+
+
+
+
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  padding: 2rem;
+}
+
+/* HEADER */
+
+.kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.period-selector {
+  width: 220px;
+  flex-direction: unset;
+}
+
+/* TOP GRID */
+
+.overview-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+
+  gap: 2rem;
+
+  align-items: stretch;
+}
+
+.overview-layout > * {
   min-width: 0;
-} */
+}
+
+/* KPI COLUMN */
+
+.kpi-column {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+}
+
+/* KPI CARD */
+
+.kpi-card {
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+
+  padding: 1.25rem;
+}
+
+.kpi-icon {
+  color: #3f51b5;
+
+  font-size: 28px;
+
+  width: 28px;
+  height: 28px;
+}
+
+.kpi-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-content h3 {
+  margin: 0;
+
+  font-size: 0.95rem;
+
+  font-weight: 500;
+
+  color: #666;
+}
+
+.kpi-content p {
+  margin: 0.35rem 0 0;
+
+  font-size: 1.4rem;
+
+  font-weight: 700;
+
+  color: #111;
+}
+
+.chart-container {
+  min-height: 420px;
+  height: 100%;
+}
+
+
+.flex-graphs {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+
+  .overview-layout {
+    grid-template-columns: 1fr;
+  }
+
+}

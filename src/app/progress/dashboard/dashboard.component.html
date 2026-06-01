@@ -1,18 +1,74 @@
-<div class="kpi-container">
-  <mat-card *ngFor="let kpi of kpis" class="kpi-card">
-    <mat-icon class="kpi-icon">{{ kpi.icon }}</mat-icon>
-    <div class="kpi-content">
-      <h3>{{ kpi.title }}</h3>
-      <p>{{ kpi.value }}</p>
-    </div>
-  </mat-card>
-</div>
-
 <div class="dashboard">
-  <app-total-volume-chart></app-total-volume-chart>
-  <app-max-weight-chart></app-max-weight-chart>
-  <div class="chart-row">
-    <app-exercise-distribution-chart style="width: 48%;"></app-exercise-distribution-chart>
-    <!-- <app-exercise-distribution-chart style="width: 48%;"></app-exercise-distribution-chart> -->
+
+  <!-- HEADER -->
+  <div class="kpi-header">
+
+    <h1>Overview</h1>
+
+    <mat-form-field appearance="outline" class="period-selector">
+
+      <mat-label>Period</mat-label>
+
+      <mat-select [(value)]="selectedPeriod" (selectionChange)="onPeriodChange()">
+        <mat-option value="7"> Last 7 Days </mat-option>
+        <mat-option value="30"> Last 30 Days </mat-option>
+        <mat-option value="month"> This Month </mat-option>
+        <mat-option value="year"> This Year </mat-option>
+        <mat-option value="all"> All Time </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+
   </div>
+
+
+
+  <!-- TOP SECTION -->
+  <div class="overview-layout">
+
+    <!-- KPI COLUMN -->
+    <div class="kpi-column">
+
+      <mat-card *ngFor="let kpi of kpis" class="kpi-card">
+
+        <mat-icon class="kpi-icon"> {{ kpi.icon }} </mat-icon>
+
+        <div class="kpi-content"> <h3>{{ kpi.title }}</h3> </div>
+        <div class="kpi-content"> <p>{{ kpi.value }}</p> </div>
+
+      </mat-card>
+
+    </div>
+
+    <!-- DISTRIBUTION CHART -->
+    <div class="chart-container">
+
+      <mat-card>
+        <app-exercise-distribution-chart>
+        </app-exercise-distribution-chart>
+      </mat-card>
+
+    </div>
+
+  </div>
+
+  <div>
+    <app-workout-heatmap>
+
+    </app-workout-heatmap>
+
+  </div>
+
+  <div class="flex-graphs">
+    <!-- FULL WIDTH CHARTS -->
+
+      <app-total-volume-chart>
+      </app-total-volume-chart>
+
+
+      <app-max-weight-chart>
+      </app-max-weight-chart>
+
+  </div>
+
 </div>

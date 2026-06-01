@@ -56,6 +56,8 @@ import { MaxWeightChartComponent } from './progress/charts/max-weight-chart/max-
 import { FormsModule } from '@angular/forms';
 import { ExerciseDistributionChartComponent } from './progress/charts/exercise-distribution-chart/exercise-distribution-chart.component';
 import { ExerciseRecommendationComponent } from './exercise-recommendation/exercise-recommendation.component';
+import { NxCalendarHeatmapComponent} from "@ngeenx/nx-angular-calendar-heatmap";
+import { WorkoutHeatmapComponent } from './progress/workout-heatmap/workout-heatmap.component';
 
 
 @NgModule({
@@ -81,6 +83,7 @@ import { ExerciseRecommendationComponent } from './exercise-recommendation/exerc
     MaxWeightChartComponent,
     ExerciseDistributionChartComponent,
     ExerciseRecommendationComponent,
+    WorkoutHeatmapComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,6 +116,7 @@ import { ExerciseRecommendationComponent } from './exercise-recommendation/exerc
     DragDropModule,
     BaseChartDirective,
     FormsModule,
+    NxCalendarHeatmapComponent,
   ],
   providers: [
     // {

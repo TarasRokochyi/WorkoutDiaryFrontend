@@ -74,7 +74,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor{
 
                 const retriedReq = req.clone({
                     headers: req.headers.set("Authorization",
-                        "Bearer " + token)
+                        "Bearer " + newToken)
                 });
                 // const retriedReq = req.clone({
                 // setHeaders: { Authorization: `Bearer ${newToken}` }
@@ -95,11 +95,9 @@ export class RefreshTokenInterceptor implements HttpInterceptor{
     };
 
     private handleAuthError(req: HttpRequest<any>, next: HttpHandler, authService: AuthService): Observable<any> {
-        debugger
         return authService.refreshToken().pipe(
         switchMap((newToken) => {
             // Retry the original request with the new token
-            debugger
 
             const cloned = req.clone({
                 headers: req.headers.set("Authorization",

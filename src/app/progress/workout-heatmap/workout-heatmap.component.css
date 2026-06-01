@@ -1,0 +1,108 @@
+.heatmap-card {
+  padding: 0.5rem;
+  border-radius: 16px;
+}
+
+/* OUTER LAYOUT - Converted to a master grid */
+.heatmap-layout {
+  display: grid;
+  grid-template-columns: auto 1fr; /* Weekdays take auto-width, heatmap takes the rest */
+  grid-template-rows: auto auto auto; /* Row 1: Months, Row 2: Heatmap, Row 3: Legend */
+  gap: 0.5rem 1rem;
+  width: 100%;
+}
+
+/* WEEKDAY LABELS */
+.weekdays {
+  grid-column: 1;
+  grid-row: 2; /* Aligns perfectly with the heatmap row */
+  display: grid;
+  grid-template-rows: repeat(7, 1fr); /* Splits height evenly into 7 rows */
+  gap: 4px;
+
+  font-size: 11px;
+  color: #666;
+}
+
+/* CONTAINER - Stripped of flex layout to let children bind to the master grid */
+.heatmap-container {
+  display: contents; 
+}
+
+/* MONTH LABELS */
+.months {
+  grid-column: 2;
+  grid-row: 1;
+  
+  display: grid;
+  /* CRITICAL: Must match the 53 columns of the heatmap grid exactly */
+  grid-template-columns: repeat(53, 1fr); 
+
+  font-size: 11px;
+  color: #666;
+  padding-left: 2px;
+}
+
+
+/* HEATMAP GRID */
+.heatmap {
+  grid-column: 2;
+  grid-row: 2; 
+  display: grid;
+
+  /* 1. CRITICAL FIX: Forces items to fill TOP-TO-BOTTOM first, then move RIGHT */
+  grid-auto-flow: column; 
+
+  /* 2. Forces the 53 columns to stretch evenly across the full width of the card */
+  grid-template-columns: repeat(53, 1fr); 
+  grid-template-rows: repeat(7, 1fr);    
+
+  gap: 4px;
+  padding: 2px;
+  width: 100%;
+}
+
+/* CELLS */
+.cell {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* CRITICAL: Keeps cells perfectly square as they scale up */
+
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.cell:hover {
+  transform: scale(1.2);
+  border-color: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+/* LEVELS */
+.level-0 { background: #ebedf0; }
+.level-1 { background: var(--variant2-300); }
+.level-2 { background: var(--variant2-400); }
+.level-3 { background: var(--variant2-500); }
+.level-4 { background: var(--variant2-600); }
+
+/* LEGEND */
+.legend {
+  grid-column: 2;
+  grid-row: 3; /* Sits below the heatmap */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 0.4rem;
+  font-size: 12px;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+/* Legend items remain fixed size so they don't stretch */
+.legend-cell {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}

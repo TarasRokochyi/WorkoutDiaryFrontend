@@ -2,7 +2,7 @@
 
 This repository contains the frontend for a physical activity analysis system that allows users to track workouts, visualize progress, and manage training schedules. The interface includes charts, calendar-based workout tracking, and equipment recognition features that support exercise recommendations.
 
-The application is built using **Angular** and communicates with the backend through a REST API.
+The application is built using **Angular** and communicates with the [backend](https://github.com/TarasRokochyi/WorkoutDiaryBackend) through a REST API.
 
 ---
 
@@ -65,6 +65,3 @@ Allows users to upload an image of available equipment and receive exercise reco
 ![Recognition Screenshot](./screenshots/recognition.png)
 
 ---
-
-
-Link to WorkoutDiaryBackend - https://github.com/TarasRokochyi/WorkoutDiaryBackend

@@ -1,24 +1,89 @@
-/* You can add global styles to this file, and also import other style files */
+/* @import '../node_modules/tippy.js/dist/tippy.css';
+@import '../node_modules/@ngeenx/nx-calendar-heatmap-utils/styles.css';
 
-/* html, body {
-    height: 100%; 
-    margin: 0;
-    padding: 0;
-} */
 
-/* app-root { */
-    /* display: block; */
-    /* height: 100%; */
-/* } */
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+  */
 :root {
   --sidenav-width: 300px;
   --sidenav-collapsed-width: 20px;
+
+  --variant2-50: #f1f9fe;
+  --variant2-100: #e3f0fb;
+  --variant2-200: #c0e2f7;
+  --variant2-300: #88ccf1;
+  --variant2-400: #3dade6;
+  --variant2-500: #2199d6;
+  --variant2-600: #137ab6;
+  --variant2-700: #116193;
+  --variant2-800: #12537a;
+  --variant2-900: #144666;
+  --variant2-950: #0e2c43;
+
+  --dark-gray: #2f3746;
+  --dark-gray-lighter: #404857;
+
+  --light-gray: #f3f4f6;
+  --light-gray-lighter: #e3e6e9;
 }
+/* 
+
+
+.custom-variant2-level-0 {
+  background-color: var(--light-gray);
+  border-color: var(--light-gray-lighter);
+}
+
+.custom-variant2-level-1 {
+  background-color: var(--variant2-300);
+  border-color: var(--variant2-400);
+}
+
+.custom-variant2-level-2 {
+  background-color: var(--variant2-400);
+  border-color: var(--variant2-500);
+}
+
+.custom-variant2-level-3 {
+  background-color: var(--variant2-500);
+  border-color: var(--variant2-600);
+}
+
+.custom-variant2-level-4 {
+  background-color: var(--variant2-600);
+  border-color: var(--variant2-700);
+}
+
+.custom-variant2-level-5 {
+  background-color: var(--variant2-700);
+  border-color: var(--variant2-800);
+}
+
+@media (prefers-color-scheme: dark) {
+
+  .custom-variant2-level-0 {
+    background-color: var(--dark-gray);
+    border-color: var(--dark-gray-lighter);
+  }
+
+} */
 
 
 body {
   margin: 0;
 
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.mat-mdc-card {
+  background: #f5f7fa !important;
+  /* background-color: #f5f7fa; */
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 18px !important;
+
+  box-shadow: none !important;
 }

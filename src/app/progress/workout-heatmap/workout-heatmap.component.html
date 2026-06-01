@@ -1,0 +1,69 @@
+<mat-card class="heatmap-card">
+
+  <mat-card-header>
+    <mat-card-title>
+      Activity Heatmap
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <div class="heatmap-layout">
+
+      <!-- Weekday labels -->
+      <div class="weekdays">
+        <span>Mon</span>
+        <span></span>
+        <span>Wed</span>
+        <span></span>
+        <span>Fri</span>
+        <span></span>
+        <span>Sun</span>
+      </div>
+
+      <!-- Heatmap -->
+      <div class="heatmap-container">
+
+        <!-- Month labels -->
+        <div class="months">
+          <span 
+            *ngFor="let month of monthLabels" 
+            [style.grid-column-start]="month.colIndex">
+            {{ month.name }}
+          </span>
+        </div>
+
+        <!-- Grid -->
+        <div class="heatmap">
+
+          <div
+            *ngFor="let day of heatmap"
+            class="cell"
+            [ngClass]="'level-' + getLevel(day.count)"
+            [title]="day.date.toLocaleDateString() + ' • ' + day.count + ' workouts'">
+          </div>
+
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+
+          <span>Less</span>
+
+          <div class="legend-cell level-0"></div>
+          <div class="legend-cell level-1"></div>
+          <div class="legend-cell level-2"></div>
+          <div class="legend-cell level-3"></div>
+          <div class="legend-cell level-4"></div>
+
+          <span>More</span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </mat-card-content>
+
+</mat-card>

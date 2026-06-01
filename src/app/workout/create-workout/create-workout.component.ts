@@ -29,7 +29,6 @@ export class WorkoutCreateComponent implements OnInit {
     this.exerciseService.selectedExercises$.pipe(
       take(1)  // take only the first emission
     ).subscribe(exercises => {
-      debugger
       this.workout = {
         workoutId: 0,
         name: "",

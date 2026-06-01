@@ -50,8 +50,8 @@ export class ExerciseDistributionChartComponent implements OnInit {
       },
       title: {
         display: true,
-        text: 'Exercise Distribution (Last 30 Days)',
-        font: { size: 18 },
+        text: 'Exercise Distribution',
+        font: { size: 24 },
         color: '#333'
       }
     }

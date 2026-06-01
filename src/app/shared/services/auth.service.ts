@@ -86,7 +86,6 @@ export class AuthService {
   }
 
   refreshToken(): Observable<string> {
-    debugger
     if (this.refreshTokenInProgress) {
       return this.getRefreshTokenStream();
     }
@@ -100,7 +99,6 @@ export class AuthService {
       // shareReplay(1) ensures only one network request
       shareReplay(1),
       switchMap(response => {
-        debugger
         const newToken = response.token;
         localStorage.setItem('token', response.token);
         localStorage.setItem('refreshToken', response.refreshToken);
