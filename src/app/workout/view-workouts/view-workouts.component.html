@@ -1,28 +1,73 @@
-<mat-spinner class="progress-spinner" *ngIf="loading"></mat-spinner>
+<!-- Loading -->
+<div class="loading-wrapper" *ngIf="loading">
+  <mat-spinner diameter="48"></mat-spinner>
+  <p>Loading workouts...</p>
+</div>
 
-<ng-container *ngIf="!loading && workouts.length > 0">
-  <mat-accordion>
-    <mat-expansion-panel *ngFor="let workout of workouts">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{ workout.name }} - {{ workout.date | date:'MMM d, y, hh:mm' }}
-        </mat-panel-title>
-        <mat-panel-description>
-          Duration: {{ workout.duration }} min
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+<div class="page-layout" *ngIf="!loading">
 
-      <p><strong>Notes:</strong> {{ workout.notes || "--"}}</p>
+  <div class="page-header">
+    <h1>Workouts</h1>
+  </div>
 
-      <button mat-button color="primary" [routerLink]="['/workouts', workout.workoutId]">
-        View Details
-      </button>
-    </mat-expansion-panel>
-  </mat-accordion>
-</ng-container>
+  <ng-container *ngIf="weekGroups.length > 0">
+    <div class="week-section" *ngFor="let group of weekGroups">
 
-<mat-card *ngIf="!loading && workouts.length === 0">
-  You have no workouts yet.
-</mat-card>
+      <div class="week-header">
+        <span class="week-label">{{ group.label }}</span>
+        <span class="week-count" *ngIf="!group.isEmpty">
+          {{ group.workouts.length }} workout{{ group.workouts.length !== 1 ? 's' : '' }}
+        </span>
+      </div>
 
+      <!-- Workout cards -->
+      <div class="workout-list" *ngIf="!group.isEmpty">
+        <mat-card class="workout-card" *ngFor="let workout of group.workouts">
 
+          <span class="workout-number">#{{ workout.number }}</span>
+
+          <mat-card-header>
+            <mat-card-title>{{ workout.name }}</mat-card-title>
+            <mat-card-subtitle>{{ workout.date | date:'EEEE, MMM d' }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="workout-meta">
+              <span class="meta-item">
+                <mat-icon>schedule</mat-icon>
+                {{ workout.date | date:'h:mm a' }}
+              </span>
+              <span class="meta-item">
+                <mat-icon>timer</mat-icon>
+                {{ workout.duration }} min
+              </span>
+            </div>
+            <p class="workout-notes" *ngIf="workout.notes">{{ workout.notes }}</p>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button mat-button color="primary" [routerLink]="['/workouts', workout.workoutId]">
+              <mat-icon>open_in_new</mat-icon>
+              View Details
+            </button>
+          </mat-card-actions>
+
+        </mat-card>
+      </div>
+
+      <!-- Empty week -->
+      <div class="empty-week" *ngIf="group.isEmpty">
+        <mat-icon>remove</mat-icon>
+        <span>No workouts this week</span>
+      </div>
+
+    </div>
+  </ng-container>
+
+  <!-- No workouts at all -->
+  <div class="loading-wrapper" *ngIf="weekGroups.length === 0">
+    <mat-icon class="state-icon">fitness_center</mat-icon>
+    <p>No workouts yet.</p>
+  </div>
+
+</div>
