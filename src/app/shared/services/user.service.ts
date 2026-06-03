@@ -25,6 +25,10 @@ export class UserService {
     return this.http.put(this.createCompleteRoute("user/update-password", this.envUrl.apiUrlAddress), newPassword)
   }
 
+  deleteAccount() {
+    return this.http.delete(this.createCompleteRoute("user", this.envUrl.apiUrlAddress));
+  }
+
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}${route}`;
   }

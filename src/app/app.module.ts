@@ -40,6 +40,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { CreateCustomExerciseComponent } from './create-custom-exercise/create-custom-exercise.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -84,6 +86,7 @@ import { WorkoutHeatmapComponent } from './progress/workout-heatmap/workout-heat
     ExerciseDistributionChartComponent,
     ExerciseRecommendationComponent,
     WorkoutHeatmapComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +110,7 @@ import { WorkoutHeatmapComponent } from './progress/workout-heatmap/workout-heat
     MatTimepickerModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatTooltipModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
     AutocompleteLibModule,
