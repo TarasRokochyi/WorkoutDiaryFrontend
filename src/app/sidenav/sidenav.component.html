@@ -1,55 +1,50 @@
 <div class="sidenav-body-container">
   <div class="sidenav-body">
-    <h1>Workout Diary</h1>
-
-    <app-sidenav-link routerLink="/profile">
-      <mat-icon icon>account_circle</mat-icon>
-
-      Profile
-    </app-sidenav-link>
+    <div class="sidenav-title">
+      <mat-icon>fitness_center</mat-icon>
+      <span>Workout Diary</span>
+    </div>
 
     <app-sidenav-link routerLink="/create-workout">
-      <mat-icon icon>playlist_add</mat-icon>
-
+      <mat-icon icon>add_circle_outline</mat-icon>
       Create Workout
     </app-sidenav-link>
 
     <app-sidenav-link routerLink="/view-workouts">
-      <mat-icon icon>view_module</mat-icon>
-
-      View workouts
+      <mat-icon icon>format_list_bulleted</mat-icon>
+      View Workouts
     </app-sidenav-link>
-    
-    <app-sidenav-link routerLink="/create-custom-exercise">
-      <mat-icon icon>create</mat-icon>
 
-      Create custom exercise
+    <app-sidenav-link routerLink="/create-custom-exercise">
+      <mat-icon icon>self_improvement</mat-icon>
+      Create Custom Exercise
     </app-sidenav-link>
 
     <app-sidenav-link routerLink="/calendar">
-      <mat-icon icon>calendar_today</mat-icon>
-
+      <mat-icon icon>calendar_month</mat-icon>
       Calendar
     </app-sidenav-link>
 
     <app-sidenav-link routerLink="/dashboard">
-      <mat-icon icon>show_chart</mat-icon>
-
+      <mat-icon icon>insights</mat-icon>
       Progress
     </app-sidenav-link>
 
     <app-sidenav-link routerLink="/exercise-recommendation">
-      <mat-icon icon>tips_and_updates</mat-icon>
-
+      <mat-icon icon>lightbulb</mat-icon>
       Exercise Recommendation
     </app-sidenav-link>
-
-    <!-- <app-sidenav-link routerLink="/create-custom-template">
-      <mat-icon icon>create</mat-icon>
-
-      Create custom template
-    </app-sidenav-link> -->
   </div>
+
+  <a class="user-section" routerLink="/profile" routerLinkActive="active">
+    <div class="user-avatar" *ngIf="user">
+      {{ user.firstName[0] }}{{ user.lastName[0] }}
+    </div>
+    <div class="user-info">
+      <span class="user-name">{{ user?.firstName }} {{ user?.lastName }}</span>
+      <span class="user-username">{{ user?.userName }}</span>
+    </div>
+  </a>
 </div>
 
 <button

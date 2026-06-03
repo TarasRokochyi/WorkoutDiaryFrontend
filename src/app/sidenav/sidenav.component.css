@@ -4,8 +4,8 @@
   box-sizing: border-box;
   position: sticky;
   top: 0;
-  background-color: rgb(237, 241, 243);
-  border-right: 2px solid rgb(192, 192, 192);
+  background-color: #1e293b;
+  border-right: none;
   transition: width 300ms cubic-bezier(0.02, 0.68, 0.63, 0.98);
 }
 
@@ -14,39 +14,158 @@
 }
 
 .sidenav-body-container {
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  padding: 16px;
+  padding: 16px 10px;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .sidenav-body {
+  flex: 1;
   width: 100%;
   overflow-x: hidden;
 }
 
+.sidenav-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #fff;
+}
+
+.sidenav-title mat-icon {
+  font-size: 1.4rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  color: #7986cb;
+  flex-shrink: 0;
+}
+
+.sidenav-title span {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* ── User section ── */
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 8px;
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: background-color 150ms ease;
+}
+
+.user-section:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.user-section.active {
+  background-color: rgba(99, 120, 210, 0.25);
+}
+
+.user-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #3f51b5;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.user-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-username {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Collapsed state ── */
+:host:not(.is-expanded) .sidenav-title {
+  justify-content: center;
+  padding: 10px 0 28px;
+}
+
+:host:not(.is-expanded) .sidenav-title span {
+  display: none;
+}
+
+:host:not(.is-expanded) .user-info {
+  display: none;
+}
+
+:host:not(.is-expanded) .user-section {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+:host:not(.is-expanded) ::ng-deep a {
+  justify-content: center;
+  padding: 11px 0;
+  min-width: unset;
+}
+
+:host:not(.is-expanded) ::ng-deep .text-container {
+  display: none;
+}
+
+/* ── Toggle button ── */
 .toggle-button {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 25px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
   margin: 0;
   padding: 0;
 
   position: absolute;
   top: 48px;
-  right: calc(-12.5px - 2px);
+  right: calc(-12px - 1px);
 
-  border: 1px solid gray;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 50%;
-  background-color: white;
+  background-color: #1e293b;
   cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
 }
 
 .toggle-button:hover {
-  border: 2px solid rgb(36, 82, 231);
+  background-color: #2d3f53;
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .toggle-button.is-flipped {
@@ -54,7 +173,8 @@
 }
 
 .toggle-button mat-icon {
-  font-size: 1.5em;
+  font-size: 1.2em;
   width: fit-content;
   height: fit-content;
+  color: rgba(255, 255, 255, 0.6);
 }
