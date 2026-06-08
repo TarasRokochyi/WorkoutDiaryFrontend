@@ -1,108 +1,137 @@
+/* ── Card structure ── */
 .heatmap-card {
-  padding: 0.5rem;
-  border-radius: 16px;
+  padding: 0 !important;
+  overflow: hidden;
 }
 
-/* OUTER LAYOUT - Converted to a master grid */
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1.5px solid #e8eaf6;
+}
+
+.card-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #3f51b5;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -0.01em;
+}
+
+.card-body {
+  padding: 1.25rem 1.5rem 1rem;
+}
+
+/* ── Outer layout ── */
 .heatmap-layout {
   display: grid;
-  grid-template-columns: auto 1fr; /* Weekdays take auto-width, heatmap takes the rest */
-  grid-template-rows: auto auto auto; /* Row 1: Months, Row 2: Heatmap, Row 3: Legend */
-  gap: 0.5rem 1rem;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 0.5rem 0.75rem;
   width: 100%;
 }
 
-/* WEEKDAY LABELS */
+/* ── Weekday labels ── */
 .weekdays {
   grid-column: 1;
-  grid-row: 2; /* Aligns perfectly with the heatmap row */
+  grid-row: 2;
   display: grid;
-  grid-template-rows: repeat(7, 1fr); /* Splits height evenly into 7 rows */
+  grid-template-rows: repeat(7, 1fr);
   gap: 4px;
-
-  font-size: 11px;
-  color: #666;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(0, 0, 0, 0.35);
 }
 
-/* CONTAINER - Stripped of flex layout to let children bind to the master grid */
+/* ── Heatmap container ── */
 .heatmap-container {
-  display: contents; 
+  display: contents;
 }
 
-/* MONTH LABELS */
+/* ── Month labels ── */
 .months {
   grid-column: 2;
   grid-row: 1;
-  
   display: grid;
-  /* CRITICAL: Must match the 53 columns of the heatmap grid exactly */
-  grid-template-columns: repeat(53, 1fr); 
-
-  font-size: 11px;
-  color: #666;
+  grid-template-columns: repeat(53, 1fr);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(0, 0, 0, 0.35);
   padding-left: 2px;
 }
 
-
-/* HEATMAP GRID */
+/* ── Heatmap grid ── */
 .heatmap {
   grid-column: 2;
-  grid-row: 2; 
+  grid-row: 2;
   display: grid;
-
-  /* 1. CRITICAL FIX: Forces items to fill TOP-TO-BOTTOM first, then move RIGHT */
-  grid-auto-flow: column; 
-
-  /* 2. Forces the 53 columns to stretch evenly across the full width of the card */
-  grid-template-columns: repeat(53, 1fr); 
-  grid-template-rows: repeat(7, 1fr);    
-
+  grid-auto-flow: column;
+  grid-template-columns: repeat(53, 1fr);
+  grid-template-rows: repeat(7, 1fr);
   gap: 4px;
   padding: 2px;
   width: 100%;
 }
 
-/* CELLS */
+/* ── Cells ── */
 .cell {
   width: 100%;
-  aspect-ratio: 1 / 1; /* CRITICAL: Keeps cells perfectly square as they scale up */
-
-  border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .cell:hover {
-  transform: scale(1.2);
-  border-color: rgba(0, 0, 0, 0.3);
+  transform: scale(1.25);
+  box-shadow: 0 2px 8px rgba(63, 81, 181, 0.3);
   z-index: 2;
+  border-color: transparent;
 }
 
-/* LEVELS */
-.level-0 { background: #ebedf0; }
-.level-1 { background: var(--variant2-300); }
-.level-2 { background: var(--variant2-400); }
-.level-3 { background: var(--variant2-500); }
-.level-4 { background: var(--variant2-600); }
+/* ── Levels — indigo palette ── */
+.level-0 { background: #edf0f7; }
+.level-1 { background: #c5cef0; }
+.level-2 { background: #8a9be0; }
+.level-3 { background: #5468ce; }
+.level-4 { background: #3f51b5; }
 
-/* LEGEND */
+/* ── Legend ── */
 .legend {
   grid-column: 2;
-  grid-row: 3; /* Sits below the heatmap */
+  grid-row: 3;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
-  gap: 0.4rem;
-  font-size: 12px;
-  color: #666;
+  gap: 0.35rem;
   margin-top: 0.5rem;
 }
 
-/* Legend items remain fixed size so they don't stretch */
+.legend-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(0, 0, 0, 0.35);
+}
+
 .legend-cell {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }

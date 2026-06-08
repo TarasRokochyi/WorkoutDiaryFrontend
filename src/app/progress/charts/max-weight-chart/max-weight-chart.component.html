@@ -1,32 +1,42 @@
-<mat-card>
-  <h2>Max Weight Progress</h2>
+<mat-card class="chart-card">
 
-  <div class="filter-row">
+  <div class="chart-header">
+    <div class="chart-title-block">
+      <span class="chart-eyebrow">Progress</span>
+      <h2 class="chart-title">Max Weight</h2>
+    </div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Exercise</mat-label>
-      <mat-select [(ngModel)]="selectedExercise">
-        <mat-option *ngFor="let ex of allExercises" [value]="ex">{{ ex }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    
-    <mat-form-field>
-      <mat-label>Enter a date range</mat-label>
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Start date" [(ngModel)]="startDate">
-        <input matEndDate placeholder="End date" [(ngModel)]="endDate">
-      </mat-date-range-input>
-      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
+    <div class="filter-row">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="filter-field">
+        <mat-label>Exercise</mat-label>
+        <mat-select [(ngModel)]="selectedExercise">
+          <mat-option *ngFor="let ex of allExercises" [value]="ex">{{ ex }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="filterWorkouts()">Apply</button>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="filter-field filter-field--wide">
+        <mat-label>Date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Start" [(ngModel)]="startDate">
+          <input matEndDate placeholder="End" [(ngModel)]="endDate">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+
+      <button class="btn-apply" (click)="filterWorkouts()">
+        <mat-icon>tune</mat-icon>
+        Apply
+      </button>
+    </div>
   </div>
 
-  <canvas baseChart
-    [data]="chartData"
-    [options]="chartOptions"
-    [type]="'line'">
-  </canvas>
+  <div class="chart-body">
+    <canvas baseChart
+      [data]="chartData"
+      [options]="chartOptions"
+      [type]="'line'">
+    </canvas>
+  </div>
+
 </mat-card>

@@ -1,10 +1,43 @@
-  <div class="exercise-chart-container">
-    <canvas
-      baseChart
-      [data]="chartData"
-      [options]="chartOptions"
-      [type]="'pie'">
-    </canvas>
+<mat-card class="dist-card">
+
+  <div class="card-header">
+    <span class="card-eyebrow">Distribution</span>
+    <h2 class="card-title">Exercise Breakdown</h2>
   </div>
 
+  <div class="card-body">
 
+    <!-- Doughnut -->
+    <div class="chart-wrap">
+      <canvas baseChart
+        [data]="chartData"
+        [options]="chartOptions"
+        [type]="'doughnut'">
+      </canvas>
+    </div>
+
+    <!-- Stats list -->
+    <div class="stats-list">
+      <div class="stat-item" *ngFor="let item of exerciseData; let i = index">
+
+        <div class="stat-header">
+          <span class="stat-dot" [style.background]="colors[i]"></span>
+          <span class="stat-name">{{ item.name }}</span>
+        </div>
+
+        <div class="stat-bar-row">
+          <div class="stat-bar-track">
+            <div class="stat-bar-fill"
+              [style.width]="getBarWidth(item.count) + '%'"
+              [style.background]="colors[i]">
+            </div>
+          </div>
+          <span class="stat-pct">{{ getPercent(item.count) }}%</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</mat-card>

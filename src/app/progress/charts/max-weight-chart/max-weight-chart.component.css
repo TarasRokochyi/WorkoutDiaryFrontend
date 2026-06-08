@@ -1,25 +1,140 @@
-.filter-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-}
-
-h2 {
-  margin-left: 1.5rem;
-}
-
 :host {
   display: block;
   width: 100%;
-  min-width: 0;     /* Critical fix */
+  min-width: 0;
+}
+
+/* ── Card layout ── */
+.chart-card {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1.5px solid #e8eaf6;
+}
+
+.chart-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  flex-shrink: 0;
+}
+
+.chart-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #3f51b5;
+}
+
+.chart-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -0.01em;
+}
+
+/* ── Filter row ── */
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filter-field {
+  width: 150px;
+}
+
+.filter-field--wide {
+  width: 240px;
+}
+
+/* ── Field overrides ── */
+::ng-deep .chart-card .mat-mdc-text-field-wrapper,
+::ng-deep .chart-card .mdc-text-field--outlined {
+  background: #fff !important;
+  border-radius: 10px !important;
+}
+
+::ng-deep .chart-card .mdc-notched-outline__leading,
+::ng-deep .chart-card .mdc-notched-outline__notch,
+::ng-deep .chart-card .mdc-notched-outline__trailing {
+  border-color: #d1d5db !important;
+}
+
+::ng-deep .chart-card .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .chart-card .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .chart-card .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #3f51b5 !important;
+  border-width: 2px !important;
+}
+
+::ng-deep .chart-card .mat-mdc-form-field-infix {
+  padding-top: 9px !important;
+  padding-bottom: 9px !important;
+  min-height: unset !important;
+}
+
+::ng-deep .chart-card .mat-mdc-floating-label {
+  font-size: 0.8rem;
+}
+
+::ng-deep .chart-card .mat-mdc-input-element,
+::ng-deep .chart-card .mat-mdc-select-value {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #111;
+}
+
+/* ── Apply button ── */
+.btn-apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 1.1rem;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background: #3f51b5;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.btn-apply:hover {
+  background: #3447a3;
+  transform: translateY(-1px);
+}
+
+.btn-apply mat-icon {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* ── Chart canvas ── */
+.chart-body {
+  padding: 1.25rem 1.5rem 1rem;
 }
 
 canvas {
   width: 100% !important;
   height: 100% !important;
-  max-height: 400px;
-  padding: 1rem;
+  max-height: 320px;
 }
