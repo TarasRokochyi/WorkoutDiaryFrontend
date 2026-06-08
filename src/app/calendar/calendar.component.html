@@ -17,51 +17,37 @@
           {{ viewDate | date : "EEEE" }}
         </span>
       </div>
-      <mat-button-toggle-group
-        class="calendar-view-toggle"
-        name="currentView"
-        (change)="switchToView($event.value)"
-        aria-label="Calendar-View"
-      >
-        <mat-button-toggle checked="{{ true }}" value="{{ CalendarView.Month }}"
-          >Month</mat-button-toggle
-        >
-        <mat-button-toggle value="{{ CalendarView.Week }}"
-          >Week</mat-button-toggle
-        >
-        <mat-button-toggle value="{{ CalendarView.Day }}"
-          >Day</mat-button-toggle
-        >
-      </mat-button-toggle-group>
       <div class="calendar-controls">
-        <button
-          mat-icon-button
-          (click)="previous()"
-          (keydown.enter)="previous()"
-          (keydown.space)="previous()"
+        <mat-button-toggle-group
+          class="view-toggle"
+          name="currentView"
+          (change)="switchToView($event.value)"
+          aria-label="Calendar-View"
         >
-          <mat-icon>chevron_left</mat-icon>
-        </button>
-        <button
-          mat-stroked-button
-          (click)="viewToday()"
-          (keydown.enter)="viewToday()"
-          (keydown.space)="viewToday()"
-        >
-          Today
-        </button>
-        <button
-          mat-icon-button
-          (click)="next()"
-          (keydown.enter)="next()"
-          (keydown.space)="next()"
-        >
-          <mat-icon>chevron_right</mat-icon>
-        </button>
-        <button
-          mat-flat-button
-          [routerLink]="['/create-workout']"
-        >
+          <mat-button-toggle checked="{{ true }}" value="{{ CalendarView.Month }}">
+            <mat-icon *ngIf="currentView === CalendarView.Month">check</mat-icon>
+            Month
+          </mat-button-toggle>
+          <mat-button-toggle value="{{ CalendarView.Week }}">
+            <mat-icon *ngIf="currentView === CalendarView.Week">check</mat-icon>
+            Week
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <div class="nav-controls">
+          <button class="btn-icon" (click)="previous()" (keydown.enter)="previous()" (keydown.space)="previous()">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          <button class="btn-today" (click)="viewToday()" (keydown.enter)="viewToday()" (keydown.space)="viewToday()">
+            Today
+          </button>
+          <button class="btn-icon" (click)="next()" (keydown.enter)="next()" (keydown.space)="next()">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+
+        <button class="btn-primary" [routerLink]="['/create-workout']">
+          <mat-icon>add</mat-icon>
           Create Workout
         </button>
       </div>
@@ -161,39 +147,5 @@
       </tbody>
     </table>
 
-    <!-- Day View -->
-    <table
-      width="100%"
-      cellspacing="0"
-      cellpadding="0"
-      class="calendar-view-day"
-      *ngIf="currentView === 'day'"
-    >
-      <tbody>
-        <tr *ngFor="let slot of timeSlots">
-          <td [width]="10" class="calendar-slot-cell">
-            <span>{{ slot }}</span>
-          </td>
-          <td>
-            <div
-              (click)="routeToCreateWorkout(monthDays[0], slot)"
-              class="cell-overlay"
-              tabindex="0"
-            ></div>
-            <div
-              tabindex="0"
-              *ngFor="
-                let workout of getAppointmentsForDateTime( monthDays[0], slot)
-              "
-              class="appointment"
-              [ngStyle]="{ 'background-color': workout.color }"
-              [routerLink]="['/workouts', workout.workoutId]"
-            >
-              <span>{{ workout.name }}</span>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </div>

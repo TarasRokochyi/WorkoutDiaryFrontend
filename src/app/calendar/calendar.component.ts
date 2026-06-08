@@ -24,7 +24,7 @@ export class CalendarComponent implements OnInit{
   viewDate: Date = new Date();
   selectedDate: Date | null = null;
   selectedStartTime: string | undefined;
-  weekDays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  weekDays: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   monthDays: Date[] = [];
   workouts: WorkoutShort[] = []
 
@@ -65,9 +65,6 @@ export class CalendarComponent implements OnInit{
       case CalendarView.Week:
         this.generateWeekView(date);
         break;
-      case CalendarView.Day:
-        this.generateDayView(date);
-        break;
       default:
         this.generateMonthView(date);
     }
@@ -80,7 +77,8 @@ export class CalendarComponent implements OnInit{
     this.monthDays = [];
     let week: Date[] = [];
 
-    for (let day = start.getDay(); day > 0; day--) {
+    const leadingDays = (start.getDay() + 6) % 7;
+    for (let day = leadingDays; day > 0; day--) {
       const prevDate = new Date(start);
       prevDate.setDate(start.getDate() - day);
       week.push(prevDate);
@@ -125,11 +123,7 @@ export class CalendarComponent implements OnInit{
     }
   }
 
-  generateDayView(date: Date) {
-    this.monthDays = [date];
-  }
-
-  generateTimeSlots() {
+generateTimeSlots() {
     for (let hour = 0; hour <= 24; hour++) {
       const time = hour < 10 ? `0${hour}:00` : `${hour}:00`;
       this.timeSlots.push(time);
@@ -159,11 +153,6 @@ export class CalendarComponent implements OnInit{
         this.viewDate.setDate(this.viewDate.getDate() - 7)
       );
       this.generateWeekView(this.viewDate);
-    } else {
-      this.viewDate = new Date(
-        this.viewDate.setDate(this.viewDate.getDate() - 1)
-      );
-      this.generateDayView(this.viewDate);
     }
   }
 
@@ -178,11 +167,6 @@ export class CalendarComponent implements OnInit{
         this.viewDate.setDate(this.viewDate.getDate() + 7)
       );
       this.generateWeekView(this.viewDate);
-    } else {
-      this.viewDate = new Date(
-        this.viewDate.setDate(this.viewDate.getDate() + 1)
-      );
-      this.generateDayView(this.viewDate);
     }
   }
 
