@@ -142,7 +142,8 @@ export class UserProfileComponent implements OnInit {
 
   logout(): void {
     this.dialog.open(ConfirmDialogComponent, {
-      width: '360px',
+      width: '400px',
+      panelClass: 'confirm-dialog',
       data: { title: 'Log out', message: 'Are you sure you want to sign out?' }
     }).afterClosed().subscribe(confirmed => {
       if (confirmed) {
@@ -154,7 +155,8 @@ export class UserProfileComponent implements OnInit {
 
   deleteAccount(): void {
     this.dialog.open(ConfirmDialogComponent, {
-      width: '360px',
+      width: '400px',
+      panelClass: 'confirm-dialog',
       data: {
         title: 'Delete account',
         message: 'This will permanently delete your account and all your workout data. This action cannot be undone.',
@@ -177,7 +179,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   openPasswordDialog(): void {
-    this.dialog.open(ChangePasswordDialogComponent, { width: '400px' })
+    this.dialog.open(ChangePasswordDialogComponent, { width: '420px', panelClass: 'change-password-dialog' })
       .afterClosed().subscribe(result => {
         if (result?.currentPassword && result?.newPassword) {
           const passwordData: UpdatePassword = {

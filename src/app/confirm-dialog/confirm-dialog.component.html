@@ -1,8 +1,21 @@
-<h2 mat-dialog-title>{{ data.title }}</h2>
-<mat-dialog-content>{{ data.message }}</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-stroked-button (click)="dialogRef.close(false)">Cancel</button>
-  <button mat-flat-button [color]="data.danger ? 'warn' : 'primary'" (click)="dialogRef.close(true)">
+<div class="dialog-header">
+  <h2 class="dialog-title">{{ data.title }}</h2>
+  <button class="close-btn" type="button" (click)="dialogRef.close(false)">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <p class="dialog-message">{{ data.message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button class="btn-cancel" type="button" (click)="dialogRef.close(false)">Cancel</button>
+  <button
+    class="btn-confirm"
+    [class.btn-confirm--danger]="data.danger"
+    type="button"
+    (click)="dialogRef.close(true)">
     {{ data.confirmLabel || 'Confirm' }}
   </button>
 </mat-dialog-actions>

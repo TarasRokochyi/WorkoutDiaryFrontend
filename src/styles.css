@@ -46,6 +46,19 @@ body {
   border-color: #c7d0f8;
 }
 
+/* ── Shared dialog surface ── */
+.confirm-dialog .mat-mdc-dialog-surface,
+.change-password-dialog .mat-mdc-dialog-surface {
+  border-radius: 18px !important;
+  padding: 0 !important;
+}
+
+.confirm-dialog .mat-mdc-dialog-content,
+.change-password-dialog .mat-mdc-dialog-content {
+  padding: 0 1.5rem !important;
+}
+
+
 /* ── Custom exercise dialog ── */
 .custom-exercise-dialog .mat-mdc-dialog-container {
   border-radius: 18px !important;

@@ -15,6 +15,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { Overlay } from '@angular/cdk/overlay';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -137,6 +139,13 @@ import { WorkoutHeatmapComponent } from './progress/workout-heatmap/workout-heat
     MatDatepickerModule,
     MatNativeDateModule,
     provideCharts(withDefaultRegisterables()),
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useFactory: (overlay: Overlay) => ({
+        scrollStrategy: overlay.scrollStrategies.noop()
+      }),
+      deps: [Overlay]
+    },
   ],
   bootstrap: [AppComponent]
 })

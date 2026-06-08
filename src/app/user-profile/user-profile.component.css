@@ -203,9 +203,11 @@ h2 {
 .security-section {
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
   overflow: hidden;
+  background: #f5f7fa;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.07);
 }
 
 .security-action {
@@ -222,11 +224,11 @@ h2 {
 }
 
 .security-action:hover {
-  background: rgba(0, 0, 0, 0.03);
+  background: #eef0fb;
 }
 
 .security-action.danger:hover {
-  background: rgba(211, 47, 47, 0.05);
+  background: #fef2f2;
 }
 
 .security-action-left {
@@ -283,12 +285,14 @@ h2 {
 /* ── Danger Zone ── */
 .danger-zone {
   border: 1px solid rgba(211, 47, 47, 0.35);
-  border-radius: 12px;
+  border-radius: 18px;
   overflow: hidden;
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  background: #fff5f5;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.07);
 }
 
 .danger-zone-header {
@@ -332,6 +336,71 @@ h2 {
 .danger-zone-desc {
   font-size: 0.8rem;
   color: rgba(0, 0, 0, 0.45);
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 1.25rem;
+  border-radius: 10px;
+  border: none;
+  background: #1e293b;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #0f172a;
+}
+
+.btn-primary:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.btn-cancel-form {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 1.1rem;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+  background: #fff;
+  color: rgba(0,0,0,0.55);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-cancel-form:hover {
+  background: #f1f3f9;
+  border-color: #c7d0f8;
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 1.25rem;
+  border-radius: 10px;
+  border: 2px solid #d32f2f;
+  background: #fff;
+  color: #d32f2f;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.btn-danger:hover {
+  background: #fef2f2;
 }
 
 /* ── Loading ── */

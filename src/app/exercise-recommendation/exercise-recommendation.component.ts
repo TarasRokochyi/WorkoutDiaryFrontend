@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from '../shared/services/exercise.service';
 import { ExerciseRecommendation } from '../_interfaces/exercise-recommendation.model';
 import { Router } from '@angular/router';
+
+type Mode = 'upload' | 'manual';
 
 @Component({
   selector: 'app-exercise-recommendation',
@@ -10,44 +11,54 @@ import { Router } from '@angular/router';
   templateUrl: './exercise-recommendation.component.html',
   styleUrl: './exercise-recommendation.component.css'
 })
-export class ExerciseRecommendationComponent {
-  form: FormGroup;
+export class ExerciseRecommendationComponent implements OnInit {
+  mode: Mode = 'upload';
+
+  // Upload mode
   selectedFile?: File;
   previewSrc?: string | ArrayBuffer | null;
+
+  // Manual mode
+  allEquipmentNames: string[] = [];
+  selectedEquipmentNames: string[] = [];
+
+  // Shared
   loading = false;
   error?: string;
   recommendations: ExerciseRecommendation[] = [];
   equipments: string[] = [];
+  selectedExercises: ExerciseRecommendation[] = [];
+  selectAllChecked = false;
 
   constructor(
-    private fb: FormBuilder,
     private exerciseService: ExerciseService,
     private router: Router
-  ) {
-    this.form = this.fb.group({});
+  ) {}
+
+  ngOnInit(): void {
+    this.exerciseService.getEquipmentNames().subscribe({
+      next: (names) => this.allEquipmentNames = names,
+      error: (err) => console.error('Failed to load equipment', err)
+    });
   }
 
+  setMode(mode: Mode): void {
+    this.mode = mode;
+    this.recommendations = [];
+    this.error = undefined;
+  }
+
+  // ── Upload mode ──
   onFileSelected(event: Event) {
     this.error = undefined;
     const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) {
-      this.selectedFile = undefined;
-      this.previewSrc = undefined;
-      return;
-    }
-    const file = input.files[0];
-    this.setFile(file);
+    if (!input.files?.length) { this.selectedFile = undefined; this.previewSrc = undefined; return; }
+    this.setFile(input.files[0]);
   }
 
   setFile(file: File) {
-    // basic client-side validations
-    if (!file.type.startsWith('image/')) {
-      this.error = 'Please select an image file.';
-      return;
-    }
+    if (!file.type.startsWith('image/')) { this.error = 'Please select an image file.'; return; }
     this.selectedFile = file;
-
-    // create preview
     const reader = new FileReader();
     reader.onload = () => this.previewSrc = reader.result;
     reader.readAsDataURL(file);
@@ -56,107 +67,72 @@ export class ExerciseRecommendationComponent {
   onDrop(event: DragEvent) {
     event.preventDefault();
     this.error = undefined;
-    if (event.dataTransfer && event.dataTransfer.files.length) {
-      const file = event.dataTransfer.files[0];
-      this.setFile(file);
-    }
+    if (event.dataTransfer?.files.length) this.setFile(event.dataTransfer.files[0]);
   }
 
-  onDragOver(event: DragEvent) {
-    event.preventDefault();
-  }
+  onDragOver(event: DragEvent) { event.preventDefault(); }
 
   upload() {
-    this.error = undefined;
-    if (!this.selectedFile) {
-      this.error = 'No image selected.';
-      return;
-    }
-
+    if (!this.selectedFile) { this.error = 'No image selected.'; return; }
     this.loading = true;
-    this.exerciseService.uploadImage(this.selectedFile)
-      .subscribe({
-        next: (res) => {
-          this.recommendations = res;
-          this.loading = false;
-
-          this.equipments = Array.from(new Map(this.recommendations.map(x => [x.equipmentName, x.equipmentName])).values())
-        },
-        error: (err) => {
-          this.error = err?.error?.message || 'Upload failed';
-          this.loading = false;
-        }
-      });
+    this.error = undefined;
+    this.exerciseService.uploadImage(this.selectedFile).subscribe({
+      next: (res) => {
+        this.recommendations = res;
+        this.equipments = [...new Map(res.map((x: ExerciseRecommendation) => [x.equipmentName, x.equipmentName])).values()] as string[];
+        this.loading = false;
+      },
+      error: (err) => { this.error = err?.error?.message || 'Upload failed'; this.loading = false; }
+    });
   }
 
-  // Flattens list of ExerciseRecommendation into array of { equipment, exercise }
-  // getFlattenedSuggestions(): ExerciseRecommendation[] {
-  //   if (!this.result) return [];
+  // ── Manual mode ──
+  toggleEquipment(name: string): void {
+    const idx = this.selectedEquipmentNames.indexOf(name);
+    if (idx === -1) this.selectedEquipmentNames.push(name);
+    else this.selectedEquipmentNames.splice(idx, 1);
+  }
 
-  //   const out: Array<{ equipment: string, exercise: string }> = [];
+  isEquipmentSelected(name: string): boolean {
+    return this.selectedEquipmentNames.includes(name);
+  }
 
-  //   for (const rec of this.result) {
-  //     const equipmentName = rec.equipmentName;
-  //     const exercises = rec.exercises ?? [];
+  getManualRecommendations(): void {
+    if (!this.selectedEquipmentNames.length) { this.error = 'Select at least one equipment.'; return; }
+    this.loading = true;
+    this.error = undefined;
+    this.exerciseService.getRecommendationsByEquipmentNames(this.selectedEquipmentNames).subscribe({
+      next: (res) => {
+        this.recommendations = res;
+        this.equipments = this.selectedEquipmentNames;
+        this.loading = false;
+      },
+      error: (err) => { this.error = err?.error?.message || 'Failed to get recommendations'; this.loading = false; }
+    });
+  }
 
-  //     for (const ex of exercises) {
-  //       out.push({
-  //         equipment: equipmentName,
-  //         exercise: ex.name
-  //       });
-  //     }
-  //   }
+  // ── Results ──
+  isSelected(item: ExerciseRecommendation): boolean {
+    return this.selectedExercises.some(x => x.exercise.name === item.exercise.name && x.equipmentName === item.equipmentName);
+  }
 
-  //   return out;
-  // }
+  toggleExerciseSelection(item: ExerciseRecommendation): void {
+    if (this.isSelected(item)) this.selectedExercises = this.selectedExercises.filter(x => !(x.exercise.name === item.exercise.name && x.equipmentName === item.equipmentName));
+    else this.selectedExercises.push(item);
+  }
 
-  // Hook: implement adding an exercise to user's workout via your existing API
-  addExerciseToWorkout(exercise: ExerciseRecommendation) {
-    debugger
+  toggleSelectAll(): void {
+    this.selectedExercises = this.selectAllChecked ? [...this.recommendations] : [];
+  }
+
+  addExerciseToWorkout(exercise: ExerciseRecommendation): void {
     this.exerciseService.setSelectedExercises([exercise.exercise]);
     this.router.navigate(['/create-workout']);
   }
 
-  selectedExercises: ExerciseRecommendation[] = [];
-  selectAllChecked = false;
-
-  isSelected(item: ExerciseRecommendation) {
-    return this.selectedExercises.some(
-      x => x.exercise.name === item.exercise.name && x.equipmentName === item.equipmentName
-    );
-  }
-
-  toggleExerciseSelection(item: ExerciseRecommendation) {
-    if (this.isSelected(item)) {
-      this.selectedExercises = this.selectedExercises.filter(
-        x => !(x.exercise.name === item.exercise.name && x.equipmentName === item.equipmentName)
-      );
-    } else {
-      this.selectedExercises.push(item);
-    }
-  }
-
-  toggleSelectAll() {
-    if (this.selectAllChecked) {
-      this.selectedExercises = this.recommendations;
-    } else {
-      this.selectedExercises = [];
-    }
-  }
-
-  addSelectedExercises() {
-
-
-    const exercises = Array.from(
-      new Map(this.selectedExercises.map(x => [x.exercise.exerciseId, x.exercise])).values()
-    );
-
-    debugger
-
-
+  addSelectedExercises(): void {
+    const exercises = [...new Map(this.selectedExercises.map(x => [x.exercise.exerciseId, x.exercise])).values()];
     this.exerciseService.setSelectedExercises(exercises);
     this.router.navigate(['/create-workout']);
   }
-
-
 }

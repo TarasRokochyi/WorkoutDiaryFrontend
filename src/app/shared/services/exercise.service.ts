@@ -24,6 +24,14 @@ export class ExerciseService {
     return this.http.get<Exercise>(this.createCompleteRoute(`exercise/${id}`, this.envUrl.apiUrlAddress));
   }
 
+  getEquipmentNames(): Observable<string[]> {
+    return this.http.get<string[]>(this.createCompleteRoute('exercise/equipment', this.envUrl.apiUrlAddress));
+  }
+
+  getRecommendationsByEquipmentNames(names: string[]): Observable<any[]> {
+    return this.http.post<any[]>(this.createCompleteRoute('exercise/exercise-recommendation/manual', this.envUrl.apiUrlAddress), names);
+  }
+
   uploadImage(file: File): Observable<any> {
 
     const form = new FormData();

@@ -97,7 +97,8 @@ export class WorkoutDetailsComponent implements OnInit {
 
   onDelete(): void {
     this.dialog.open(ConfirmDialogComponent, {
-      width: '360px',
+      width: '400px',
+      panelClass: 'confirm-dialog',
       data: {
         title: 'Delete workout',
         message: `Delete "${this.workout?.name}"? This cannot be undone.`,

@@ -1,16 +1,28 @@
-<div class="auth-wrapper mat-typography">
-  <mat-card class="auth-card">
-    <mat-card-title>{{ isLoginMode ? 'Login' : 'Register' }}</mat-card-title>
-    
-    <div class="auth-toggle">
-      <span>{{ isLoginMode ? "Don't have an account?" : "Already have an account?" }}</span>
-      <button mat-button color="accent" (click)="toggleMode()">
-        {{ isLoginMode ? 'Register' : 'Login' }}
+<div class="auth-page">
+  <div class="auth-card">
+
+    <!-- Branding -->
+    <div class="brand">
+      <div class="brand-icon">
+        <mat-icon>fitness_center</mat-icon>
+      </div>
+      <h1 class="brand-name">Workout Diary</h1>
+      <p class="brand-tagline">Track your progress, crush your goals.</p>
+    </div>
+
+    <!-- Tab toggle -->
+    <div class="auth-tabs">
+      <button class="tab-btn" [class.active]="isLoginMode" (click)="isLoginMode = true">
+        Sign In
+      </button>
+      <button class="tab-btn" [class.active]="!isLoginMode" (click)="isLoginMode = false">
+        Create Account
       </button>
     </div>
 
+    <!-- Forms -->
     <app-login *ngIf="isLoginMode"></app-login>
-    <app-register (toggle)="toggleMode()" *ngIf="!isLoginMode"></app-register>
-  </mat-card>
-</div>
+    <app-register *ngIf="!isLoginMode" (toggle)="toggleMode()"></app-register>
 
+  </div>
+</div>

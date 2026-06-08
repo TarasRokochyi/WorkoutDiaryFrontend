@@ -119,8 +119,8 @@
         <mat-error *ngIf="personalForm.get('age')?.hasError('min') || personalForm.get('age')?.hasError('max')">Must be 1–120</mat-error>
       </mat-form-field>
       <div class="button-group">
-        <button mat-stroked-button color="warn" (click)="cancelEdit('personal')">Cancel</button>
-        <button mat-flat-button color="primary" (click)="savePersonalInfo()" [disabled]="personalForm.invalid">Save</button>
+        <button class="btn-cancel-form" type="button" (click)="cancelEdit('personal')">Cancel</button>
+        <button class="btn-primary" type="button" (click)="savePersonalInfo()" [disabled]="personalForm.invalid">Save</button>
       </div>
     </form>
   </div>
@@ -171,8 +171,8 @@
         <mat-error *ngIf="accountForm.get('email')?.hasError('email')">Enter a valid email</mat-error>
       </mat-form-field>
       <div class="button-group">
-        <button mat-stroked-button color="warn" (click)="cancelEdit('account')">Cancel</button>
-        <button mat-flat-button color="primary" (click)="saveAccountInfo()" [disabled]="accountForm.invalid">Save</button>
+        <button class="btn-cancel-form" type="button" (click)="cancelEdit('account')">Cancel</button>
+        <button class="btn-primary" type="button" (click)="saveAccountInfo()" [disabled]="accountForm.invalid">Save</button>
       </div>
     </form>
   </div>
@@ -217,7 +217,7 @@
         <span class="danger-zone-title">Delete Account</span>
         <span class="danger-zone-desc">Permanently delete your account and all workout data. This cannot be undone.</span>
       </div>
-      <button mat-stroked-button color="warn" (click)="deleteAccount()">Delete Account</button>
+      <button class="btn-danger" (click)="deleteAccount()">Delete Account</button>
     </div>
   </div>
 

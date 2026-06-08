@@ -1,16 +1,20 @@
-<form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit(loginForm.value)" type="email">
-<mat-form-field appearance="fill" class="full-width">
+<form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit(loginForm.value)" class="auth-form">
+
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="field-full">
     <mat-label>Email</mat-label>
-    <input matInput formControlName="email" type="email">
+    <input matInput formControlName="email" type="email" />
     <mat-error *ngIf="validateControl('email') && hasError('email', 'required')">Email is required</mat-error>
     <mat-error *ngIf="validateControl('email') && hasError('email', 'email')">Invalid email</mat-error>
-</mat-form-field>
+  </mat-form-field>
 
-<mat-form-field appearance="fill" class="full-width">
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="field-full">
     <mat-label>Password</mat-label>
-    <input matInput formControlName="password" type="password">
+    <input matInput formControlName="password" type="password" />
     <mat-error *ngIf="validateControl('password') && hasError('password', 'required')">Password is required</mat-error>
-</mat-form-field>
+  </mat-form-field>
 
-<button mat-raised-button color="primary" class="full-width" type="submit" [disabled]="!loginForm.valid">Login</button>
+  <button class="btn-submit" type="submit" [disabled]="!loginForm.valid">
+    Sign In
+  </button>
+
 </form>

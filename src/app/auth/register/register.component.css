@@ -1,18 +1,67 @@
-.auth-container {
+.auth-form {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.row-halves {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.row-halves > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.field-full {
+  width: 100%;
+}
+
+/* Outline field overrides */
+::ng-deep .auth-form .mat-mdc-text-field-wrapper,
+::ng-deep .auth-form .mdc-text-field--outlined {
+  background: #f8f9fc !important;
+  border-radius: 10px !important;
+}
+
+::ng-deep .auth-form .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .auth-form .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .auth-form .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #3f51b5 !important;
+  border-width: 2px !important;
+}
+
+::ng-deep .auth-form .mat-mdc-form-field-infix {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  min-height: unset !important;
+}
+
+.btn-submit {
+  display: flex;
   align-items: center;
-  background: #f0f2f5;
-}
-
-.auth-card {
+  justify-content: center;
   width: 100%;
-  max-width: 500px;
-  padding: 2rem;
+  height: 48px;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: none;
+  background: #1e293b;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  margin-top: 0.25rem;
+  transition: background 0.18s ease, transform 0.12s ease;
 }
 
-.full-width {
-  width: 100%;
+.btn-submit:hover:not(:disabled) {
+  background: #0f172a;
+  transform: translateY(-1px);
+}
+
+.btn-submit:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
 }
