@@ -1,6 +1,6 @@
-import { Component, ElementRef, EventEmitter, ExistingProvider, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { Workout, WorkoutRequestDTO } from '../../_interfaces/workout.model';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Workout } from '../../_interfaces/workout.model';
 import { Exercise } from '../../_interfaces/exercise.model';
 import { ExerciseService } from '../../shared/services/exercise.service';
 import { firstValueFrom } from 'rxjs';
@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { WorkoutTemplateService } from '../../shared/services/workout-template.service';
 import { WorkoutTemplate } from '../../_interfaces/workout-template.model';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateCustomExerciseComponent } from '../../create-custom-exercise/create-custom-exercise.component';
 
 @Component({
   selector: 'app-workout-form',
@@ -30,23 +32,19 @@ export class WorkoutFormComponent implements OnInit {
   workoutForm!: FormGroup;
   filteredExercises: Exercise[][] = [];
 
-  constructor(private fb: FormBuilder, 
-              private exerciseService: ExerciseService, 
-              private workoutTemplateService: WorkoutTemplateService, 
-              private router: Router, 
+  constructor(private fb: FormBuilder,
+              private exerciseService: ExerciseService,
+              private workoutTemplateService: WorkoutTemplateService,
+              private router: Router,
               private snackBar: MatSnackBar,
+              private dialog: MatDialog,
               public activatedRoute: ActivatedRoute) { }
 
-  ngOnInit() : void {
-
+  ngOnInit(): void {
     this.workoutTemplateService.getWorkoutTemplates().subscribe({
-      next: (data) => {
-        this.allTemplates = data;
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    })
+      next: (data) => { this.allTemplates = data; },
+      error: (err) => { console.log(err); }
+    });
 
     this.workoutForm = this.fb.group({
       name: [this.initialData?.name || '', Validators.required],
@@ -59,34 +57,27 @@ export class WorkoutFormComponent implements OnInit {
     });
 
     this.activatedRoute.queryParams.subscribe((params) => {
-      let date = params["date"]
-      if(date){
-        let dateWithTime = new Date(date)
-        this.workoutForm.get('dateOnly')?.setValue(dateWithTime)
-        this.workoutForm.get('timeOnly')?.setValue(dateWithTime)
+      const date = params['date'];
+      if (date) {
+        const dateWithTime = new Date(date);
+        this.workoutForm.get('dateOnly')?.setValue(dateWithTime);
+        this.workoutForm.get('timeOnly')?.setValue(dateWithTime);
       }
-    })
+    });
 
     firstValueFrom(this.exerciseService.getExercises()).then(data => {
       this.allExercises = data;
-
       this.exerciseCategories = [...new Set(this.allExercises.map(item => item.category))];
 
       if (this.initialData?.workoutExercises?.length) {
         this.initialData.workoutExercises.forEach((ex, index) => {
-          this.addExercise(ex)
-          this.onCategoryChange(index)
+          this.addExercise(ex);
+          this.onCategoryChange(index);
         });
       } else {
         this.addExercise();
       }
-    })
-
-  }
-
-  filter(index: number): void {
-    const filterValue = this.input.nativeElement.value.toLowerCase();
-    this.filteredExercises[index] = this.allExercises.filter(o => o.name.toLowerCase().includes(filterValue));
+    });
   }
 
   get exercises(): FormArray {
@@ -103,7 +94,6 @@ export class WorkoutFormComponent implements OnInit {
       distance: [exercise?.distance || null],
       duration: [exercise?.duration || null],
     });
-
     this.exercises.push(group);
     this.filteredExercises.push(this.allExercises);
   }
@@ -121,16 +111,30 @@ export class WorkoutFormComponent implements OnInit {
   onExerciseChange(index: number): void {
     const exerciseId = this.exercises.at(index).get('exerciseId')?.value;
     const exercise = this.allExercises.find(arr => arr.exerciseId == exerciseId);
-    this.exercises.at(index).get('category')?.setValue(exercise?.category)
+    this.exercises.at(index).get('category')?.setValue(exercise?.category);
   }
 
   onCreateExercise(): void {
-    this.router.navigate(['/exercises/create']);
+    const ref = this.dialog.open(CreateCustomExerciseComponent, {
+      width: '480px',
+      panelClass: 'custom-exercise-dialog'
+    });
+    ref.afterClosed().subscribe((created: Exercise | null) => {
+      if (created) {
+        this.allExercises.push(created);
+        if (!this.exerciseCategories.includes(created.category)) {
+          this.exerciseCategories.push(created.category);
+        }
+        this.filteredExercises = this.filteredExercises.map((_, i) => {
+          const selected = this.exercises.at(i).get('category')?.value;
+          return selected ? this.allExercises.filter(e => e.category === selected) : [...this.allExercises];
+        });
+      }
+    });
   }
 
   onChooseTemplate(id: number): void {
     const template = this.allTemplates.find(t => t.templateId == id);
-    
     this.workoutForm = this.fb.group({
       name: [template?.name || '', Validators.required],
       dateOnly: [new Date(), Validators.required],
@@ -140,57 +144,49 @@ export class WorkoutFormComponent implements OnInit {
       template: [this.allTemplates],
       workoutExercises: this.fb.array([]),
     });
-
     if (template?.workoutExercises?.length) {
       template.workoutExercises.forEach((ex, index) => {
-        this.addExercise(ex)
-        this.onCategoryChange(index)
+        this.addExercise(ex);
+        this.onCategoryChange(index);
       });
-    } 
-    else {
-      this.addExercise()
+    } else {
+      this.addExercise();
     }
   }
 
   onSaveTemplate(): void {
-    if (this.workoutForm.valid){
+    if (this.workoutForm.valid) {
       const { dateOnly, timeOnly, ...data } = this.workoutForm.value;
-      
       this.workoutTemplateService.createWorkoutTemplate(data).subscribe({
         next: () => {
-          this.snackBar.open('Workout template saved successfully!', "Close", {duration: 3000});
-          this.allTemplates.push(data)
+          this.snackBar.open('Workout template saved successfully!', 'Close', { duration: 3000 });
+          this.allTemplates.push(data);
         },
         error: err => {
           console.error(err);
-          this.snackBar.open('Failed to save workout template.', "Close", {duration: 3000});
+          this.snackBar.open('Failed to save workout template.', 'Close', { duration: 3000 });
         }
       });
     }
   }
 
   onSubmit(): void {
-
     if (this.workoutForm.valid) {
       const { dateOnly, timeOnly, template, ...rest } = this.workoutForm.value;
-      const hours = timeOnly.getHours()
-      const minutes = timeOnly.getMinutes()
       const combinedDate = new Date(dateOnly);
-      combinedDate.setHours(hours);
-      combinedDate.setMinutes(minutes);
-
-      const payload : Workout = {
+      combinedDate.setHours(timeOnly.getHours());
+      combinedDate.setMinutes(timeOnly.getMinutes());
+      const payload: Workout = {
         ...rest,
-        date: combinedDate.toISOString(),  // send ISO string with timezone
+        date: combinedDate.toISOString(),
         workoutId: this.initialData?.workoutId
       };
-
       this.submitWorkout.emit(payload);
     }
   }
 
   onCancel(): void {
-    this.workoutForm.reset()
+    this.workoutForm.reset();
     this.cancelWorkout.emit();
   }
 }

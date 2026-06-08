@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ExerciseService } from '../shared/services/exercise.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Exercise } from '../_interfaces/exercise.model';
 
 @Component({
   selector: 'app-create-custom-exercise',
@@ -14,11 +15,10 @@ export class CreateCustomExerciseComponent implements OnInit {
   exerciseForm!: FormGroup;
   categories: string[] = ['Strength', 'Cardio', 'Static'];
 
-
   constructor(
     private fb: FormBuilder,
     private exerciseService: ExerciseService,
-    private router: Router,
+    private dialogRef: MatDialogRef<CreateCustomExerciseComponent>,
     private snackBar: MatSnackBar
   ) {}
 
@@ -34,19 +34,19 @@ export class CreateCustomExerciseComponent implements OnInit {
   onSubmit(): void {
     if (this.exerciseForm.valid) {
       this.exerciseService.createExercise(this.exerciseForm.value).subscribe({
-        next: () => {
-          this.snackBar.open('Exercise created successfully!', "Close", {duration: 3000});
-          this.router.navigate(['view-workouts']);
+        next: (created: Exercise) => {
+          this.snackBar.open('Exercise created!', 'Close', { duration: 3000 });
+          this.dialogRef.close(created);
         },
         error: err => {
           console.error(err);
-          this.snackBar.open('Failed to create exercise.', "Close", {duration: 3000});
+          this.snackBar.open('Failed to create exercise.', 'Close', { duration: 3000 });
         }
       });
     }
   }
 
   onCancel(): void {
-    this.router.navigate(['view-workouts']);
+    this.dialogRef.close(null);
   }
 }

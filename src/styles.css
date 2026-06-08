@@ -28,11 +28,85 @@ body {
 }
 
 .mat-mdc-card {
+  --mdc-elevated-card-container-elevation:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.07);
+
   background: #f5f7fa !important;
-
   border: 1px solid #e2e8f0;
-
   border-radius: 18px !important;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
 
-  box-shadow: none !important;
+.mat-mdc-card:hover {
+  --mdc-elevated-card-container-elevation:
+    0 2px 6px rgba(0, 0, 0, 0.07),
+    0 8px 24px rgba(0, 0, 0, 0.1);
+
+  border-color: #c7d0f8;
+}
+
+/* ── Custom exercise dialog ── */
+.custom-exercise-dialog .mat-mdc-dialog-container {
+  border-radius: 18px !important;
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+.custom-exercise-dialog .mat-mdc-dialog-surface {
+  border-radius: 18px !important;
+  padding: 0 !important;
+}
+
+.custom-exercise-dialog mat-dialog-content,
+.custom-exercise-dialog .mat-mdc-dialog-content {
+  padding: 0 1.5rem !important;
+  max-height: 70vh;
+}
+
+/* ── Select dropdown panel ── */
+.mat-mdc-select-panel {
+  background: #fff !important;
+  border-radius: 14px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 16px 40px rgba(0, 0, 0, 0.12) !important;
+  padding: 6px !important;
+  overflow: hidden;
+}
+
+/* Option base */
+.mat-mdc-option {
+  border-radius: 8px !important;
+  margin: 1px 0 !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: #1e293b !important;
+  min-height: 40px !important;
+}
+
+/* Option hover */
+.mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  background: #eef0fb !important;
+}
+
+/* Option focused */
+.mat-mdc-option.mat-mdc-option-active {
+  background: #eef0fb !important;
+}
+
+/* Option selected */
+.mat-mdc-option.mdc-list-item--selected:not(.mat-mdc-option-multiple) {
+  background: #e8eaf6 !important;
+}
+
+.mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+  color: #3f51b5 !important;
+  font-weight: 700 !important;
+}
+
+/* Hide the default checkmark ripple, keep it clean */
+.mat-mdc-option .mat-pseudo-checkbox {
+  display: none !important;
 }

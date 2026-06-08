@@ -1,16 +1,162 @@
-.exercise-card {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
+/* ── Dialog header ── */
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem 1.5rem 0;
 }
 
-.full-width {
+.dialog-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.dialog-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f3f4f6;
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.dialog-close-btn:hover {
+  background: #e8eaf6;
+  color: #3f51b5;
+}
+
+.dialog-close-btn mat-icon {
+  font-size: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* ── Form inside mat-dialog-content ── */
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.25rem 0 0.25rem;
+}
+
+.field-full {
   width: 100%;
 }
 
-.button-row {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 1rem;
+/* ── Outline field overrides (mirrors workout-form) ── */
+::ng-deep .custom-exercise-dialog .mat-mdc-text-field-wrapper,
+::ng-deep .custom-exercise-dialog .mdc-text-field--outlined {
+  background: #fff !important;
+  border-radius: 10px !important;
+}
+
+::ng-deep .custom-exercise-dialog .mdc-notched-outline__leading,
+::ng-deep .custom-exercise-dialog .mdc-notched-outline__notch,
+::ng-deep .custom-exercise-dialog .mdc-notched-outline__trailing {
+  border-color: #d1d5db !important;
+}
+
+::ng-deep .custom-exercise-dialog .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .custom-exercise-dialog .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .custom-exercise-dialog .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #3f51b5 !important;
+  border-width: 2px !important;
+}
+
+::ng-deep .custom-exercise-dialog .mat-mdc-form-field-infix {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  min-height: 52px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+::ng-deep .custom-exercise-dialog .mat-mdc-floating-label {
+  font-size: 0.875rem;
+}
+
+::ng-deep .custom-exercise-dialog .mat-mdc-input-element,
+::ng-deep .custom-exercise-dialog .mat-mdc-select-value {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111;
+}
+
+/* Strip default mat-dialog-content padding — we handle it in .dialog-form */
+::ng-deep .custom-exercise-dialog .mat-mdc-dialog-content {
+  padding: 0 1.5rem !important;
+}
+
+/* ── Actions ── */
+.dialog-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  padding: 0.75rem 1.5rem 1.5rem !important;
+  justify-content: flex-start !important;
+  min-height: unset !important;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 1.5rem;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background: #1e293b;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.12s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #0f172a;
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.btn-primary mat-icon {
+  font-size: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.btn-cancel {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 1rem;
+  border: none;
+  background: #fff;
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.btn-cancel:hover {
+  color: rgba(0, 0, 0, 0.7);
+  background: #f1f3f9;
 }

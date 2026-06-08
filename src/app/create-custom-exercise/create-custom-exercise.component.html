@@ -1,35 +1,42 @@
-<mat-card class="exercise-card">
-  <form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()">
-    <h2>Create Custom Exercise</h2>
+<div class="dialog-header">
+  <h2 class="dialog-title">New Exercise</h2>
+  <button class="dialog-close-btn" type="button" (click)="onCancel()" matTooltip="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 
-    <mat-form-field appearance="fill" class="full-width">
+<mat-dialog-content>
+  <form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()" class="dialog-form">
+
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="field-full">
       <mat-label>Exercise Name</mat-label>
-      <input matInput formControlName="name" />
+      <input matInput formControlName="name" placeholder="e.g. Incline Bench Press" />
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="field-full">
       <mat-label>Category</mat-label>
       <mat-select formControlName="category">
         <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="field-full">
       <mat-label>Muscle Groups</mat-label>
-      <input matInput formControlName="muscleGroups" placeholder="E.g. Chest, Triceps" />
+      <input matInput formControlName="muscleGroups" placeholder="e.g. Chest, Triceps" />
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="field-full">
       <mat-label>Description</mat-label>
-      <textarea matInput formControlName="description"></textarea>
+      <textarea matInput formControlName="description" rows="3"></textarea>
     </mat-form-field>
 
-    <div class="button-row">
-      <button mat-raised-button color="accent" type="submit" [disabled]="exerciseForm.invalid">
-        Save Exercise
-      </button>
-      <button mat-stroked-button type="button" (click)="onCancel()">Cancel</button>
-    </div>
   </form>
-</mat-card>
+</mat-dialog-content>
 
+<mat-dialog-actions class="dialog-actions">
+  <button class="btn-primary" type="button" (click)="onSubmit()" [disabled]="exerciseForm.invalid">
+    <mat-icon>check</mat-icon>
+    Save Exercise
+  </button>
+  <button class="btn-cancel" type="button" (click)="onCancel()">Cancel</button>
+</mat-dialog-actions>

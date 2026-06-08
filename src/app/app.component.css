@@ -15,6 +15,9 @@
   min-width: 0;
   padding: 1rem;
   transition: all 0.25s ease;
+  background-color: #f3f4f6;
+  background-image: radial-gradient(circle, #c7cde8 1px, transparent 1px);
+  background-size: 24px 24px;
  }
 
 /* :host { */
