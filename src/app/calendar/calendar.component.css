@@ -16,21 +16,32 @@
 .appointment {
   position: relative;
   z-index: 9;
-  padding: 5px 10px;
-  margin-top: 2px;
-  font-size: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: lavender;
-  margin-left: 3px;
-  margin-right: 3px;
-  border-radius: 5px;
+  padding: 3px 7px;
+  margin: 2px 3px 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1e293b;
+  display: block;
+  border-radius: 6px;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: none;
+  transition: filter 0.15s, transform 0.12s;
+  letter-spacing: 0.01em;
 }
+
+.appointment:hover {
+  filter: brightness(0.92);
+  transform: translateY(-1px);
+}
+
 .appointment span {
-  text-align: left;
-  line-height: 15px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .calendar-view-month {
   table-layout: fixed;

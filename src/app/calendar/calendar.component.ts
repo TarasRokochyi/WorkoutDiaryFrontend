@@ -222,12 +222,19 @@ generateTimeSlots() {
      return appointmentsForDateTime;
   }
 
+  private readonly palette = [
+    '#c7d0f8', // soft indigo
+    '#bde0fe', // soft sky blue
+    '#b7e4c7', // soft green
+    '#ffd6a5', // soft orange
+    '#ffc8dd', // soft pink
+    '#d4c5f9', // soft violet
+    '#aef3e7', // soft teal
+    '#ffe5a0', // soft yellow
+  ];
+
   getRandomColor(): string {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    const a = 0.4;
-    return `rgba(${r},${g},${b},${a})`;
+    return this.palette[Math.floor(Math.random() * this.palette.length)];
   }
 
   private formatTime(date: Date): string {

@@ -21,6 +21,15 @@ export class ExerciseRecommendationComponent implements OnInit {
   // Manual mode
   allEquipmentNames: string[] = [];
   selectedEquipmentNames: string[] = [];
+  noEquipmentSelected = false;
+
+  get equipmentChips(): string[] {
+    return this.allEquipmentNames.filter(n => n !== 'no equipment');
+  }
+
+  // Difficulty
+  difficulties = ['Beginner', 'Intermediate', 'Advanced'];
+  selectedDifficulty?: string;
 
   // Shared
   loading = false;
@@ -46,6 +55,8 @@ export class ExerciseRecommendationComponent implements OnInit {
     this.mode = mode;
     this.recommendations = [];
     this.error = undefined;
+    this.noEquipmentSelected = false;
+    this.selectedEquipmentNames = [];
   }
 
   // ── Upload mode ──
@@ -76,7 +87,7 @@ export class ExerciseRecommendationComponent implements OnInit {
     if (!this.selectedFile) { this.error = 'No image selected.'; return; }
     this.loading = true;
     this.error = undefined;
-    this.exerciseService.uploadImage(this.selectedFile).subscribe({
+    this.exerciseService.uploadImageWithDifficulty(this.selectedFile, this.selectedDifficulty).subscribe({
       next: (res) => {
         this.recommendations = res;
         this.equipments = [...new Map(res.map((x: ExerciseRecommendation) => [x.equipmentName, x.equipmentName])).values()] as string[];
@@ -88,9 +99,15 @@ export class ExerciseRecommendationComponent implements OnInit {
 
   // ── Manual mode ──
   toggleEquipment(name: string): void {
+    this.noEquipmentSelected = false;
     const idx = this.selectedEquipmentNames.indexOf(name);
     if (idx === -1) this.selectedEquipmentNames.push(name);
     else this.selectedEquipmentNames.splice(idx, 1);
+  }
+
+  toggleNoEquipment(): void {
+    this.noEquipmentSelected = !this.noEquipmentSelected;
+    if (this.noEquipmentSelected) this.selectedEquipmentNames = [];
   }
 
   isEquipmentSelected(name: string): boolean {
@@ -98,10 +115,11 @@ export class ExerciseRecommendationComponent implements OnInit {
   }
 
   getManualRecommendations(): void {
-    if (!this.selectedEquipmentNames.length) { this.error = 'Select at least one equipment.'; return; }
+    const names = this.noEquipmentSelected ? ['no equipment'] : this.selectedEquipmentNames;
+    if (!names.length) { this.error = 'Select equipment or choose No Equipment.'; return; }
     this.loading = true;
     this.error = undefined;
-    this.exerciseService.getRecommendationsByEquipmentNames(this.selectedEquipmentNames).subscribe({
+    this.exerciseService.getRecommendationsByEquipmentNames(names, this.selectedDifficulty).subscribe({
       next: (res) => {
         this.recommendations = res;
         this.equipments = this.selectedEquipmentNames;

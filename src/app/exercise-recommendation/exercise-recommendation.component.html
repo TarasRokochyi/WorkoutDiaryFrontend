@@ -4,6 +4,20 @@
     <h1 class="page-title">Exercise Recommendation</h1>
   </div>
 
+  <!-- Difficulty selector -->
+  <div class="difficulty-row">
+    <span class="difficulty-label">Level</span>
+    <div class="difficulty-chips">
+      <button
+        class="difficulty-chip"
+        *ngFor="let d of difficulties"
+        [class.selected]="selectedDifficulty === d"
+        (click)="selectedDifficulty = selectedDifficulty === d ? undefined : d">
+        {{ d }}
+      </button>
+    </div>
+  </div>
+
   <!-- Mode toggle -->
   <div class="mode-card">
     <button class="mode-btn" [class.active]="mode === 'upload'" (click)="setMode('upload')">
@@ -41,19 +55,36 @@
 
   <!-- Manual mode -->
   <div class="upload-card" *ngIf="mode === 'manual'">
+
     <div class="section-header">
-      <span class="section-label">Available Equipment</span>
+      <span class="section-label">What equipment do you have?</span>
     </div>
 
     <div class="equipment-grid" *ngIf="allEquipmentNames.length; else loadingEquipment">
+
+      <!-- Bodyweight tile — always first -->
       <button
-        class="equipment-chip"
-        *ngFor="let name of allEquipmentNames"
-        [class.selected]="isEquipmentSelected(name)"
-        (click)="toggleEquipment(name)">
-        <mat-icon *ngIf="isEquipmentSelected(name)">check</mat-icon>
-        {{ name }}
+        class="equipment-tile"
+        [class.selected]="noEquipmentSelected"
+        [class.tile-bodyweight]="true"
+        (click)="toggleNoEquipment()">
+        <mat-icon class="tile-icon">self_improvement</mat-icon>
+        <span class="tile-name">Bodyweight</span>
+        <mat-icon class="tile-check" *ngIf="noEquipmentSelected">check</mat-icon>
       </button>
+
+      <!-- Equipment tiles -->
+      <button
+        class="equipment-tile"
+        *ngFor="let name of equipmentChips"
+        [class.selected]="isEquipmentSelected(name)"
+        [class.dimmed]="noEquipmentSelected"
+        (click)="toggleEquipment(name)">
+        <mat-icon class="tile-icon">fitness_center</mat-icon>
+        <span class="tile-name">{{ name }}</span>
+        <mat-icon class="tile-check" *ngIf="isEquipmentSelected(name)">check</mat-icon>
+      </button>
+
     </div>
 
     <ng-template #loadingEquipment>
@@ -61,7 +92,8 @@
     </ng-template>
 
     <div class="upload-actions">
-      <button class="btn-primary" (click)="getManualRecommendations()" [disabled]="!selectedEquipmentNames.length || loading">
+      <button class="btn-primary" (click)="getManualRecommendations()"
+        [disabled]="(!selectedEquipmentNames.length && !noEquipmentSelected) || loading">
         <mat-icon>{{ loading ? 'hourglass_empty' : 'bolt' }}</mat-icon>
         {{ loading ? 'Loading…' : 'Get Recommendations' }}
       </button>

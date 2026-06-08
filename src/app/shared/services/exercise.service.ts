@@ -28,8 +28,18 @@ export class ExerciseService {
     return this.http.get<string[]>(this.createCompleteRoute('exercise/equipment', this.envUrl.apiUrlAddress));
   }
 
-  getRecommendationsByEquipmentNames(names: string[]): Observable<any[]> {
-    return this.http.post<any[]>(this.createCompleteRoute('exercise/exercise-recommendation/manual', this.envUrl.apiUrlAddress), names);
+  getRecommendationsByEquipmentNames(names: string[], difficulty?: string): Observable<any[]> {
+    return this.http.post<any[]>(
+      this.createCompleteRoute('exercise/exercise-recommendation/manual', this.envUrl.apiUrlAddress),
+      { equipmentNames: names, difficulty: difficulty || null }
+    );
+  }
+
+  uploadImageWithDifficulty(file: File, difficulty?: string): Observable<any> {
+    const form = new FormData();
+    form.append('image', file, file.name);
+    const params = difficulty ? `?difficulty=${difficulty}` : '';
+    return this.http.post<any>(this.createCompleteRoute(`exercise/exercise-recommendation${params}`, this.envUrl.apiUrlAddress), form);
   }
 
   uploadImage(file: File): Observable<any> {

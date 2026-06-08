@@ -4,4 +4,5 @@ export interface Exercise {
   category: string;
   muscleGroups: string;
   description: string;
+  difficulty?: string;
 }

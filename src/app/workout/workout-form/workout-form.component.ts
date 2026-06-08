@@ -135,10 +135,12 @@ export class WorkoutFormComponent implements OnInit {
 
   onChooseTemplate(id: number): void {
     const template = this.allTemplates.find(t => t.templateId == id);
+    const currentDate = this.workoutForm.get('dateOnly')?.value ?? new Date();
+    const currentTime = this.workoutForm.get('timeOnly')?.value ?? new Date();
     this.workoutForm = this.fb.group({
       name: [template?.name || '', Validators.required],
-      dateOnly: [new Date(), Validators.required],
-      timeOnly: [new Date(), Validators.required],
+      dateOnly: [currentDate, Validators.required],
+      timeOnly: [currentTime, Validators.required],
       duration: [template?.duration || '', Validators.required],
       notes: [template?.notes || ''],
       template: [this.allTemplates],

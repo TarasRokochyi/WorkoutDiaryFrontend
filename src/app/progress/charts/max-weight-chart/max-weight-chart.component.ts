@@ -32,7 +32,6 @@ export class MaxWeightChartComponent implements OnInit {
     responsive: true,
     plugins: {
       legend: { position: 'top' },
-      title: { display: true, text: 'Max Weight Progress per Exercise' }
     },
     scales: {
       x: { title: { display: true, text: 'Date' } },
