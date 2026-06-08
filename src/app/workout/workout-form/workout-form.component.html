@@ -3,10 +3,7 @@
 
     <!-- ── Page header ── -->
     <div class="page-header">
-      <div class="page-title-block">
-        <span class="page-eyebrow">Workout</span>
-        <h1 class="page-title">{{ submitLabel }}</h1>
-      </div>
+      <h1 class="page-title">{{ submitLabel }}</h1>
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="template-picker" floatLabel="always">
         <mat-select placeholder="Load Template" (selectionChange)="onChooseTemplate($event.value)" formControlName="template">
           <mat-option *ngFor="let temp of allTemplates" [value]="temp.templateId">{{ temp.name }}</mat-option>
