@@ -11,13 +11,11 @@
   <div class="detail-header">
     <h1>{{ workout.name }}</h1>
     <div class="header-actions">
-      <button mat-stroked-button color="primary" (click)="toggleEdit()">
+      <button class="action-btn" mat-icon-button (click)="toggleEdit()" matTooltip="Edit workout">
         <mat-icon>edit</mat-icon>
-        Edit
       </button>
-      <button mat-stroked-button color="warn" (click)="onDelete()">
+      <button class="action-btn delete-btn" mat-icon-button (click)="onDelete()" matTooltip="Delete workout">
         <mat-icon>delete</mat-icon>
-        Delete
       </button>
     </div>
   </div>

@@ -15,7 +15,20 @@
 
 .header-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.25rem;
+}
+
+.action-btn {
+  color: rgba(0, 0, 0, 0.38);
+  transition: color 0.2s;
+}
+
+.action-btn:hover {
+  color: #3f51b5;
+}
+
+.delete-btn:hover {
+  color: #d32f2f;
 }
 
 /* ── Metadata grid — matches .kpi-container ── */
@@ -81,15 +94,9 @@ h2 {
 }
 
 .exercise-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
   gap: 1rem;
-}
-
-.exercise-list mat-card {
-  flex: 1 1 calc(33.333% - 0.667rem);
-  min-width: 400px;
 }
 
 /* Numbered avatar circle */

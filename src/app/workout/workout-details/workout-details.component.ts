@@ -3,8 +3,9 @@ import { WorkoutService } from '../../shared/services/workout.service';
 import { Component, OnInit } from '@angular/core';
 import { Workout, WorkoutRequestDTO } from '../../_interfaces/workout.model';
 import { WorkoutExerciseResponse } from '../../_interfaces/workout-exercise.model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-workout-details',
@@ -23,7 +24,8 @@ export class WorkoutDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private workoutService: WorkoutService,
     private snackBar: MatSnackBar,
-    private router: Router) {}
+    private router: Router,
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -94,18 +96,25 @@ export class WorkoutDetailsComponent implements OnInit {
   }
 
   onDelete(): void {
-    const confirmed = confirm('Are you sure you want to delete this workout?');
-    if (!confirmed || !this.workout) return;
-
-    this.workoutService.deleteWorkout(this.workout.workoutId).subscribe({
-      next: () => {
-        this.snackBar.open('Workout deleted successfully!', 'Close', {duration: 3000});
-        this.router.navigate(['view-workouts']);
-      },
-      error: err => {
-        this.snackBar.open('Failed to delete workout', "Close", {duration: 3000})
-        console.error('Failed to delete workout', err);
+    this.dialog.open(ConfirmDialogComponent, {
+      width: '360px',
+      data: {
+        title: 'Delete workout',
+        message: `Delete "${this.workout?.name}"? This cannot be undone.`,
+        confirmLabel: 'Delete',
+        danger: true
       }
+    }).afterClosed().subscribe(confirmed => {
+      if (!confirmed || !this.workout) return;
+      this.workoutService.deleteWorkout(this.workout.workoutId).subscribe({
+        next: () => {
+          this.snackBar.open('Workout deleted successfully!', 'Close', { duration: 3000 });
+          this.router.navigate(['view-workouts']);
+        },
+        error: err => {
+          this.snackBar.open('Failed to delete workout', 'Close', { duration: 3000 });
+        }
+      });
     });
   }
 
